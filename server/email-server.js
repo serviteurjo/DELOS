@@ -101,34 +101,52 @@ async function resolveGmailIPv4(){
   return null;
 }
 
-function buildTransporter(){
+function buildTransporter(port = 465){
   if (!SMTP_USER || !SMTP_PASS) return null;
   const ip = SMTP_HOST_IP;
-  return nodemailer.createTransport({
+  const base = {
     host: ip || 'smtp.gmail.com',
     servername: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
+    port,
     auth: { user: SMTP_USER, pass: SMTP_PASS },
     tls: { servername: 'smtp.gmail.com' },
-    connectionTimeout: 20000,
-    greetingTimeout: 20000,
-    socketTimeout: 30000,
-  });
+    connectionTimeout: 15000,
+    greetingTimeout: 15000,
+    socketTimeout: 25000,
+  };
+  // 465 = SSL direct ; 587 = STARTTLS (souvent ouvert quand 465 est filtré)
+  return port === 587
+    ? nodemailer.createTransport({ ...base, secure: false, requireTLS: true })
+    : nodemailer.createTransport({ ...base, secure: true });
 }
 
-let transporter = buildTransporter();
+let transporter = buildTransporter(465);
+let SMTP_PORT_USED = 465;
 
 let smtpReady = false;
 let smtpLastError = null;
 async function checkSmtp(){
   if (!SMTP_USER || !SMTP_PASS){ smtpReady = false; return; }
   await resolveGmailIPv4();
-  transporter = buildTransporter();
-  if (!transporter){ smtpReady = false; return; }
-  console.log('[SMTP] Transport vers :', SMTP_HOST_IP ? `${SMTP_HOST_IP} (IPv4, SNI smtp.gmail.com)` : 'smtp.gmail.com (repli, IPv6 neutralisée)');
-  try { await transporter.verify(); smtpReady = true; smtpLastError = null; }
-  catch (err){ smtpReady = false; smtpLastError = err?.message || String(err); console.error('[SMTP] ❌ Vérification connexion :', smtpLastError); }
+  const hostLabel = SMTP_HOST_IP ? `${SMTP_HOST_IP} (IPv4, SNI smtp.gmail.com)` : 'smtp.gmail.com (repli, IPv6 neutralisée)';
+  // Essai 465 puis repli 587 : un seul déploiement tranche (filtre port ?)
+  for (const port of [465, 587]){
+    transporter = buildTransporter(port);
+    SMTP_PORT_USED = port;
+    console.log(`[SMTP] Transport vers : ${hostLabel} port ${port}${port === 587 ? ' (STARTTLS)' : ' (SSL)'}`);
+    try {
+      await transporter.verify();
+      smtpReady = true; smtpLastError = null;
+      console.log(`[SMTP] ✅ Port ${port} OK`);
+      return;
+    }
+    catch (err){
+      smtpLastError = err?.message || String(err);
+      console.error(`[SMTP] ❌ Port ${port} :`, smtpLastError);
+    }
+  }
+  smtpReady = false;
+  console.error('[SMTP] ❌ 465 + 587 injoignables → SMTP bloqué sur cet hébergeur (passe à une API HTTPS type Resend/Brevo).');
 }
 
 /* Envoi avec 1 retry : Gmail ferme parfois la première socket
@@ -314,7 +332,7 @@ function buildRejectionEmail(ins, reason){
    ENDPOINTS
    ================================================================ */
 app.get('/api/health', (_req, res) => {
-  res.json({ ok:true, smtpReady, smtpLastError, from: MAIL_FROM, smtpUser: SMTP_USER || null });
+  res.json({ ok:true, smtpReady, smtpLastError, from: MAIL_FROM, smtpUser: SMTP_USER || null, smtpHost: SMTP_HOST_IP || 'smtp.gmail.com', smtpPort: SMTP_PORT_USED });
 });
 
 app.post('/api/admin/send-email', async (req, res) => {
