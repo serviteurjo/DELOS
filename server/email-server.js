@@ -60,22 +60,49 @@ const SMTP_PASS = (process.env.SMTP_PASS || '').replace(/\s+/g, '');
 const MAIL_FROM = process.env.MAIL_FROM || `DELOS 2026 <${SMTP_USER}>`;
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'delos-admin-2026';
 
-const transporter = (SMTP_USER && SMTP_PASS)
-  ? nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
-      family: 4,
-      auth: { user: SMTP_USER, pass: SMTP_PASS },
-      connectionTimeout: 15000,
-      greetingTimeout: 15000,
-      socketTimeout: 30000,
-    })
-  : null;
+/* ---------- Gmail en IPv4 forcée ----------
+   Nodemailer 10 résout smtp.gmail.com en IPv4+IPv6 puis tire une IP au
+   hasard → 1 fois sur 2 il tombe sur l'IPv6, morte sur Render gratuit
+   (ENETUNREACH). On résout nous-mêmes une IPv4 (resolve4) et on se
+   connecte à l'IP littérale + SNI smtp.gmail.com : Nodemailer saute alors
+   son DNS interne (isIP → pas de tirage IPv6). */
+let SMTP_HOST_IP = null;
+async function resolveGmailIPv4(){
+  try {
+    const addrs = await dns.promises.resolve4('smtp.gmail.com');
+    if (addrs && addrs.length){
+      SMTP_HOST_IP = addrs[0];
+      console.log('[SMTP] IPv4 Gmail résolue :', SMTP_HOST_IP);
+      return SMTP_HOST_IP;
+    }
+  } catch (err){ console.warn('[SMTP] ⚠ resolve4 impossible, repli 465 classique :', err?.message); }
+  return null;
+}
+
+function buildTransporter(){
+  if (!SMTP_USER || !SMTP_PASS) return null;
+  const ip = SMTP_HOST_IP;
+  return nodemailer.createTransport({
+    host: ip || 'smtp.gmail.com',
+    servername: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: { user: SMTP_USER, pass: SMTP_PASS },
+    tls: { servername: 'smtp.gmail.com' },
+    connectionTimeout: 20000,
+    greetingTimeout: 20000,
+    socketTimeout: 30000,
+  });
+}
+
+let transporter = buildTransporter();
 
 let smtpReady = false;
 let smtpLastError = null;
 async function checkSmtp(){
+  if (!SMTP_USER || !SMTP_PASS){ smtpReady = false; return; }
+  await resolveGmailIPv4();
+  transporter = buildTransporter();
   if (!transporter){ smtpReady = false; return; }
   try { await transporter.verify(); smtpReady = true; smtpLastError = null; }
   catch (err){ smtpReady = false; smtpLastError = err?.message || String(err); console.error('[SMTP] ❌ Vérification connexion :', smtpLastError); }
@@ -85,7 +112,7 @@ async function checkSmtp(){
    (« Unexpected socket close ») juste après le démarrage — le 2e
    essai passe. Sans ce retry, l'admin voit un échec alors que tout
    est bien configuré. */
-const TRANSIENT_SMTP = /socket close|ECONNRESET|ETIMEDOUT|Greeting never received|Connection timeout|connexion/i;
+const TRANSIENT_SMTP = /socket close|ECONNRESET|ETIMEDOUT|ENETUNREACH|Greeting never received|Connection timeout|connexion/i;
 async function sendWithRetry(mailOptions, retries = 1){
   try {
     return await transporter.sendMail(mailOptions);
