@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CONFÉRENCE DELOS 2026 — Administration</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="assets/delos-tailwind.css">
+<link rel="preload" href="assets/fonts/fonts.css" as="style">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<!-- ============================================================
+     CONFIG PRODUCTION — Serveur email distant (Render)
+     ⚠️  Remplacer par l'URL du Web Service Render APRÈS sa création.
+     Exemple : window.RESEND_API_URL = 'https://delos-2026-email.onrender.com';
+     Si absent : l'admin retombe sur localhost:3001 (mode dev).
+     ============================================================ -->
+<script>
+  window.RESEND_API_URL = 'https://delos-2026-email.onrender.com';
+  window.RESEND_ADMIN_TOKEN = 'delos-admin-2026-prod';
+</script>
+<style>
+  :root{ --violet:#581C87; --violet2:#6B21A8; --red:#DC2626; --amber:#F59E0B; --green:#16A34A; }
+  html{ scroll-behavior:smooth; }
+  body{ background:#0d0618; color:#fff; font-family:'Inter',sans-serif; overflow-x:hidden; min-h-screen; }
+  ::-webkit-scrollbar{ width:9px; }
+  ::-webkit-scrollbar-track{ background:#150a24; }
+  ::-webkit-scrollbar-thumb{ background:linear-gradient(#6B21A8,#581C87); border-radius:99px; }
+
+  .font-logo{ font-family:'Cinzel',serif; }
+  .grad-violet{ background:linear-gradient(135deg,#581C87,#6B21A8); }
+  .glass{ background:rgba(88,28,135,.14); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid rgba(139,92,246,.22); }
+  .glass-strong{ background:rgba(20,10,36,.86); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px); border:1px solid rgba(139,92,246,.25); }
+
+  /* Logo wave under LOS */
+  .logo-wrap{ position:relative; display:inline-block; }
+  .logo-wave{ position:absolute; left:-4%; bottom:-.28em; width:108%; height:.38em; overflow:visible; pointer-events:none; }
+
+  /* Glows */
+  .glow{ position:absolute; border-radius:50%; filter:blur(90px); opacity:.5; pointer-events:none; }
+  .glow-v{ background:radial-gradient(circle,#7c3aed 0%,transparent 70%); }
+  .glow-r{ background:radial-gradient(circle,#DC2626 0%,transparent 70%); opacity:.28; }
+
+  @keyframes shine{ 0%{ left:-80%; } 100%{ left:130%; } }
+  .btn-shine{ position:relative; overflow:hidden; }
+  .btn-shine::after{ content:''; position:absolute; top:0; left:-80%; width:45%; height:100%; background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent); transform:skewX(-20deg); }
+  .btn-shine:hover::after{ animation:shine .8s ease; }
+
+  .tab-btn{ transition:all .3s; }
+  .tab-btn.active{ background:linear-gradient(135deg,#581C87,#6B21A8); border-color:#8B5CF6; box-shadow:0 8px 30px -8px rgba(124,58,237,.7); color:#fff; }
+
+  .badge{ font-size:.65rem; font-weight:700; letter-spacing:.08em; padding:.28rem .6rem; border-radius:99px; }
+  .b-pending{ background:rgba(245,158,11,.15); color:#FBBF24; border:1px solid rgba(245,158,11,.4); }
+  .b-ok{ background:rgba(22,163,74,.15); color:#4ADE80; border:1px solid rgba(22,163,74,.4); }
+  .b-no{ background:rgba(220,38,38,.15); color:#F87171; border:1px solid rgba(220,38,38,.4); }
+  .b-violet{ background:rgba(139,92,246,.15); color:#C4B5FD; border:1px solid rgba(139,92,246,.4); }
+  .b-green{ background:rgba(132,204,22,.15); color:#BEF264; border:1px solid rgba(132,204,22,.4); }
+
+  .side-btn{ transition:all .25s; }
+  .side-btn.active{ background:linear-gradient(135deg,rgba(88,28,135,.7),rgba(107,33,168,.5)); border-color:rgba(139,92,246,.5); color:#fff; }
+
+  input,select,textarea{ outline:none; }
+  .field{ background:rgba(13,6,24,.7); border:1px solid rgba(139,92,246,.3); border-radius:.75rem; padding:.72rem 1rem; width:100%; color:#fff; transition:border-color .25s, box-shadow .25s; font-size:.9rem; }
+  .field:focus{ border-color:#F59E0B; box-shadow:0 0 0 3px rgba(245,158,11,.15); }
+  .field::placeholder{ color:rgba(255,255,255,.35); }
+  select.field option{ background:#1a0f2e; color:#fff; }
+
+  .modal-bg{ background:rgba(8,3,16,.8); backdrop-filter:blur(8px); }
+  @keyframes modalIn{ from{ opacity:0; transform:translateY(26px) scale(.97); } to{ opacity:1; transform:translateY(0) scale(1); } }
+  .modal-in{ animation:modalIn .4s cubic-bezier(.22,1,.36,1); }
+  @keyframes toastIn{ from{ opacity:0; transform:translateX(40px); } to{ opacity:1; transform:translateX(0); } }
+  .toast-in{ animation:toastIn .35s cubic-bezier(.22,1,.36,1); }
+
+  .table-row{ transition:background .2s; }
+  .table-row:hover{ background:rgba(139,92,246,.08); }
+
+  /* PRINT — Émargement PDF */
+  #print-root{ display:none; }
+  @media print{
+    @page{ size:A4; margin:14mm; }
+    body.printing>*{ display:none !important; }
+    body.printing #print-root{ display:block !important; }
+    #print-root{ color:#111 !important; background:#fff !important; font-family:'Inter',sans-serif; }
+  }
+  .pdf-doc{ background:#fff; color:#111827; }
+  .pdf-doc table{ width:100%; border-collapse:collapse; }
+  .pdf-doc th{ background:#581C87; color:#fff; padding:8px 10px; font-size:11px; text-align:left; letter-spacing:.05em; }
+  .pdf-doc td{ border-bottom:1px solid #e5e7eb; padding:8px 10px; font-size:12px; }
+
+  /* Animation premium du logo DELOS (multicolore G → D) */
+  @keyframes delosWave{ 0%{background-position:0% 50%;} 100%{background-position:200% 50%;} }
+  .delos-anim{
+    background-image:linear-gradient(90deg,#8B5CF6 0%,#DC2626 20%,#F59E0B 40%,#84CC16 60%,#06B6D4 80%,#8B5CF6 100%);
+    background-size:200% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:delosWave 6s linear infinite; display:inline-block;
+  }
+  .delos-anim .ch{
+    display:inline-block; opacity:0; transform:translateY(.4em) scale(.7);
+    animation:delosChar .9s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  @keyframes delosChar{
+    0%   { opacity:0; transform:translateY(.4em) scale(.7); filter:blur(8px); }
+    60%  { opacity:1; transform:translateY(-.05em) scale(1.08); filter:blur(0); }
+    100% { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- SVG DEFS (logo gradient) -->
+<svg width="0" height="0" style="position:absolute"><defs>
+<linearGradient id="lgrad" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#F59E0B"/><stop offset=".55" stop-color="#DC2626"/><stop offset="1" stop-color="#8B5CF6"/>
+</linearGradient>
+</defs></svg>
+
+<!-- ============================================================= -->
+<!-- ======================= ADMIN LOGIN ========================= -->
+<!-- ============================================================= -->
+<div id="view-login" class="min-h-screen flex items-center justify-center relative overflow-hidden px-4">
+  <div class="glow glow-v w-[500px] h-[500px] -top-40 -left-40"></div>
+  <div class="glow glow-r w-[350px] h-[350px] bottom-0 right-0"></div>
+
+  <div class="glass-strong rounded-3xl p-8 md:p-10 w-full max-w-md relative modal-in shadow-2xl border border-violet-soft/30">
+    <div class="text-center mb-8">
+      <div class="font-logo text-2xl font-bold tracking-wider mb-1">
+        <span class="block text-[9px] tracking-[0.25em] text-violet-300/80 font-serif uppercase mb-0.5">CONFÉRENCE</span>
+        <span class="delos-anim text-2xl">
+          <span class="ch" style="animation-delay:.05s">D</span><span class="ch" style="animation-delay:.18s">E</span><span class="ch" style="animation-delay:.31s">L</span><span class="ch" style="animation-delay:.44s">O</span><span class="ch" style="animation-delay:.57s">S</span>
+        </span>
+        <span class="text-energie text-xs font-sans">2026</span>
+      </div>
+      <p class="text-white/50 text-xs mt-2">Dashboard d'Administration — Accès sécurisé</p>
+    </div>
+
+    <form onsubmit="adminLogin(event)" class="space-y-4">
+      <div>
+        <label class="text-xs font-semibold text-white/60 tracking-wider">EMAIL ADMINISTRATEUR</label>
+        <input id="login-email" type="email" class="field mt-1.5" placeholder="admin@delos2026.org" value="admin@delos2026.org" required>
+      </div>
+      <div>
+        <label class="text-xs font-semibold text-white/60 tracking-wider">MOT DE PASSE</label>
+        <input id="login-pass" type="password" class="field mt-1.5" placeholder="••••••••" value="delos2026" required>
+      </div>
+      <div id="login-error" class="hidden text-dynamo text-xs font-semibold bg-dynamo/10 border border-dynamo/30 rounded-lg px-3 py-2"></div>
+      <button class="btn-shine w-full bg-energie text-anthra font-extrabold py-3.5 rounded-xl hover:brightness-110 transition shadow-lg shadow-energie/25">Connexion sécurisée →</button>
+    </form>
+
+    <div class="mt-6 text-center text-xs text-white/50 bg-white/5 border border-white/10 rounded-xl px-4 py-3">
+      🔑 Accès Démo : <b class="text-white/90">admin@delos2026.org</b> / <b class="text-white/90">delos2026</b><br>
+      <span class="text-white/40 text-[11px]">Environnement de gestion officielle DELOS 2026</span>
+    </div>
+
+    <a href="index.html" class="block text-center mt-5 text-xs text-white/50 hover:text-energie transition">← Retour au site public</a>
+  </div>
+</div>
+
+<!-- ============================================================= -->
+<!-- ======================= ADMIN DASHBOARD ===================== -->
+<!-- ============================================================= -->
+<div id="view-admin" class="hidden min-h-screen lg:flex">
+  <!-- SIDEBAR -->
+  <aside class="hidden lg:flex flex-col w-64 shrink-0 border-r border-violet-soft/15 bg-[#0f0819] p-5 sticky top-0 h-screen">
+    <div class="font-logo text-xl font-bold mb-1">
+      <span class="block text-[8px] tracking-[0.25em] text-violet-300/80 font-serif uppercase mb-0.5">CONFÉRENCE</span>
+      <span class="delos-anim text-xl">
+        <span class="ch" style="animation-delay:.05s">D</span><span class="ch" style="animation-delay:.18s">E</span><span class="ch" style="animation-delay:.31s">L</span><span class="ch" style="animation-delay:.44s">O</span><span class="ch" style="animation-delay:.57s">S</span>
+      </span>
+    </div>
+    <div class="text-[10px] tracking-[.25em] text-energie font-bold mb-8">ADMINISTRATION</div>
+
+    <nav class="flex-1 space-y-2" id="side-nav">
+      <button onclick="adminNav('inscriptions')" data-page="inscriptions" class="side-btn active w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent text-sm text-white/70 hover:text-white">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        Inscriptions <span id="pending-count" class="ml-auto badge b-pending">0</span>
+      </button>
+      <button onclick="adminNav('tickets')" data-page="tickets" class="side-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent text-sm text-white/70 hover:text-white">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 9a3 3 0 010 6v2a2 2 0 002 2h16a2 2 0 002-2v-2a3 3 0 010-6V7a2 2 0 00-2-2H4a2 2 0 00-2 2v2z"/><path d="M13 5v2M13 11v2M13 17v2"/></svg>
+        Session Tickets
+      </button>
+      <button onclick="adminNav('ambassadeurs')" data-page="ambassadeurs" class="side-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent text-sm text-white/70 hover:text-white">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l18-8-8 18-2.5-7.5L3 11z"/></svg>
+        Ambassadeurs
+      </button>
+    </nav>
+
+    <div class="space-y-2 pt-4 border-t border-white/10">
+      <a href="index.html" class="side-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent text-sm text-white/50 hover:text-white">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        Voir le site public
+      </a>
+      <button onclick="adminLogout()" class="side-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl border border-transparent text-sm text-dynamo/80 hover:text-dynamo">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        Déconnexion
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="flex-1 min-w-0">
+    <div class="sticky top-0 z-30 glass-strong border-b border-violet-soft/15 px-5 md:px-8 py-4 flex items-center justify-between gap-4">
+      <div>
+        <h1 id="admin-title" class="font-serif text-xl md:text-2xl font-bold">Inscriptions</h1>
+        <p class="text-[11px] text-white/40">Gestion sécurisée des participants et validation des paiements DELOS 2026</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="hidden sm:inline-block text-xs text-white/60 hover:text-white border border-white/15 rounded-full px-3 py-1.5 bg-white/5">🌐 Site public</a>
+        <span class="badge b-ok hidden sm:inline-block">● SYSTÈME OPÉRATIONNEL</span>
+        <span id="email-status" title="État du serveur d'envoi d'emails" class="badge b-pending hidden sm:inline-block">… VÉRIF EMAIL…</span>
+        <button onclick="adminLogout()" class="text-xs text-dynamo hover:underline font-semibold sm:hidden">Déconnexion</button>
+        <div class="w-10 h-10 rounded-full grad-violet border border-violet-soft/50 flex items-center justify-center font-bold text-sm">AD</div>
+      </div>
+    </div>
+
+    <!-- Mobile nav -->
+    <div class="lg:hidden flex gap-2 px-5 pt-4 overflow-x-auto">
+      <button onclick="adminNav('inscriptions')" data-page="inscriptions" class="side-btn active shrink-0 px-4 py-2 rounded-full border border-white/10 text-xs">Inscriptions</button>
+      <button onclick="adminNav('tickets')" data-page="tickets" class="side-btn shrink-0 px-4 py-2 rounded-full border border-white/10 text-xs">Tickets</button>
+      <button onclick="adminNav('ambassadeurs')" data-page="ambassadeurs" class="side-btn shrink-0 px-4 py-2 rounded-full border border-white/10 text-xs">Ambassadeurs</button>
+      <button onclick="adminLogout()" class="shrink-0 px-4 py-2 rounded-full border border-dynamo/40 text-xs text-dynamo">Quitter</button>
+    </div>
+
+    <div class="p-5 md:p-8">
+
+      <!-- ===== PAGE INSCRIPTIONS ===== -->
+      <div id="page-inscriptions">
+        <div id="ins-stats" class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-7"></div>
+        <div class="flex flex-col md:flex-row md:items-center gap-3 mb-5">
+          <div id="ins-filters" class="flex flex-wrap gap-2">
+            <button onclick="setInsFilter('all')" data-f="all" class="ins-f tab-btn active px-4 py-2 rounded-full border border-white/15 text-xs font-semibold text-white/70">Toutes</button>
+            <button onclick="setInsFilter('pending')" data-f="pending" class="ins-f tab-btn px-4 py-2 rounded-full border border-white/15 text-xs font-semibold text-white/70">⏳ En attente</button>
+            <button onclick="setInsFilter('validated')" data-f="validated" class="ins-f tab-btn px-4 py-2 rounded-full border border-white/15 text-xs font-semibold text-white/70">✅ Validées</button>
+            <button onclick="setInsFilter('rejected')" data-f="rejected" class="ins-f tab-btn px-4 py-2 rounded-full border border-white/15 text-xs font-semibold text-white/70">❌ Rejetées</button>
+          </div>
+          <input oninput="state.insSearch=this.value; renderInsTable()" class="field md:ml-auto md:w-72" placeholder="🔍 Rechercher nom, email, réf...">
+        </div>
+        <div class="glass rounded-2xl overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm min-w-[820px]">
+              <thead><tr class="text-left text-[11px] tracking-widest text-white/45 border-b border-white/10">
+                <th class="px-5 py-4">RÉF</th><th class="px-5 py-4">PARTICIPANT</th><th class="px-5 py-4">PASS</th><th class="px-5 py-4">MONTANT</th><th class="px-5 py-4">DATE</th><th class="px-5 py-4">STATUT</th><th class="px-5 py-4 text-right">ACTION</th>
+              </tr></thead>
+              <tbody id="ins-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PAGE TICKETS ===== -->
+      <div id="page-tickets" class="hidden">
+        <div class="glass rounded-2xl p-5 mb-6 flex flex-col lg:flex-row gap-4 lg:items-end">
+          <div class="flex-1 grid sm:grid-cols-3 gap-3">
+            <div><label class="text-[10px] font-bold tracking-widest text-white/50">VUE</label>
+              <select id="tk-view" onchange="state.ticketView=this.value; state.ticketPanel='all'; renderTickets()" class="field mt-1">
+                <option value="panels">🎟 Tickets par Panel</option>
+                <option value="special">⭐ Pass Spécial Premium</option>
+              </select></div>
+            <div id="tk-day-wrap"><label class="text-[10px] font-bold tracking-widest text-white/50">JOUR</label>
+              <select id="tk-day" onchange="state.ticketDay=this.value; state.ticketPanel='all'; renderTickets()" class="field mt-1"></select></div>
+            <div id="tk-panel-wrap"><label class="text-[10px] font-bold tracking-widest text-white/50">PANEL</label>
+              <select id="tk-panel" onchange="state.ticketPanel=this.value; renderTickets()" class="field mt-1"></select></div>
+          </div>
+          <button onclick="exportEmargement()" class="btn-shine shrink-0 bg-energie text-anthra font-extrabold px-6 py-3 rounded-xl text-sm hover:brightness-110 transition shadow-lg shadow-energie/25">📄 Télécharger en PDF</button>
+        </div>
+        <div id="tk-summary" class="mb-4 text-sm text-white/60"></div>
+        <div class="glass rounded-2xl overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm min-w-[760px]">
+              <thead><tr class="text-left text-[11px] tracking-widest text-white/45 border-b border-white/10">
+                <th class="px-5 py-4">CODE TICKET</th><th class="px-5 py-4">PARTICIPANT</th><th class="px-5 py-4">PANEL / ACCÈS</th><th class="px-5 py-4">HORAIRE</th><th class="px-5 py-4">STATUT</th>
+              </tr></thead>
+              <tbody id="tk-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== PAGE AMBASSADEURS ===== -->
+      <div id="page-ambassadeurs" class="hidden">
+        <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+          <p class="text-white/55 text-sm max-w-xl">Les ambassadeurs diffusent la vision DELOS et gagnent des commissions sur chaque inscription parrainée.</p>
+          <button onclick="openModal('modal-amb')" class="btn-shine bg-energie text-anthra font-bold px-5 py-2.5 rounded-full text-sm">+ Nouvel Ambassadeur</button>
+        </div>
+        <div id="amb-grid" class="grid md:grid-cols-2 xl:grid-cols-4 gap-5"></div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- ============================================================= -->
+<!-- ========================= MODALS ============================ -->
+<!-- ============================================================= -->
+
+<!-- DETAIL INSCRIPTION MODAL -->
+<div id="modal-detail" class="hidden fixed inset-0 z-[70] modal-bg overflow-y-auto">
+  <div class="min-h-full flex items-center justify-center p-4">
+    <div class="glass-strong rounded-3xl w-full max-w-3xl modal-in relative my-8 p-6 md:p-8" id="detail-content"></div>
+  </div>
+</div>
+
+<!-- LIGHTBOX PREUVE DE PAIEMENT (clic sur la capture → plein écran) -->
+<div id="modal-proof" class="hidden fixed inset-0 z-[80] modal-bg overflow-y-auto">
+  <div class="min-h-full flex items-center justify-center p-4">
+    <div class="relative max-w-4xl w-full modal-in">
+      <button onclick="closeModal('modal-proof')" aria-label="Fermer l'aperçu" class="absolute -top-3 -right-3 w-11 h-11 rounded-full bg-dynamo text-white font-bold shadow-2xl z-10">✕</button>
+      <img id="proof-full" src="" alt="Justificatif de paiement en grand" class="w-full max-h-[85vh] object-contain rounded-2xl border border-white/20 bg-black/60 shadow-2xl">
+      <p class="text-center text-xs text-white/60 mt-3">Cliquez en dehors de l'image pour fermer</p>
+    </div>
+  </div>
+</div>
+
+<!-- AMBASSADEUR MODAL -->
+<div id="modal-amb" class="hidden fixed inset-0 z-[70] modal-bg overflow-y-auto">
+  <div class="min-h-full flex items-center justify-center p-4">
+    <div class="glass-strong rounded-3xl w-full max-w-md modal-in relative p-8">
+      <button onclick="closeModal('modal-amb')" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-dynamo/60 transition flex items-center justify-center">✕</button>
+      <h3 class="font-serif text-2xl font-bold mb-6">Nouvel Ambassadeur</h3>
+      <div class="space-y-4">
+        <div><label class="text-xs font-semibold text-white/60">NOM COMPLET</label><input id="amb-name" class="field mt-1.5" placeholder="Ex: Raïssa DANSOU"></div>
+        <div><label class="text-xs font-semibold text-white/60">WHATSAPP</label><input id="amb-phone" class="field mt-1.5" placeholder="+229 01 XX XX XX XX"></div>
+        <button onclick="submitAmb()" class="btn-shine w-full bg-energie text-anthra font-extrabold py-3 rounded-xl">Créer le code ambassadeur</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PDF PREVIEW MODAL -->
+<div id="modal-pdf" class="hidden fixed inset-0 z-[70] modal-bg overflow-y-auto">
+  <div class="min-h-full flex items-center justify-center p-4">
+    <div class="glass-strong rounded-3xl w-full max-w-3xl modal-in relative my-8">
+      <div class="flex items-center justify-between p-5 border-b border-white/10">
+        <div><h3 class="font-serif text-xl font-bold">Aperçu — Liste d'Émargement</h3><p class="text-xs text-white/45">Dans la boîte de dialogue d'impression, choisissez « Enregistrer au format PDF ».</p></div>
+        <div class="flex gap-2">
+          <button onclick="printDoc()" class="btn-shine bg-energie text-anthra font-bold px-5 py-2.5 rounded-full text-sm">🖨 Imprimer / PDF</button>
+          <button onclick="closeModal('modal-pdf')" class="w-10 h-10 rounded-full bg-white/10 hover:bg-dynamo/60 transition">✕</button>
+        </div>
+      </div>
+      <div id="pdf-preview" class="p-5 max-h-[70vh] overflow-y-auto"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TOASTS -->
+<div id="toasts" class="fixed bottom-5 right-5 z-[90] space-y-3 w-[320px] max-w-[calc(100vw-40px)]"></div>
+
+<!-- PRINT ROOT -->
+<div id="print-root"></div>
+
+<script src="delos-data.js"></script>
+<script>
+// ---------- STATE ADMIN ----------
+const state = { adminPage:'inscriptions', insFilter:'all', insSearch:'', ticketDay:'all', ticketPanel:'all', ticketView:'panels' };
+let inscriptions = loadInscriptions();
+let ambassadors = loadAmbassadors();
+let seqIns = inscriptions.length + 1;
+let seqAmb = ambassadors.length + 1;
+let counters = { SP: 0 };
+
+function initCounters(){
+  inscriptions.forEach(i => (i.tickets||[]).forEach(t => {
+    if (t.code.startsWith('DELOS-SP')) { counters.SP = Math.max(counters.SP, parseInt(t.code.split('-')[2])||0); }
+    else { const parts = t.code.split('-INS'); if(parts[1]) counters[parts[0]] = Math.max(counters[parts[0]]||0, parseInt(parts[1])||0); }
+  }));
+}
+initCounters();
+
+function openModal(id){ $(id).classList.remove('hidden'); document.body.style.overflow='hidden'; }
+function closeModal(id){ $(id).classList.add('hidden'); document.body.style.overflow=''; }
+document.querySelectorAll('.modal-bg').forEach(m => m.addEventListener('click', e => { if(e.target===m) closeModal(m.id); }));
+
+// ---------- AUTH LOGIC ----------
+function checkAuth(){
+  const authed = isAdminAuthed();
+  if (authed){
+    $('view-login').classList.add('hidden');
+    $('view-admin').classList.remove('hidden');
+    renderAdmin();
+    checkEmailServer();
+  } else {
+    $('view-login').classList.remove('hidden');
+    $('view-admin').classList.add('hidden');
+  }
+}
+
+function adminLogin(e){
+  e.preventDefault();
+  const em = $('login-email').value.trim().toLowerCase();
+  const pw = $('login-pass').value;
+  if (em === 'admin@delos2026.org' && pw === 'delos2026'){
+    setAdminAuthed(true);
+    checkAuth();
+    toast('Bienvenue, Administrateur DELOS 👋', 'success');
+  } else {
+    const er = $('login-error');
+    er.textContent = '⚠ Identifiants incorrects. Utilisez les accès démo ci-dessous.';
+    er.classList.remove('hidden');
+  }
+}
+
+function adminLogout(){
+  setAdminAuthed(false);
+  checkAuth();
+  toast('Déconnexion réussie.', 'info');
+}
+
+function adminNav(page){
+  state.adminPage = page;
+  document.querySelectorAll('.side-btn[data-page]').forEach(b=>b.classList.toggle('active', b.dataset.page===page));
+  renderAdmin();
+}
+
+function renderAdmin(){
+  inscriptions = loadInscriptions();
+  ambassadors = loadAmbassadors();
+  ['inscriptions','tickets','ambassadeurs'].forEach(p=>$('page-'+p).classList.toggle('hidden', state.adminPage!==p));
+  $('admin-title').textContent = { inscriptions:'Gestion des Inscriptions', tickets:'Session Tickets & Émargement', ambassadeurs:'Réseau Ambassadeurs' }[state.adminPage];
+  const pend = inscriptions.filter(i=>i.status==='pending').length;
+  if($('pending-count')) $('pending-count').textContent = pend;
+  if (state.adminPage==='inscriptions'){ renderInsStats(); renderInsTable(); }
+  if (state.adminPage==='tickets'){ initTicketFilters(); renderTickets(); }
+  if (state.adminPage==='ambassadeurs'){ renderAmb(); }
+}
+
+// ---------- ADMIN : INSCRIPTIONS ----------
+function statusBadge(s){
+  return s==='pending' ? '<span class="badge b-pending">⏳ EN ATTENTE</span>'
+       : s==='validated' ? '<span class="badge b-ok">✅ VALIDÉE</span>'
+       : '<span class="badge b-no">❌ REJETÉE</span>';
+}
+
+function renderInsStats(){
+  const tot=inscriptions.length, p=inscriptions.filter(i=>i.status==='pending').length,
+        v=inscriptions.filter(i=>i.status==='validated').length,
+        rev=inscriptions.filter(i=>i.status==='validated').reduce((a,i)=>a+i.amount,0);
+  $('ins-stats').innerHTML = [
+    { l:'INSCRIPTIONS TOTALES', v:tot, c:'text-violet-soft', i:'👥' },
+    { l:'EN ATTENTE', v:p, c:'text-energie', i:'⏳' },
+    { l:'VALIDÉES', v:v, c:'text-lime', i:'✅' },
+    { l:'REVENUS CONFIRMÉS', v:fmt(rev), c:'text-energie', i:'💰' }
+  ].map(s=>`<div class="glass rounded-2xl p-5"><div class="flex items-center justify-between"><span class="text-[10px] font-bold tracking-widest text-white/45">${s.l}</span><span>${s.i}</span></div><div class="text-2xl font-extrabold ${s.c} mt-2">${s.v}</div></div>`).join('');
+}
+
+function setInsFilter(f){
+  state.insFilter=f;
+  document.querySelectorAll('.ins-f').forEach(b=>b.classList.toggle('active', b.dataset.f===f));
+  renderInsTable();
+}
+
+function renderInsTable(){
+  const q = state.insSearch.toLowerCase();
+  const rows = inscriptions.filter(i =>
+    (state.insFilter==='all' || i.status===state.insFilter) &&
+    (!q || (i.nom+' '+i.prenom+' '+i.email+' '+i.ref+' '+i.id).toLowerCase().includes(q))
+  );
+  $('ins-tbody').innerHTML = rows.length ? rows.map(i=>`
+    <tr class="table-row border-b border-white/5">
+      <td class="px-5 py-4 font-mono text-xs text-violet-soft">${i.id}</td>
+      <td class="px-5 py-4"><div class="font-bold">${i.prenom} ${i.nom}</div><div class="text-[11px] text-white/40">${i.email}</div></td>
+      <td class="px-5 py-4">${i.passType==='premium' ? '<span class="badge b-pending">⭐ PREMIUM</span>' : `<span class="badge b-green">${i.panels.length} PANEL${i.panels.length>1?'S':''}</span>`}</td>
+      <td class="px-5 py-4 font-bold text-energie">${fmt(i.amount)}</td>
+      <td class="px-5 py-4 text-white/50 text-xs">${dstr(i.createdAt)}</td>
+      <td class="px-5 py-4">${statusBadge(i.status)}</td>
+      <td class="px-5 py-4 text-right whitespace-nowrap"><button onclick="openDetail('${i.id}')" class="text-xs font-bold px-4 py-2 rounded-full border border-violet-soft/40 text-violet-soft hover:bg-violet hover:text-white transition">Détails →</button> <button onclick="deleteIns('${i.id}')" aria-label="Supprimer l'inscription ${i.id}" title="Supprimer définitivement" class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-dynamo/40 text-dynamo/80 hover:bg-dynamo hover:text-white transition align-middle"><svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M8 6V4a1 1 0 011-1h6a1 1 0 011 1v2m2 0v14a2 2 0 01-2 2H8a2 2 0 01-2-2V6"/></svg></button></td>
+    </tr>`).join('')
+  : `<tr><td colspan="7" class="px-5 py-12 text-center text-white/40">Aucune inscription ne correspond aux filtres.</td></tr>`;
+}
+
+function refChip(i){
+  const r = (i.ref || '').trim();
+  if (!r) return '<span class="text-white/35 text-xs">— non renseignée</span>';
+  return `<span class="inline-flex items-center gap-2 font-mono text-xs font-bold text-energie bg-energie/10 border border-energie/40 rounded-full pl-3 pr-1.5 py-1 max-w-full">`
+    + `<span class="truncate">${escH(r)}</span>`
+    + `<button data-ref="${escH(r)}" onclick="event.stopPropagation(); copyRef(this.dataset.ref)" title="Copier la référence" class="shrink-0 text-[11px] font-bold px-2.5 py-1 rounded-full bg-energie text-anthra hover:brightness-110 transition">📋 Copier</button></span>`;
+}
+
+function proofHTML(i){
+  const raw = i.proof;
+  const refLine = `<div class="mt-3 flex items-center justify-between gap-2 flex-wrap">`
+    + `<span class="text-[10px] font-bold tracking-widest text-white/45">RÉFÉRENCE TRANSACTION</span>${refChip(i)}</div>`;
+
+  // 1. dataURL = capture réellement téléversée par le participant.
+  if (typeof raw === 'string' && raw.startsWith('data:')){
+    const semi = raw.indexOf(';');
+    const mime = (semi > 5 ? raw.slice(5, semi) : '').toLowerCase().trim();
+    const sub = mime.startsWith('image/') ? mime.slice(6) : '';
+    const viewable = mime.startsWith('image/') && /^(jpeg|jpg|png|gif|webp|bmp)$/.test(sub);
+    const fname = 'preuve-' + (i.id || 'delos');
+    if (viewable)
+      return `<img src="${raw}" onclick="openProof(this.src)" title="Cliquer pour agrandir" class="rounded-xl border border-white/15 max-h-64 w-full object-contain bg-black/40 cursor-zoom-in hover:brightness-110 transition" alt="Justificatif de paiement">`
+        + `<div class="mt-2 flex gap-2"><a href="${raw}" download="${escH(fname)}.jpg" class="flex-1 text-center text-xs font-bold px-4 py-2.5 rounded-full bg-energie text-anthra hover:brightness-110 transition">⬇ Télécharger la preuve</a></div>`
+        + refLine;
+    // Format image non affichable directement (HEIC/HEIF, brut) ou MIME inconnu :
+    // la preuve EXISTE — on propose le téléchargement au lieu de la masquer.
+    const mimeLbl = escH((mime || 'fichier') + (i.proofName ? ' • ' + i.proofName : ''));
+    return `<div class="rounded-xl border border-white/15 bg-black/40 p-5 text-center">
+      <div class="text-4xl mb-2">🖼</div>
+      <p class="text-white/70 text-xs mb-1">Capture jointe (${mimeLbl}) — aperçu indisponible dans ce navigateur.</p>
+      <p class="text-white/40 text-[11px] mb-3">Téléchargez-la pour vérifier le transfert.</p>
+      <a href="${raw}" download="${escH(fname)}" class="inline-block text-xs font-bold px-5 py-2.5 rounded-full bg-energie text-anthra hover:brightness-110 transition">⬇ Télécharger la preuve</a>
+    </div>` + refLine;
+  }
+
+  // 2. URL distante (preuve hébergée) : miniature cliquable + lien.
+  if (typeof raw === 'string' && /^https?:\/\/\S/i.test(raw.trim())){
+    const url = raw.trim();
+    return `<a href="${escH(url)}" target="_blank" rel="noopener" title="Ouvrir la preuve dans un nouvel onglet">`
+      + `<img src="${escH(url)}" class="rounded-xl border border-white/15 max-h-64 w-full object-contain bg-black/40 hover:brightness-110 transition" alt="Justificatif de paiement" onerror="this.outerHTML='<div class=&quot;rounded-xl border border-white/15 bg-black/40 p-5 text-center text-xs text-white/60&quot;>🔗 <u>Ouvrir la preuve hébergée</u></div>'"></a>`
+      + refLine;
+  }
+
+  // 3. Données historiques : référence déclarée SANS capture jointe.
+  if (raw === 'sms')
+    return `<div class="rounded-xl bg-[#0b1220] border border-yellow-500/30 p-4 text-[11px] leading-relaxed">
+      <div class="text-yellow-400 font-extrabold mb-2">📩 RÉFÉRENCE DÉCLARÉE — AUCUNE CAPTURE JOINTE</div>
+      <p class="text-white/80">Montant attendu : <b class="text-yellow-300">${fmt(i.amount)}</b> — vérifiez le SMS de l'opérateur (DELOS COMITÉ • 0196962985).</p>
+      <p class="text-white/40 mt-1">${dstr(i.createdAt)}</p>
+    </div>` + refLine;
+
+  // 4. Capture allégée automatiquement (quota de stockage plein).
+  if (i.proofDropped)
+    return `<div class="rounded-xl border border-energie/50 bg-energie/10 p-4 text-xs text-white/75 leading-relaxed">
+      <b class="text-energie">⚠ Capture allégée automatiquement (stockage plein).</b><br>
+      L'image d'origine a été supprimée pour préserver l'inscription — vérifiez la référence ci-dessous.
+    </div>` + refLine;
+
+  // 5. Aucun justificatif.
+  return `<div class="rounded-xl border-2 border-dashed border-white/15 p-5 text-center text-white/35 text-sm">Aucun justificatif joint à cette demande.</div>` + refLine;
+}
+
+function openDetail(id){
+  const i = inscriptions.find(x=>x.id===id); if(!i) return;
+  const panelsList = i.passType==='premium'
+    ? '<span class="badge b-pending">⭐ ACCÈS INTÉGRAL — 25 sessions J1-J5 + J6</span>'
+    : i.panels.map(c=>{ const p=PANELS.find(x=>x.code===c); return `<span class="badge b-violet" title="${p?p.title:''}">${c}</span>`; }).join(' ');
+  $('detail-content').innerHTML = `
+    <button onclick="closeModal('modal-detail')" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/10 hover:bg-dynamo/60 transition">✕</button>
+    <div class="flex flex-wrap items-center gap-3 mb-6">
+      <h3 class="font-serif text-2xl font-bold">${i.prenom} ${i.nom}</h3>
+      ${statusBadge(i.status)}
+      <span class="font-mono text-xs text-white/40">${i.id} • ${dstr(i.createdAt)}</span>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="space-y-4">
+        <div class="glass rounded-2xl p-4 text-sm space-y-2.5">
+          <div class="flex justify-between"><span class="text-white/50">📧 Email</span><b class="text-xs">${i.email}</b></div>
+          <div class="flex justify-between"><span class="text-white/50">📱 WhatsApp</span><b class="text-xs">${i.phone}</b></div>
+          <div class="flex justify-between"><span class="text-white/50">💰 Montant</span><b class="text-energie">${fmt(i.amount)}</b></div>
+          <div class="flex justify-between items-center gap-2"><span class="text-white/50">🔖 Référence</span>${refChip(i)}</div>
+        </div>
+        <div><div class="text-[10px] font-bold tracking-widest text-white/45 mb-2">SESSIONS SÉLECTIONNÉES</div>
+        <div class="flex flex-wrap gap-2">${panelsList}</div></div>
+        ${i.tickets && i.tickets.length ? `<div><div class="text-[10px] font-bold tracking-widest text-white/45 mb-2">🎟 TICKETS GÉNÉRÉS</div>
+          <div class="flex flex-wrap gap-2">${i.tickets.map(t=>`<span class="badge b-ok font-mono">${t.code}</span>`).join('')}</div></div>` : ''}
+        ${i.status==='rejected' ? `<div class="rounded-xl bg-dynamo/10 border border-dynamo/30 p-4 text-xs text-white/70"><b class="text-dynamo">Motif du rejet :</b> ${i.rejectReason}</div>` : ''}
+      </div>
+      <div>
+        <div class="text-[10px] font-bold tracking-widest text-white/45 mb-2">PREUVE DE PAIEMENT</div>
+        ${proofHTML(i)}
+        ${i.status==='pending' ? `
+        <div class="mt-5 space-y-3">
+          <button onclick="validateIns('${i.id}')" class="btn-shine w-full bg-equi text-white font-extrabold py-3.5 rounded-xl hover:brightness-110 transition shadow-lg shadow-equi/25">✓ VALIDER — Générer le(s) ticket(s) + Email</button>
+          <div id="reject-zone">
+            <button onclick="$('reject-form').classList.toggle('hidden')" class="w-full border border-dynamo/50 text-dynamo font-bold py-3 rounded-xl hover:bg-dynamo/10 transition">✕ REJETER la demande</button>
+            <div id="reject-form" class="hidden mt-3 space-y-2">
+              <textarea id="reject-reason" class="field text-xs" rows="3" placeholder="Motif du rejet (ex: référence introuvable, montant incorrect...)"></textarea>
+              <button onclick="confirmReject('${i.id}')" class="w-full bg-dynamo text-white font-bold py-2.5 rounded-xl text-sm">Confirmer le rejet + Email d'explication</button>
+            </div>
+          </div>
+        </div>` : `
+        <div class="mt-5 space-y-2">
+          ${i.emailSent ? `<p class="text-[11px] text-lime">📧 Email envoyé${i.emailSentAt ? ' le ' + dstr(i.emailSentAt) : ''}.</p>` : `<p class="text-[11px] text-dynamo">⚠ ${i.emailError ? escH(i.emailError) : "Email non confirmé."}</p>`}
+          <button onclick="resendEmail('${i.id}')" class="btn-shine w-full border border-energie/50 text-energie font-bold py-3 rounded-xl hover:bg-energie/10 transition">↻ Renvoyer l'email</button>
+        </div>`}
+      </div>
+    </div>`;
+  openModal('modal-detail');
+}
+
+function generateTickets(ins){
+  if (ins.passType==='premium'){
+    counters.SP++;
+    return [{ code:'DELOS-SP-'+pad(counters.SP), panel:'ALL' }];
+  }
+  return ins.panels.map(code=>{
+    counters[code]=(counters[code]||0)+1;
+    return { code: code+'-INS'+pad(counters[code]), panel:code };
+  });
+}
+
+function validateIns(id){
+  const i = inscriptions.find(x=>x.id===id); if(!i||i.status!=='pending') return;
+  i.status='validated';
+  i.tickets = generateTickets(i);
+  saveInscriptions(inscriptions);
+  renderAdmin();
+  openDetail(id);
+  toast(`✅ Inscription ${i.id} validée — ${i.tickets.length} ticket(s) généré(s). Envoi email en cours…`, 'success');
+  sendEmailRequest({ type:'validate', inscription: i }).then(sent => {
+    i.emailSent = sent;
+    i.emailSentAt = new Date().toISOString();
+    if (!sent){
+      i.emailError = "Échec d'envoi — utilisez « Renvoyer l'email » après avoir redémarré le serveur email.";
+      toast(`⚠ ${i.id} validée MAIS email non envoyé à ${i.email} — rouvrez la fiche et cliquez « Renvoyer l'email ».`, 'error');
+    } else delete i.emailError;
+    saveInscriptions(inscriptions);
+  });
+}
+
+function confirmReject(id){
+  const i = inscriptions.find(x=>x.id===id); if(!i) return;
+  const reason = $('reject-reason').value.trim() || "Paiement non confirmé par l'opérateur Mobile Money.";
+  i.status='rejected'; i.rejectReason=reason;
+  saveInscriptions(inscriptions);
+  renderAdmin();
+  openDetail(id);
+  sendEmailRequest({ type:'reject', inscription: i, reason }).then(sent => {
+    i.emailSent = sent;
+    i.emailSentAt = new Date().toISOString();
+    if (sent){ delete i.emailError; toast(`📧 Rejet notifié à ${i.email} (motif envoyé).`, 'success'); }
+    else { i.emailError = "Échec d'envoi — utilisez « Renvoyer l'email » après avoir redémarré le serveur email."; toast(`⚠ ${i.id} rejetée MAIS email non envoyé à ${i.email} — rouvrez la fiche et cliquez « Renvoyer l'email ».`, 'error'); }
+    saveInscriptions(inscriptions);
+  });
+}
+
+const RESEND_API_URL = (typeof window !== 'undefined' && window.RESEND_API_URL) || 'http://localhost:3001';
+const RESEND_ADMIN_TOKEN = (typeof window !== 'undefined' && window.RESEND_ADMIN_TOKEN) || 'delos-admin-2026';
+
+// ---------- ÉTAT SERVEUR EMAIL (health-check) ----------
+async function checkEmailServer(){
+  const badge = $('email-status');
+  const set = (txt, cls) => { if (badge){ badge.textContent = txt; badge.className = 'badge hidden sm:inline-block ' + cls; } };
+  try {
+    const res = await fetch(RESEND_API_URL + '/api/health', { method: 'GET' });
+    const data = await res.json().catch(() => null);
+    if (data && data.ok && data.smtpReady) set('● EMAIL OPÉRATIONNEL', 'b-ok');
+    else if (data && data.ok) set('● EMAIL KO — configurez server/.env', 'b-no');
+    else set('● EMAIL KO — serveur injoignable', 'b-no');
+  } catch(e){
+    set('● EMAIL KO — serveur éteint (`npm start` dans server/)', 'b-no');
+  }
+}
+
+// ---------- RENVOI MANUEL D'EMAIL (inscriptions déjà traitées) ----------
+async function resendEmail(id){
+  const i = inscriptions.find(x => x.id === id); if (!i || !i.email) return;
+  const type = i.status === 'rejected' ? 'reject' : 'validate';
+  toast(`↻ Renvoi de l'email à ${i.email}…`, 'info');
+  const sent = await sendEmailRequest({
+    type,
+    inscription: i,
+    reason: i.rejectReason || "Paiement non confirmé par l'opérateur Mobile Money."
+  });
+  i.emailSent = sent;
+  i.emailSentAt = new Date().toISOString();
+  if (sent) delete i.emailError; else i.emailError = "Renvoi échoué — serveur email à vérifier.";
+  saveInscriptions(inscriptions);
+  openDetail(id);
+}
+
+async function sendEmailRequest(payload){
+  try {
+    const res = await fetch(RESEND_API_URL + '/api/admin/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-token': RESEND_ADMIN_TOKEN },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json().catch(()=>({ ok:false, error:'Réponse invalide du serveur email' }));
+    if (!res.ok || !data.ok){
+      console.error('[EMAIL] Échec envoi email:', data);
+      toast('⚠ Email non envoyé : ' + (data.error || ('HTTP '+res.status)), 'error');
+      return false;
+    }
+    console.log('[EMAIL] Email envoyé:', data.id || data.to);
+    toast(`📧 Email envoyé à ${data.to || payload.inscription.email}`, 'success');
+    return true;
+  } catch(err){
+    console.error('[EMAIL] Erreur réseau:', err);
+    toast('⚠ Email non envoyé — serveur email injoignable. Démarrez-le (`npm start` dans server/).', 'error');
+    return false;
+  }
+}
+
+// ---------- ADMIN : TICKETS ----------
+function openProof(src){
+  if (!src) return;
+  $('proof-full').src = src;
+  openModal('modal-proof');
+}
+
+function deleteIns(id){
+  const i = inscriptions.find(x=>x.id===id); if(!i) return;
+  const ok = confirm(`Supprimer définitivement l'inscription ${i.prenom} ${i.nom} (${i.id}) ?\n\nIrréversible : statut, tickets et preuve associés seront perdus.`);
+  if (!ok) return;
+  inscriptions = inscriptions.filter(x=>x.id!==id);
+  saveInscriptions(inscriptions);
+  closeModal('modal-detail');
+  renderAdmin();
+  toast(`🗑 Inscription ${i.id} supprimée.`, 'info');
+}
+
+function initTicketFilters(){
+  $('tk-day').innerHTML = `<option value="all">Tous les jours</option>` + DAYS.slice(0,5).map(d=>`<option value="${d.n}">Jour ${d.n} — ${d.name}</option>`).join('');
+  $('tk-day').value = state.ticketDay;
+  const panelOpts = PANELS.filter(p=>state.ticketDay==='all'||p.day===+state.ticketDay);
+  $('tk-panel').innerHTML = `<option value="all">Tous les panels</option>` + panelOpts.map(p=>`<option value="${p.code}">${p.code} — ${p.title.slice(0,42)}…</option>`).join('');
+  $('tk-panel').value = state.ticketPanel;
+  const special = state.ticketView==='special';
+  $('tk-day-wrap').style.opacity = special?'.35':'1'; $('tk-panel-wrap').style.opacity = special?'.35':'1';
+  $('tk-day').disabled = special; $('tk-panel').disabled = special;
+  $('tk-view').value = state.ticketView;
+}
+
+function allTicketRows(){
+  const rows=[];
+  inscriptions.filter(i=>i.status==='validated').forEach(i=>{
+    (i.tickets||[]).forEach(t=>{
+      const p = PANELS.find(x=>x.code===t.panel);
+      rows.push({ code:t.code, name:i.prenom+' '+i.nom, phone:i.phone,
+        panel:t.panel, panelTitle: p?p.title:'Accès Intégral — 25 sessions Jours 1-5 + Journée 6 (Apothéose)',
+        day: p?p.day:null, time: p?('J'+p.day+' • '+p.time):'21 → 26 Sept • Accès total' });
+    });
+  });
+  return rows.sort((a,b)=>a.code.localeCompare(b.code));
+}
+
+function filteredTickets(){
+  let rows = allTicketRows();
+  if (state.ticketView==='special') rows = rows.filter(r=>r.code.startsWith('DELOS-SP'));
+  else {
+    rows = rows.filter(r=>!r.code.startsWith('DELOS-SP'));
+    if (state.ticketDay!=='all') rows = rows.filter(r=>r.day===+state.ticketDay);
+    if (state.ticketPanel!=='all') rows = rows.filter(r=>r.panel===state.ticketPanel);
+  }
+  return rows;
+}
+
+function renderTickets(){
+  initTicketFilters();
+  const rows = filteredTickets();
+  const label = state.ticketView==='special' ? 'Pass Spécial Premium' : (state.ticketPanel!=='all' ? state.ticketPanel : 'tous les panels');
+  $('tk-summary').innerHTML = `<b class="text-energie">${rows.length}</b> ticket(s) — vue : <b>${label}</b>`;
+  $('tk-tbody').innerHTML = rows.length ? rows.map(r=>`
+    <tr class="table-row border-b border-white/5">
+      <td class="px-5 py-4 font-mono text-xs font-bold ${r.code.startsWith('DELOS-SP')?'text-energie':'text-lime'}">${r.code}</td>
+      <td class="px-5 py-4"><div class="font-bold">${r.name}</div><div class="text-[11px] text-white/40">${r.phone}</div></td>
+      <td class="px-5 py-4 text-xs text-white/70 max-w-[280px]">${r.code.startsWith('DELOS-SP')?'⭐ ':''}${r.panelTitle}</td>
+      <td class="px-5 py-4 text-xs text-white/50">${r.time}</td>
+      <td class="px-5 py-4"><span class="badge b-ok">ACTIF</span></td>
+    </tr>`).join('')
+  : `<tr><td colspan="5" class="px-5 py-12 text-center text-white/40">Aucun ticket pour cette vue. Validez des inscriptions pour générer des tickets.</td></tr>`;
+}
+
+// ---------- EXPORT PDF ÉMARGEMENT ----------
+function buildEmargementHTML(){
+  const rows = filteredTickets();
+  let titre, sous;
+  if (state.ticketView==='special'){ titre='PASS SPÉCIAL PREMIUM — DELOS-SP'; sous='Accès intégral : 30 panels + Journée 6 (Apothéose)'; }
+  else if (state.ticketPanel!=='all'){ const p=PANELS.find(x=>x.code===state.ticketPanel); titre=`${p.code} — ${p.title}`; sous=`Jour ${p.day} (${DAYS[p.day-1].name}) • ${p.time} • Formateur : ${p.by}`; }
+  else if (state.ticketDay!=='all'){ const d=DAYS[state.ticketDay-1]; titre=`JOUR ${d.n} — ${d.name}`; sous=d.sub+' • '+d.date; }
+  else { titre='LISTE GÉNÉRALE DES TICKETS'; sous='Tous panels confondus — Participants validés'; }
+  return `
+  <div class="pdf-doc" style="max-width:800px;margin:0 auto;padding:32px;font-family:Inter,sans-serif">
+    <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:4px solid #581C87;padding-bottom:16px">
+      <div>
+        <div style="font-size:10px;color:#581C87;font-weight:700;letter-spacing:3px;margin-bottom:2px">CONFÉRENCE</div>
+        <div style="font-family:Cinzel,serif;font-size:34px;font-weight:900;color:#581C87">DELOS <span style="color:#F59E0B;font-size:16px">2026</span></div>
+        <div style="font-size:10px;color:#DC2626;font-weight:700;letter-spacing:1.5px">MÉDIA • CINÉMA • IA — AU SERVICE DE L'ÉVANGILE ET DE L'ENTREPRENEURIAT CHRÉTIEN</div>
+      </div>
+      <div style="text-align:right;font-size:10px;color:#6b7280">
+        Centre CEV — Calavi-Tankpè, Bénin<br>21 → 26 Septembre 2026<br>WhatsApp : +229 01 96 96 29 85
+      </div>
+    </div>
+    <div style="margin:22px 0 6px;font-size:17px;font-weight:800;color:#111827">LISTE D'ÉMARGEMENT OFFICIELLE</div>
+    <div style="font-size:13px;font-weight:700;color:#581C87">${titre}</div>
+    <div style="font-size:11px;color:#6b7280;margin-bottom:18px">${sous}</div>
+    <table>
+      <thead><tr><th style="width:36px">N°</th><th>NOM & PRÉNOM</th><th style="width:150px">CODE TICKET</th><th style="width:130px">CONTACT</th><th style="width:110px">ÉMARGEMENT</th></tr></thead>
+      <tbody>
+        ${rows.map((r,i)=>`<tr><td>${i+1}</td><td style="font-weight:600">${r.name}</td><td style="font-family:monospace;font-weight:700;color:${r.code.startsWith('DELOS-SP')?'#B45309':'#15803d'}">${r.code}</td><td style="font-size:10px">${r.phone}</td><td></td></tr>`).join('')}
+        ${rows.length===0?'<tr><td colspan="5" style="text-align:center;color:#9ca3af;padding:24px">Aucun participant dans cette vue.</td></tr>':''}
+      </tbody>
+    </table>
+    <div style="display:flex;justify-content:space-between;margin-top:36px;font-size:11px;color:#374151">
+      <div>Document généré le ${new Date().toLocaleDateString('fr-FR')} — Total : <b>${rows.length}</b> participant(s)</div>
+      <div style="text-align:center">Le Contrôleur d'Accès<br><br><span style="color:#9ca3af">_______________________</span></div>
+    </div>
+  </div>`;
+}
+
+function exportEmargement(){
+  $('pdf-preview').innerHTML = buildEmargementHTML();
+  openModal('modal-pdf');
+}
+
+function printDoc(){
+  $('print-root').innerHTML = buildEmargementHTML();
+  document.body.classList.add('printing');
+  window.print();
+  setTimeout(()=>document.body.classList.remove('printing'), 600);
+}
+window.onafterprint = ()=>document.body.classList.remove('printing');
+
+// ---------- ADMIN : AMBASSADEURS ----------
+function renderAmb(){
+  $('amb-grid').innerHTML = ambassadors.map(a=>`
+    <div class="glass rounded-3xl p-6 panel-card border border-violet-soft/20">
+      <div class="flex items-center justify-between mb-4">
+        <span class="badge b-violet font-mono">${a.code}</span>
+        <span class="text-2xl">📣</span>
+      </div>
+      <div class="font-bold">${a.name}</div>
+      <div class="text-[11px] text-white/40 mb-4">${a.phone}</div>
+      <div class="grid grid-cols-2 gap-2 text-center mb-4">
+        <div class="rounded-xl bg-white/5 py-2.5"><div class="text-lg font-extrabold text-violet-soft">${a.refs}</div><div class="text-[9px] text-white/40 tracking-widest">FILLEULS</div></div>
+        <div class="rounded-xl bg-white/5 py-2.5"><div class="text-lg font-extrabold text-energie">${(a.revenue/1000)}k</div><div class="text-[9px] text-white/40 tracking-widest">FCFA GÉNÉRÉS</div></div>
+      </div>
+      <button onclick="copyLink('${a.code}')" class="w-full text-xs font-bold py-2.5 rounded-full border border-energie/40 text-energie hover:bg-energie hover:text-anthra transition">🔗 Copier le lien de parrainage</button>
+    </div>`).join('');
+}
+
+function submitAmb(){
+  const n=$('amb-name').value.trim(), p=$('amb-phone').value.trim();
+  if(!n||!p) return toast('⚠ Nom et WhatsApp requis.','error');
+  const code='AMB-'+pad(seqAmb++);
+  ambassadors.unshift({ code, name:n.toUpperCase(), phone:p, refs:0, revenue:0 });
+  saveAmbassadors(ambassadors);
+  closeModal('modal-amb'); renderAmb();
+  toast(`Ambassadeur créé : ${code} — Bienvenue dans l'équipe DELOS.`,'success');
+  $('amb-name').value=''; $('amb-phone').value='';
+}
+
+function copyLink(code){
+  const link = window.location.origin + '/index.html?ref=' + code;
+  try { navigator.clipboard.writeText(link); toast('Lien copié : '+link,'info'); }
+  catch(e){ toast('Lien : '+link,'info'); }
+}
+
+// ---------- INIT ----------
+checkAuth();
+</script>
+</body>
+</html>

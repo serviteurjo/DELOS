@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CONFÉRENCE DELOS 2026 — Média, Cinéma & IA au service de l'Évangile et de l'Entrepreneuriat Chrétien</title>
+<meta name="description" content="DELOS 2026, 21→26 sept. à Calavi-Tankpè (Bénin) : 28 sessions, 12 experts — média, cinéma & IA au service de l'Évangile et des talents. Pass dès 1 000 FCFA.">
+<meta property="og:site_name" content="Conférence DELOS 2026">
+<meta name="keywords" content="DELOS 2026, conférence chrétienne Bénin, média chrétien, cinéma chrétien, intelligence artificielle, Calavi, Cotonou, masterclass, entrepreneuriat chrétien">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0d0a52">
+<meta name="author" content="Conférence DELOS — Centre CEV">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="CONFÉRENCE DELOS 2026 — Média, Cinéma & IA">
+<meta property="og:description" content="21 → 26 septembre 2026 · Centre CEV, Calavi-Tankpè (Bénin). 28 sessions, 12 experts. Média, cinéma & IA au service de l'Évangile et de l'entrepreneuriat chrétien.">
+<meta property="og:image" content="assets/og-delos-2026.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CONFÉRENCE DELOS 2026 — Média, Cinéma & IA">
+<meta name="twitter:description" content="21 → 26 septembre 2026 · Calavi-Tankpè (Bénin). 28 sessions, 12 experts. Pass dès 1 000 FCFA.">
+<meta name="twitter:image" content="assets/og-delos-2026.jpg">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Event","name":"Conférence DELOS 2026 — Média, Cinéma & IA","description":"6 jours de formation intensive : 28 sessions, masterclass & panels sur les médias, le cinéma et l'IA au service de l'Évangile et de l'entrepreneuriat chrétien.","startDate":"2026-09-21T09:00:00+01:00","endDate":"2026-09-26T21:00:00+01:00","eventStatus":"https://schema.org/EventScheduled","eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","location":{"@type":"Place","name":"Centre CEV — Calavi-Tankpè","address":{"@type":"PostalAddress","addressLocality":"Abomey-Calavi","addressCountry":"BJ"},"hasMap":"https://maps.app.goo.gl/RnfeZXjJmjsqLT7U9"},"offers":[{"@type":"Offer","name":"Ticket par atelier","price":"1000","priceCurrency":"XOF","availability":"https://schema.org/InStock"},{"@type":"Offer","name":"Pass Spécial 6 Jours","price":"5000","priceCurrency":"XOF","availability":"https://schema.org/InStock"}],"organizer":{"@type":"Organization","name":"Conférence DELOS — Centre CEV"}}
+</script>
+<!-- ================= PERFORMANCE | Optimisations 2026 =================
+     1. Tailwind CLI statique (assets/delos-tailwind.css) au lieu du CDN
+        runtime de 100+ Ko bloquant (équiv. purge CSS en build).
+     2. Fontes auto-hébergées (équiv. next/font/google + display:swap) :
+        Playfair Display, Inter, Cinzel — fichiers WOFF2 locaux + preload
+        des graisses critiques (logo Cinzel 900 + corps Inter 400).
+     3. Programme : delos-data.js préchargé (script léger, cacheable).
+     ==================================================================== -->
+<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+<link rel="preconnect" href="https://www.google.com" crossorigin>
+<link rel="stylesheet" href="assets/delos-tailwind.css">
+<link rel="preload" href="assets/fonts/fonts.css" as="style">
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<link rel="preload" href="assets/fonts/Cinzel-latin-normal-variable.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/Inter-latin-normal-variable.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  :root{ --violet:#581C87; --violet2:#6B21A8; --red:#DC2626; --amber:#F59E0B; --green:#16A34A; }
+  html{ scroll-behavior:smooth; }
+  *{ -webkit-tap-highlight-color:transparent; }
+  #intervenants{ overflow-x:clip; }
+  body{ background:#0d0a52; color:#fff; font-family:'Inter',sans-serif; overflow-x:hidden; }
+  ::-webkit-scrollbar{ width:9px; }
+  ::-webkit-scrollbar-track{ background:#260d48; }
+  ::-webkit-scrollbar-thumb{ background:linear-gradient(#6B21A8,#581C87); border-radius:99px; }
+
+  .font-logo{ font-family:'Cinzel',serif; }
+  .grad-text{ background:linear-gradient(120deg,#7c41b8 0%,#e3cdcd 45%,#F59E0B 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .grad-violet{ background:linear-gradient(135deg,#581C87,#6B21A8); }
+  .glass{ background:rgba(88,28,135,.14); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border:1px solid rgba(139,92,246,.22); }
+  .glass-strong{ background:rgba(20,10,36,.86); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px); border:1px solid rgba(139,92,246,.25); }
+
+  /* Logo wave under LOS */
+  .logo-wrap{ position:relative; display:inline-block; }
+  .logo-wave{ position:absolute; left:-4%; bottom:-.28em; width:108%; height:.38em; overflow:visible; pointer-events:none; }
+
+  /* Glows */
+  .glow{ position:absolute; border-radius:50%; filter:blur(90px); opacity:.5; pointer-events:none; }
+  .glow-v{ background:radial-gradient(circle,#7c3aed 0%,transparent 70%); }
+  .glow-r{ background:radial-gradient(circle,#DC2626 0%,transparent 70%); opacity:.28; }
+  .glow-a{ background:radial-gradient(circle,#F59E0B 0%,transparent 70%); opacity:.18; }
+
+  .hero-grid{ background-image:linear-gradient(rgba(139,92,246,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,246,.07) 1px,transparent 1px); background-size:56px 56px; mask-image:radial-gradient(ellipse 80% 70% at 50% 40%,#000 30%,transparent 75%); -webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 40%,#000 30%,transparent 75%); }
+
+  @keyframes floaty{ 0%,100%{ transform:translateY(0) rotate(var(--rot,0deg)); } 50%{ transform:translateY(-18px) rotate(var(--rot,0deg)); } }
+  .floaty{ animation:floaty 6s ease-in-out infinite; }
+  @keyframes pulseGlow{ 0%,100%{ opacity:.5; } 50%{ opacity:.85; } }
+  .pulse-glow{ animation:pulseGlow 5s ease-in-out infinite; }
+  @keyframes shine{ 0%{ left:-80%; } 100%{ left:130%; } }
+  .btn-shine{ position:relative; overflow:hidden; }
+  .btn-shine::after{ content:''; position:absolute; top:0; left:-80%; width:45%; height:100%; background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent); transform:skewX(-20deg); }
+  .btn-shine:hover::after{ animation:shine .8s ease; }
+
+  .reveal{ opacity:0; transform:translateY(34px); transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
+  .revealed{ opacity:1; transform:translateY(0); }
+
+  /* === OFFER CAROUSEL — Programme DELOS === */
+  .offer-carousel{ position:relative; width:100%; }
+  .offer-track{
+    display:flex; gap:1.25rem; overflow-x:auto; overflow-y:hidden;
+    padding:0.5rem 0.25rem 1.5rem; scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .offer-track::-webkit-scrollbar{ display:none; }
+  .offer-track.snap{ scroll-snap-type:x mandatory; }
+  .offer-track.snap > .offer-card-wrap{ scroll-snap-align:start; }
+
+  .offer-card-wrap{ flex:0 0 300px; max-width:300px; }
+  @media (min-width:768px){ .offer-card-wrap{ flex-basis:340px; max-width:340px; } }
+  @media (min-width:1024px){ .offer-card-wrap{ flex-basis:370px; max-width:370px; } }
+
+  .offer-card{
+    position:relative; width:100%; height:clamp(400px,108vw,440px); border-radius:1.1rem; overflow:hidden;
+    background:rgba(13,6,24,.88);
+    border:1px solid rgba(255,255,255,.1);
+    box-shadow:0 18px 50px -20px rgba(0,0,0,.7);
+    transition:transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s, border-color .35s;
+    cursor:pointer;
+  }
+  .offer-card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(220,38,38,.6);
+    box-shadow:0 28px 70px -20px rgba(220,38,38,.45), 0 0 0 1px rgba(220,38,38,.25) inset, 0 0 40px -10px rgba(220,38,38,.3);
+  }
+  .offer-card .offer-img{
+    position:absolute; top:0; left:0; right:0; height:46%;
+    overflow:hidden; background:#1a0f2e;
+  }
+  .offer-card .offer-img img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform .6s cubic-bezier(.22,1,.36,1);
+  }
+  .offer-card:hover .offer-img img{ transform:scale(1.08); }
+  .offer-card .offer-img::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 40%, rgba(13,6,24,.55) 75%, rgba(13,6,24,1) 100%);
+  }
+  .offer-card .offer-img-overlay{
+    position:absolute; top:.8rem; left:.8rem; right:.8rem; z-index:3;
+    display:flex; align-items:center; justify-content:space-between; gap:.5rem;
+  }
+  .offer-card .offer-code{
+    font-family:'Cinzel',serif; font-weight:900; font-size:.7rem; letter-spacing:.12em;
+    padding:.3rem .55rem; border-radius:6px;
+    background:rgba(13,6,24,.75); backdrop-filter:blur(6px);
+    color:#F59E0B; border:1px solid rgba(245,158,11,.4);
+  }
+  .offer-card .offer-time{
+    font-size:.68rem; font-weight:700; letter-spacing:.04em;
+    padding:.3rem .55rem; border-radius:6px;
+    background:rgba(220,38,38,.85); color:#fff;
+    backdrop-filter:blur(6px);
+  }
+  .offer-card .offer-body{
+    position:absolute; left:0; right:0; bottom:0; height:54%;
+    padding:1rem 1.1rem 1.1rem; display:flex; flex-direction:column; justify-content:space-between;
+    background:linear-gradient(180deg, rgba(13,6,24,.55) 0%, rgba(13,6,24,.97) 18%);
+  }
+  .offer-card .offer-tag{
+    display:inline-flex; align-items:center; gap:.35rem;
+    font-size:.6rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase;
+    color:#DC2626; margin-bottom:.45rem;
+  }
+  .offer-card .offer-tag svg{ width:11px; height:11px; }
+  .offer-card .offer-title{
+    font-family:'Cinzel',serif; font-weight:800; font-size:1rem; line-height:1.2;
+    color:#fff; margin-bottom:.4rem;
+    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .offer-card .offer-axis{
+    font-size:.7rem; color:rgba(255,255,255,.55); font-weight:500; margin-bottom:.6rem;
+    display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden;
+  }
+  .offer-card .offer-foot{
+    display:flex; align-items:center; justify-content:space-between; gap:.5rem;
+    padding-top:.7rem; border-top:1px solid rgba(255,255,255,.08);
+  }
+  .offer-card .offer-fmt{
+    display:inline-flex; align-items:center; gap:.3rem;
+    font-size:.62rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    padding:.25rem .5rem; border-radius:6px;
+    background:rgba(139,92,246,.18); color:#A78BFA;
+    border:1px solid rgba(139,92,246,.3);
+  }
+  .offer-card .offer-cta{
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:.45rem .8rem; border-radius:99px; font-size:.65rem; font-weight:800; letter-spacing:.04em;
+    color:#fff; background:linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+    border:1px solid rgba(220,38,38,.5);
+    cursor:pointer; transition:all .3s cubic-bezier(.22,1,.36,1);
+    text-transform:uppercase;
+  }
+  .offer-card .offer-cta:hover{
+    background:linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+    box-shadow:0 8px 24px -8px rgba(220,38,38,.7);
+    transform:translateY(-1px);
+  }
+  .offer-card .offer-cta svg{ width:12px; height:12px; margin-left:.3rem; }
+
+  /* Carousel arrows */
+  .carousel-arrow{
+    position:absolute; top:50%; transform:translateY(-50%);
+    width:44px; height:44px; border-radius:50%;
+    background:rgba(13,6,24,.85); backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.15);
+    color:#fff; display:flex; align-items:center; justify-content:center;
+    cursor:pointer; z-index:10;
+    transition:all .3s cubic-bezier(.22,1,.36,1);
+    box-shadow:0 8px 28px -8px rgba(0,0,0,.6);
+  }
+  .carousel-arrow:hover{
+    background:linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+    border-color:rgba(220,38,38,.6);
+    box-shadow:0 10px 30px -8px rgba(220,38,38,.6);
+    transform:translateY(-50%) scale(1.08);
+  }
+  .carousel-arrow:disabled{ opacity:0; pointer-events:none; }
+  .carousel-arrow.left{ left:-22px; }
+  .carousel-arrow.right{ right:-22px; }
+  @media (max-width:768px){
+    .carousel-arrow{ width:44px; height:44px; }
+    .carousel-arrow.left{ left:-6px; }
+    .carousel-arrow.right{ right:-6px; }
+  }
+  .carousel-arrow svg{ width:20px; height:20px; }
+
+  /* === PROGRAMME — OfferCarousel premium (port vanilla du composant React) === */
+  .scrollbar-hide{ -ms-overflow-style:none; scrollbar-width:none; }
+  .scrollbar-hide::-webkit-scrollbar{ display:none; }
+  .offer-carousel{ position:relative; width:100%; }
+  .offer-track{
+    display:flex; gap:1.5rem; overflow-x:auto; padding:.5rem .25rem 1.25rem;
+    scroll-snap-type:x mandatory; scroll-behavior:smooth; overscroll-behavior-x:contain;
+    -webkit-overflow-scrolling:touch;
+  }
+  .offer-card{
+    position:relative; flex-shrink:0; width:300px; min-height:clamp(400px,105vw,430px); border-radius:1.1rem; overflow:hidden;
+    background:rgba(18,8,36,.92); border:1px solid rgba(139,92,246,.22);
+    scroll-snap-align:start; display:flex; flex-direction:column;
+    transition:transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s, border-color .35s;
+  }
+  @media (max-width:640px){ .offer-card{ width:272px; min-height:420px; } }
+  .offer-card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(220,38,38,.65);
+    box-shadow:0 24px 60px -18px rgba(220,38,38,.55), 0 0 0 1px rgba(220,38,38,.35), 0 0 44px -12px rgba(220,38,38,.45);
+  }
+  .offer-media{ position:relative; width:100%; aspect-ratio:16/10; min-height:150px; max-height:190px; overflow:hidden; flex-shrink:0; }
+  .offer-media img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s cubic-bezier(.22,1,.36,1); }
+  .offer-card:hover .offer-media img{ transform:scale(1.1); }
+  .offer-media::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(13,6,24,0) 45%, rgba(13,6,24,.55) 78%, rgba(18,8,36,.95) 100%);
+  }
+  .offer-media-top{ position:absolute; top:.8rem; left:.8rem; right:.8rem; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
+  .offer-code{ font-family:ui-monospace,monospace; font-size:.65rem; font-weight:800; letter-spacing:.06em; padding:.3rem .6rem; border-radius:99px; background:rgba(13,6,24,.72); border:1px solid rgba(139,92,246,.45); color:#C4B5FD; backdrop-filter:blur(8px); }
+  .offer-time{ font-size:.68rem; font-weight:700; padding:.3rem .6rem; border-radius:99px; background:rgba(13,6,24,.72); border:1px solid rgba(220,38,38,.4); color:#FCA5A5; backdrop-filter:blur(8px); white-space:nowrap; }
+  .offer-body{ display:flex; flex-direction:column; flex:1; padding:1.1rem 1.15rem 1.15rem; }
+  .offer-tag{ display:flex; align-items:center; gap:.45rem; font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#FCA5A5; margin-bottom:.55rem; }
+  .offer-tag svg{ width:.9rem; height:.9rem; color:#DC2626; }
+  .offer-title{ font-family:'Playfair Display',serif; font-size:1.02rem; font-weight:700; line-height:1.3; color:#fff; margin-bottom:.45rem; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+  .offer-desc{ font-size:.78rem; line-height:1.5; color:rgba(255,255,255,.6); display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .offer-foot{ display:flex; align-items:center; justify-content:space-between; gap:.75rem; padding-top:.9rem; margin-top:auto; border-top:1px solid rgba(255,255,255,.08); }
+  .offer-day{ display:flex; align-items:center; gap:.5rem; }
+  .offer-day-dot{ width:2rem; height:2rem; border-radius:99px; display:flex; align-items:center; justify-content:center; font-family:'Cinzel',serif; font-weight:900; font-size:.72rem; color:#fff; background:linear-gradient(135deg,#581C87,#DC2626); border:1px solid rgba(255,255,255,.15); flex-shrink:0; }
+  .offer-day-txt{ font-size:.68rem; font-weight:700; color:rgba(255,255,255,.85); line-height:1.25; }
+  .offer-day-txt span{ display:block; font-weight:400; color:rgba(255,255,255,.45); font-size:.65rem; }
+  .offer-arrow{ width:2rem; height:2rem; border-radius:99px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); color:#fff; transition:all .3s cubic-bezier(.22,1,.36,1); flex-shrink:0; }
+  .offer-card:hover .offer-arrow{ background:#DC2626; border-color:#DC2626; transform:rotate(-45deg); box-shadow:0 8px 22px -6px rgba(220,38,38,.7); }
+  .offer-cta{
+    margin-top:.9rem; width:100%; font-size:.72rem; font-weight:800; letter-spacing:.02em;
+    padding:.75rem 1rem; border-radius:.8rem; border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.05); color:rgba(255,255,255,.85);
+    transition:all .3s cubic-bezier(.22,1,.36,1); cursor:pointer;
+  }
+  .offer-cta:hover{ background:#DC2626; border-color:#DC2626; color:#fff; box-shadow:0 12px 30px -10px rgba(220,38,38,.7); transform:translateY(-1px); }
+  .offer-nav{
+    position:absolute; top:38%; z-index:10; width:2.75rem; height:2.75rem; border-radius:99px;
+    background:rgba(13,6,24,.6); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,.15);
+    display:flex; align-items:center; justify-content:center; color:#fff;
+    opacity:0; transition:opacity .3s, background .3s, border-color .3s;
+  }
+  .offer-carousel:hover .offer-nav{ opacity:1; }
+  .offer-nav:hover{ background:#DC2626; border-color:#DC2626; }
+  @media (max-width:768px){ .offer-nav{ display:none; } }
+  .offer-nav-left{ left:-.5rem; } .offer-nav-right{ right:-.5rem; }
+
+  /* === INTERVENANTS — CircularTestimonials (port vanilla du composant React) === */
+  .ct-wrap{ width:100%; max-width:72rem; margin:0 auto; }
+  .ct-grid{ display:grid; gap:2.5rem; align-items:center; }
+  .ct-grid > *{ min-width:0; max-width:100%; }
+  @media (min-width:808px){ .ct-grid{ grid-template-columns:1fr 1fr; gap:3.5rem; } }
+  .ct-images{ position:relative; width:100%; max-width:min(400px,100%); height:clamp(22rem,135vw,30rem); aspect-ratio:4/5; margin:0 auto; perspective:1000px; background:#6B21A8; border-radius:1.25rem; }
+  @media (min-width:768px){ .ct-images{ height:clamp(24rem,80vw,33rem); } }
+  .ct-img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:top center;
+    border-radius:1.25rem; box-shadow:0 18px 50px -12px rgba(0,0,0,.6);
+    border:1px solid rgba(139,92,246,.3); cursor:pointer; background:#6B21A8;
+  }
+  .ct-img.is-active{ border-color:rgba(220,38,38,.6); box-shadow:0 24px 70px -18px rgba(220,38,38,.5), 0 0 0 1px rgba(220,38,38,.3); }
+  .ct-num{
+    position:absolute; bottom:.8rem; left:.8rem; z-index:5;
+    font-family:'Cinzel',serif; font-weight:900; font-size:.7rem; letter-spacing:.12em;
+    background:rgba(13,6,24,.72); border:1px solid rgba(220,38,38,.45); color:#FCA5A5;
+    padding:.3rem .65rem; border-radius:99px; backdrop-filter:blur(8px);
+  }
+  .ct-content{ display:flex; flex-direction:column; justify-content:center; min-height:16rem; min-width:0; overflow-wrap:anywhere; hyphens:auto; }
+  .ct-name{ font-family:'Cinzel',serif; font-weight:900; font-size:1.6rem; letter-spacing:.04em; color:#fff; margin-bottom:.2rem; overflow-wrap:anywhere; word-break:break-word; }
+  .ct-role{ font-size:.85rem; font-weight:600; color:#FCA5A5; margin-bottom:.6rem; overflow-wrap:anywhere; word-break:break-word; }
+  .ct-angle-chip{
+    display:inline-flex; align-items:center; gap:.4rem; font-size:.65rem; font-weight:800; letter-spacing:.12em;
+    color:#FDE68A; background:rgba(245,158,11,.1); border:1px solid rgba(245,158,11,.35);
+    padding:.35rem .7rem; border-radius:99px; margin-bottom:.8rem; text-transform:uppercase;
+  }
+  .ct-quote{ font-size:1.02rem; line-height:1.75; color:rgba(255,255,255,.82); margin-bottom:1.25rem; overflow-wrap:anywhere; word-break:break-word; }
+  .ct-quote .w{ display:inline-block; opacity:0; filter:blur(10px); transform:translateY(5px); animation:ctWordIn .35s ease forwards; overflow-wrap:anywhere; max-width:100%; }
+  @keyframes ctWordIn{ to{ opacity:1; filter:blur(0); transform:translateY(0); } }
+  .ct-bio{ font-size:.8rem; line-height:1.6; color:rgba(255,255,255,.5); margin-bottom:.9rem; overflow-wrap:anywhere; word-break:break-word; }
+  .ct-fade{ animation:ctFade .35s ease; }
+  @keyframes ctFade{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
+  .ct-arrows{ display:flex; align-items:center; flex-wrap:wrap; row-gap:.75rem; column-gap:1rem; }
+  @media (max-width:480px){
+    .ct-arrows > button:last-child{ margin-left:0; max-width:100%; }
+    .ct-name{ font-size:1.3rem; }
+    .ct-quote{ font-size:.95rem; }
+    .ct-content{ min-height:0; }
+  }
+  .ct-arrow{
+    width:3rem; height:3rem; border-radius:99px; display:flex; align-items:center; justify-content:center;
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); color:#f1f1f7;
+    cursor:pointer; transition:background .3s, border-color .3s, transform .3s;
+    touch-action:manipulation;
+  }
+  .ct-arrow:hover{ background:#DC2626; border-color:#DC2626; transform:translateY(-2px); box-shadow:0 10px 26px -8px rgba(220,38,38,.7); }
+  .ct-count{ font-size:.75rem; color:rgba(255,255,255,.5); font-weight:600; letter-spacing:.08em; }
+  .ct-dots{ display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem; margin-top:2rem; }
+  .ct-dot{ position:relative; min-width:.6rem; height:.6rem; border-radius:99px; background:rgba(255,255,255,.15); border:.55rem solid transparent; background-clip:padding-box; box-sizing:content-box; cursor:pointer; transition:all .3s; padding:0; touch-action:manipulation; }
+  .ct-dot::after{ content:''; position:absolute; inset:-14px; }
+  .ct-dot.active{ width:1.8rem; background:#DC2626; box-shadow:0 0 14px rgba(220,38,38,.7); }
+
+  .pillar-card{ transition:transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s; }
+  .pillar-card:hover{ transform:translateY(-8px) scale(1.02); box-shadow:0 24px 60px -20px rgba(124,58,237,.6); }
+
+  .tab-btn{ transition:all .3s; }
+  .tab-btn.active{ background:linear-gradient(135deg,#581C87,#6B21A8); border-color:#8B5CF6; box-shadow:0 8px 30px -8px rgba(124,58,237,.7); color:#fff; }
+
+  .cd-box{ background:linear-gradient(160deg,rgba(88,28,135,.5),rgba(20,10,36,.8)); border:1px solid rgba(139,92,246,.35); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 12px 40px -12px rgba(124,58,237,.5); }
+
+  .pick-card{ transition:all .25s; cursor:pointer; }
+  .pick-card.selected{ border-color:#F59E0B !important; background:rgba(245,158,11,.10) !important; box-shadow:0 0 0 1px #F59E0B, 0 10px 30px -10px rgba(245,158,11,.5); }
+  .pick-panel{ transition:all .2s; cursor:pointer; }
+  .pick-panel.selected{ border-color:#8B5CF6 !important; background:rgba(139,92,246,.16) !important; }
+
+  .badge{ font-size:.65rem; font-weight:700; letter-spacing:.08em; padding:.28rem .6rem; border-radius:99px; }
+
+  input,select,textarea{ outline:none; }
+  .field{ background:rgba(13,6,24,.7); border:1px solid rgba(139,92,246,.3); border-radius:.75rem; padding:.72rem 1rem; width:100%; color:#fff; transition:border-color .25s, box-shadow .25s; font-size:.9rem; }
+  .field:focus{ border-color:#F59E0B; box-shadow:0 0 0 3px rgba(245,158,11,.15); }
+  .field::placeholder{ color:rgba(255,255,255,.35); }
+  select.field option{ background:#1a0f2e; color:#fff; }
+
+  .modal-bg{ background:rgba(8,3,16,.8); backdrop-filter:blur(8px); }
+  @keyframes modalIn{ from{ opacity:0; transform:translateY(26px) scale(.97); } to{ opacity:1; transform:translateY(0) scale(1); } }
+  .modal-in{ animation:modalIn .4s cubic-bezier(.22,1,.36,1); }
+  @keyframes toastIn{ from{ opacity:0; transform:translateX(40px); } to{ opacity:1; transform:translateX(0); } }
+  .toast-in{ animation:toastIn .35s cubic-bezier(.22,1,.36,1); }
+
+  /* Marquee mots-clés de la conférence */
+  @keyframes marqueeScroll{
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(-50%); }
+  }
+  .marquee-wrap{
+    position:relative; overflow:hidden; width:100%;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);
+            mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);
+  }
+  .marquee-track{
+    display:flex; gap:2.5rem; width:max-content;
+    animation:marqueeScroll 28s linear infinite;
+  }
+  .marquee-item{
+    font-family:'Cinzel',serif; font-weight:900; letter-spacing:.18em;
+    font-size:1.05rem; padding:.55rem 1.2rem; border-radius:99px;
+    border:1px solid rgba(139,92,246,.35); background:rgba(13,6,24,.55);
+    backdrop-filter:blur(8px);
+    background-image:linear-gradient(90deg,#8B5CF6 0%,#DC2626 25%,#F59E0B 50%,#84CC16 75%,#8B5CF6 100%);
+    background-size:200% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:marqueeHue 6s linear infinite;
+    white-space:nowrap;
+  }
+  .marquee-item .dot{
+    display:inline-block; width:8px; height:8px; border-radius:50%;
+    margin-right:.6rem; vertical-align:middle;
+    background:radial-gradient(circle,#F59E0B 0%,#DC2626 70%);
+    box-shadow:0 0 12px rgba(245,158,11,.7);
+  }
+  @keyframes marqueeHue{
+    0%{ background-position:0% 50%; }
+    100%{ background-position:200% 50%; }
+  }
+
+  /* Animation premium du logo DELOS (multicouleur gauche → droite) */
+  @keyframes delosWave{
+    0%   { background-position:0% 50%; }
+    100% { background-position:200% 50%; }
+  }
+  .delos-anim{
+    background-image:linear-gradient(90deg,#8B5CF6 0%,#DC2626 20%,#F59E0B 40%,#84CC16 60%,#06B6D4 80%,#8B5CF6 100%);
+    background-size:200% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:delosWave 6s linear infinite;
+    display:inline-block;
+    filter:drop-shadow(0 0 12px rgba(245,158,11,.35)) drop-shadow(0 0 24px rgba(139,92,246,.25));
+  }
+  .delos-anim .ch{
+    display:inline-block; opacity:0; transform:translateY(.4em) scale(.7);
+    animation:delosChar .9s cubic-bezier(.22,1,.36,1) forwards;
+  }
+  @keyframes delosChar{
+    0%   { opacity:0; transform:translateY(.4em) scale(.7); filter:blur(8px); }
+    60%  { opacity:1; transform:translateY(-.05em) scale(1.08); filter:blur(0); }
+    100% { opacity:1; transform:translateY(0) scale(1); filter:blur(0); }
+  }
+
+  /* DELOS ULTRA PREMIUM — version géante brillante du hero */
+  @keyframes delosShine{
+    0%   { background-position:0% 50%; }
+    100% { background-position:200% 50%; }
+  }
+  @keyframes delosPulse{
+    0%,100%{ filter:drop-shadow(0 0 18px rgba(245,158,11,.55)) drop-shadow(0 0 36px rgba(139,92,246,.45)) drop-shadow(0 0 60px rgba(220,38,38,.25)); }
+    50%   { filter:drop-shadow(0 0 28px rgba(245,158,11,.9)) drop-shadow(0 0 60px rgba(139,92,246,.7)) drop-shadow(0 0 90px rgba(220,38,38,.45)); }
+  }
+  .delos-ultra{
+    font-family:'Cinzel',serif;
+    font-weight:900;
+    letter-spacing:.18em;
+    line-height:1;
+    background-image:linear-gradient(90deg,#A78BFA 0%,#F472B6 12%,#DC2626 24%,#F59E0B 38%,#FDE68A 50%,#F59E0B 62%,#DC2626 74%,#A78BFA 88%,#06B6D4 100%);
+    background-size:200% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:delosShine 5s linear infinite, delosPulse 3.2s ease-in-out infinite;
+    display:inline-block;
+    position:relative;
+  }
+  .delos-ultra::after{
+    content:attr(data-text);
+    position:absolute; inset:0;
+    background-image:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.9) 50%,transparent 100%);
+    background-size:200% 100%;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    mix-blend-mode:overlay;
+    animation:delosShine 3.5s linear infinite;
+    pointer-events:none;
+  }
+
+  /* 4 nouveaux éléments décoratifs DELOS (coins du hero) */
+  .delos-deco{
+    width:64px; height:64px; display:flex; align-items:center; justify-content:center;
+    border-radius:22px;
+    background:rgba(13,6,24,.7); backdrop-filter:blur(14px);
+    border:1px solid rgba(139,92,246,.35);
+    box-shadow:0 12px 40px -10px rgba(124,58,237,.55), inset 0 1px 0 rgba(255,255,255,.08);
+    position:relative; overflow:hidden;
+  }
+  .delos-deco::before{
+    content:''; position:absolute; inset:-2px; border-radius:22px;
+    background:conic-gradient(from 0deg,#8B5CF6,#DC2626,#F59E0B,#84CC16,#8B5CF6);
+    z-index:-1; animation:decoSpin 6s linear infinite; opacity:.6;
+  }
+  @keyframes decoSpin{ to{ transform:rotate(360deg); } }
+  .delos-deco svg{ width:30px; height:30px; }
+
+  /* 4 éléments DELOS — images PNG extraites du logo officiel, flottantes */
+  .delos-float{
+    width:var(--w, 150px);
+    height:auto;
+    display:block;
+    filter:drop-shadow(0 18px 30px rgba(0,0,0,.55)) drop-shadow(0 0 28px rgba(245,158,11,.35)) drop-shadow(0 0 50px rgba(139,92,246,.25));
+    animation:delosFloaty 6s ease-in-out infinite;
+    transform-origin:center;
+    will-change:transform;
+  }
+  .delos-float:hover{
+    filter:drop-shadow(0 22px 36px rgba(0,0,0,.65)) drop-shadow(0 0 40px rgba(245,158,11,.7)) drop-shadow(0 0 70px rgba(139,92,246,.5));
+    transform:translateY(-4px) scale(1.04) rotate(var(--rot,0deg));
+  }
+  @keyframes delosFloaty{
+    0%,100%{ transform:translateY(0) rotate(var(--rot,0deg)); }
+    50%    { transform:translateY(-22px) rotate(var(--rot,0deg)); }
+  }
+
+  /* === MENU HOVER EFFECTS (NavMenu style) — vanilla CSS port === */
+  .nav-hover{
+    position:relative; display:inline-block; overflow:hidden;
+    border-top:2px solid transparent; border-bottom:2px solid transparent;
+  }
+  .nav-hover .nav-label{
+    position:relative; z-index:10; display:block;
+    padding:.5rem .9rem; text-transform:uppercase;
+    color:rgba(255,255,255,.85); font-weight:600; letter-spacing:.06em;
+    transition:color .3s ease;
+  }
+  .nav-hover .nav-borders{
+    position:absolute; inset:0; pointer-events:none;
+    border-top:2px solid #F59E0B; border-bottom:2px solid #F59E0B;
+    transform:scaleY(2); opacity:0; transform-origin:center;
+    transition:transform .3s cubic-bezier(.22,1,.36,1), opacity .3s;
+    z-index:5;
+  }
+  .nav-hover .nav-fill{
+    position:absolute; top:2px; left:0; width:100%; height:calc(100% - 4px);
+    background:linear-gradient(135deg,#581C87 0%,#6B21A8 50%,#DC2626 100%);
+    transform:scaleY(0); opacity:0; transform-origin:top;
+    transition:transform .3s cubic-bezier(.22,1,.36,1), opacity .3s;
+    z-index:1;
+  }
+  .nav-hover:hover .nav-label{ color:#fff; }
+  .nav-hover:hover .nav-borders{ transform:scaleY(1); opacity:1; }
+  .nav-hover:hover .nav-fill{ transform:scaleY(1); opacity:1; }
+
+  /* Burger animé (3 barres) pour le menu mobile */
+  .burger{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; padding:10px; min-width:44px; min-height:44px; cursor:pointer; background:transparent; border:0; touch-action:manipulation; }
+  .burger span{
+    display:block; width:24px; height:2px; background:#fff;
+    transition:transform .3s ease, opacity .3s ease;
+    transform-origin:center;
+  }
+  .burger.open span:nth-child(1){ transform:rotate(45deg) translate(5px,5px); }
+  .burger.open span:nth-child(2){ opacity:0; }
+  .burger.open span:nth-child(3){ transform:rotate(-45deg) translate(5px,-5px); }
+
+  /* === FOOTER : liens avec effet hover premium === */
+  .footer-link{
+    position:relative; display:inline-block; color:rgba(255,255,255,.7);
+    transition:color .3s ease, transform .3s ease, letter-spacing .3s ease;
+  }
+  .footer-link::before{
+    content:''; position:absolute; left:0; bottom:-2px; width:0; height:1px;
+    background:linear-gradient(90deg,#F59E0B,#DC2626,#8B5CF6);
+    transition:width .3s cubic-bezier(.22,1,.36,1);
+  }
+  .footer-link::after{
+    content:''; position:absolute; left:0; top:50%; transform:translateY(-50%);
+    width:0; height:0; border-radius:99px; background:radial-gradient(circle,rgba(139,92,246,.3),transparent 70%);
+    transition:width .3s ease, height .3s ease;
+    pointer-events:none; z-index:-1;
+  }
+  .footer-link:hover{
+    color:#F59E0B; transform:translateX(4px); letter-spacing:.04em;
+  }
+  .footer-link:hover::before{ width:100%; }
+  .footer-link:hover::after{ width:120px; height:30px; left:-10px; }
+
+  .footer-social{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:44px; height:44px; border-radius:10px;
+    background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+    transition:all .3s cubic-bezier(.22,1,.36,1);
+  }
+  .footer-social:hover{
+    color:#3ca2fa; background:rgba(60,162,250,.12);
+    border-color:rgba(60,162,250,.5);
+    transform:translateY(-3px) scale(1.08);
+    box-shadow:0 8px 22px -6px rgba(60,162,250,.5);
+  }
+
+  /* Animation du contour du texte "DELOS" (stroke-dasharray) */
+  @keyframes delosStrokeDraw{
+    0%   { stroke-dashoffset:2200; }
+    100% { stroke-dashoffset:0; }
+  }
+  #delos-stroke-text{
+    stroke-dasharray:2200; stroke-dashoffset:2200;
+    animation:delosStrokeDraw 4s cubic-bezier(.22,1,.36,1) forwards;
+  }
+
+  /* === CIRCULAR GALLERY 3D — Piliers DELOS === */
+  .gallery-stage{
+    position:relative; width:100%; height:clamp(360px,110vw,500px); perspective:2000px;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden; touch-action:pan-y; user-select:none;
+    cursor:grab;
+  }
+  @media (max-width:768px){
+    .gallery-stage{ height:clamp(320px,95vw,380px); }
+  }
+  .gallery-stage.dragging{ cursor:grabbing; }
+  .gallery-scene{
+    position:relative; width:240px; height:340px;
+    transform-style:preserve-3d;
+    transform:rotateY(0deg);
+    will-change:transform;
+  }
+  @media (max-width:768px){
+    .gallery-scene{ width:200px; height:290px; }
+  }
+  .gallery-card{
+    position:absolute; left:0; top:0; width:240px; height:340px;
+    border-radius:18px; overflow:hidden;
+    background:rgba(13,6,24,.85);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 20px 60px -20px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.04) inset;
+    backface-visibility:hidden;
+    touch-action:none;
+    transition:box-shadow .35s, border-color .35s, opacity .25s linear;
+  }
+  @media (max-width:768px){
+    .gallery-card{ width:200px; height:290px; }
+  }
+  .gallery-card.is-front{
+    border-color:rgba(245,158,11,.55);
+    box-shadow:0 24px 70px -20px rgba(245,158,11,.4), 0 0 0 1px rgba(245,158,11,.25) inset, 0 0 40px -10px rgba(245,158,11,.35);
+  }
+  .gallery-card.is-front{
+    border-color:rgba(245,158,11,.55);
+    box-shadow:0 24px 70px -20px rgba(245,158,11,.4), 0 0 0 1px rgba(245,158,11,.25) inset, 0 0 40px -10px rgba(245,158,11,.35);
+  }
+  .gallery-card img{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; display:block;
+  }
+  .gallery-card .card-shade{
+    position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(180deg, rgba(13,6,24,0) 40%, rgba(13,6,24,.55) 65%, rgba(13,6,24,.95) 100%);
+  }
+  .gallery-card .card-num{
+    position:absolute; top:12px; right:14px; z-index:2;
+    font-family:'Cinzel',serif; font-weight:900; font-size:1.7rem;
+    color:#fff; opacity:.18; line-height:1; user-select:none;
+    text-shadow:0 2px 10px rgba(0,0,0,.5);
+  }
+  .gallery-card .card-info{
+    position:absolute; left:0; right:0; bottom:0; z-index:3;
+    padding:.85rem .95rem 1rem; color:#fff;
+  }
+  .gallery-card .card-day{
+    display:inline-block; font-size:.58rem; font-weight:800; letter-spacing:.14em;
+    padding:.25rem .55rem; border-radius:99px;
+    background:rgba(255,255,255,.08); border:1px solid currentColor;
+    margin-bottom:.4rem; text-transform:uppercase;
+  }
+  .gallery-card .card-name{
+    font-family:'Cinzel',serif; font-weight:900; font-size:1.25rem;
+    letter-spacing:.05em; line-height:1.05; margin-bottom:.15rem;
+    text-shadow:0 2px 16px rgba(0,0,0,.55);
+  }
+  .gallery-card .card-bino{
+    font-style:italic; font-size:.7rem; opacity:.85; margin-bottom:.4rem;
+    color:rgba(255,255,255,.88);
+  }
+  .gallery-card .card-desc{
+    font-size:.66rem; line-height:1.4; color:rgba(255,255,255,.78);
+    display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical;
+    overflow:hidden;
+  }
+  .gallery-hint{
+    position:absolute; bottom:14px; left:50%; transform:translateX(-50%);
+    font-size:.7rem; color:rgba(255,255,255,.4); letter-spacing:.18em;
+    text-transform:uppercase; pointer-events:none;
+    animation:hintPulse 2.2s ease-in-out infinite;
+  }
+  @keyframes hintPulse{
+    0%,100%{ opacity:.3; transform:translateX(-50%) translateY(0); }
+    50%   { opacity:.7; transform:translateX(-50%) translateY(-3px); }
+  }
+
+  /* === PHASE C — Accessibilité & sobriété énergétique === */
+  .skip-link{
+    position:absolute; left:1rem; top:-4rem; z-index:100;
+    background:#F59E0B; color:#111827; font-weight:800; font-size:.85rem;
+    padding:.7rem 1.2rem; border-radius:99px; transition:top .25s ease;
+  }
+  .skip-link:focus{ top:1rem; }
+  :focus-visible{
+    outline:3px solid #F59E0B; outline-offset:3px; border-radius:6px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *, *::before, *::after{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+    .reveal{ opacity:1; transform:none; }
+    .marquee-track{ animation:none; flex-wrap:wrap; width:auto; }
+    .delos-ultra, .delos-anim, .marquee-item{ animation:none; }
+  }
+</style>
+</head>
+<body class="antialiased">
+<a href="#vision" class="skip-link">Aller au contenu ↓</a>
+
+<!-- SVG DEFS (logo gradient) -->
+<svg width="0" height="0" style="position:absolute"><defs>
+<linearGradient id="lgrad" x1="0" y1="0" x2="1" y2="0">
+<stop offset="0" stop-color="#F59E0B"/><stop offset=".55" stop-color="#DC2626"/><stop offset="1" stop-color="#8B5CF6"/>
+</linearGradient>
+</defs></svg>
+
+<!-- LANDING PAGE -->
+<div id="view-landing">
+
+  <!-- NAV -->
+  <nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-5 py-3 flex items-center justify-between gap-4">
+      <!-- LOGO — bloc compact sur une seule ligne -->
+      <a href="#" class="flex items-center gap-2 leading-none shrink-0" aria-label="DELOS 2026 — Accueil">
+        <span class="font-logo font-black text-xl md:text-2xl delos-ultra" data-text="DELOS">DELOS</span>
+        <span class="bg-energie text-anthra font-sans font-extrabold text-[10px] md:text-[11px] tracking-widest px-2 py-1 rounded-full shadow-lg shadow-energie/30">2026</span>
+      </a>
+
+      <!-- 5 items du menu (centre) — sur la même ligne que le logo -->
+      <ul class="hidden md:flex items-center gap-1 lg:gap-2 flex-1 justify-center">
+        <li class="list-none">
+          <a href="#vision" class="nav-hover"><span class="nav-fill"></span><span class="nav-borders"></span><span class="nav-label text-sm">Vision</span></a>
+        </li>
+        <li class="list-none">
+          <a href="#programme" class="nav-hover"><span class="nav-fill"></span><span class="nav-borders"></span><span class="nav-label text-sm">Programme</span></a>
+        </li>
+        <li class="list-none">
+          <a href="#tarifs" class="nav-hover"><span class="nav-fill"></span><span class="nav-borders"></span><span class="nav-label text-sm">Tarifs</span></a>
+        </li>
+        <li class="list-none">
+          <a href="#intervenants" class="nav-hover"><span class="nav-fill"></span><span class="nav-borders"></span><span class="nav-label text-sm">Intervenants</span></a>
+        </li>
+        <li class="list-none">
+          <a href="#contact" class="nav-hover"><span class="nav-fill"></span><span class="nav-borders"></span><span class="nav-label text-sm">Contact</span></a>
+        </li>
+      </ul>
+
+      <!-- Actions (droite) — sur la même ligne -->
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="#" onclick="openInscription(null,'premium')" class="btn-shine bg-energie text-anthra font-bold text-xs md:text-sm px-4 md:px-5 py-2 md:py-2.5 rounded-full hover:brightness-110 transition shadow-lg shadow-energie/30">S'inscrire</a>
+        <button id="burger" class="burger md:hidden" aria-label="Ouvrir le menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <!-- Menu mobile (md-) — repliable, même structure d'effets -->
+    <div id="mobile-menu" class="hidden md:hidden">
+      <div class="glass-strong mx-4 mb-3 rounded-2xl p-3 flex flex-col gap-1 text-sm">
+        <a href="#vision" class="nav-hover" onclick="closeMobile()"><span class="nav-fill"></span><span class="nav-borders"></span><span class="nav-label text-center">Vision</span></a>
+        <a href="#programme" class="nav-hover" onclick="closeMobile()"><span class="nav-fill"></span><span class="nav-borders"></span><span class="nav-label text-center">Programme</span></a>
+        <a href="#tarifs" class="nav-hover" onclick="closeMobile()"><span class="nav-fill"></span><span class="nav-borders"></span><span class="nav-label text-center">Tarifs</span></a>
+        <a href="#intervenants" class="nav-hover" onclick="closeMobile()"><span class="nav-fill"></span><span class="nav-borders"></span><span class="nav-label text-center">Intervenants</span></a>
+        <a href="#contact" class="nav-hover" onclick="closeMobile()"><span class="nav-fill"></span><span class="nav-borders"></span><span class="nav-label text-center">Contact</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16">
+    <div class="absolute inset-0 hero-grid"></div>
+    <div class="glow glow-v w-[550px] h-[550px] -top-40 -left-40 pulse-glow" data-px="0.06"></div>
+    <div class="glow glow-r w-[420px] h-[420px] top-1/3 -right-32" data-px="-0.05"></div>
+    <div class="glow glow-a w-[380px] h-[380px] bottom-0 left-1/4" data-px="0.04"></div>
+
+    <!-- 4 éléments DELOS (symboles officiels extraits du logo) dans les coins du hero -->
+    <!-- 1. Chaise de Réalisateur Rouge (haut gauche) -->
+    <div class="absolute top-[12%] left-[5%] floaty hidden md:block" style="--rot:-10deg; animation-delay:.2s" data-px="0.12" title="Cinéma & Réalisation">
+      <img src="assets/director-chair-red.webp" alt="Chaise de réalisateur rouge" decoding="async" class="delos-float" style="--w:160px; animation-delay:.2s">
+    </div>
+    <!-- 4. Masque de Théâtre Vert (bas gauche) -->
+    <div class="absolute bottom-[15%] left-[7%] floaty hidden md:block" style="--rot:6deg; animation-delay:1.8s" data-px="0.08" title="Expression Artistique">
+      <img src="assets/mask-green.webp" alt="Masque de théâtre vert" decoding="async" class="delos-float" style="--w:120px; animation-delay:1.8s">
+    </div>
+    <!-- 2. Clapet de Cinéma Violet (haut droite) -->
+    <div class="absolute top-[14%] right-[5%] floaty hidden md:block" style="--rot:8deg; animation-delay:1s" data-px="-0.09" title="Production Vidéo & Médias">
+      <img src="assets/clapboard-purple.webp" alt="Clap de cinéma violet" decoding="async" class="delos-float" style="--w:180px; animation-delay:1s">
+    </div>
+    <!-- 3. Masque de Théâtre Jaune/Orange (bas droite) -->
+    <div class="absolute bottom-[13%] right-[7%] floaty hidden md:block" style="--rot:-8deg; animation-delay:.7s" data-px="-0.11" title="Storytelling & Art Dramatique">
+      <img src="assets/mask-orange.webp" alt="Masque de théâtre jaune" decoding="async" class="delos-float" style="--w:180px; animation-delay:.7s">
+    </div>
+
+    <div class="relative z-10 w-full min-w-0 max-w-5xl mx-auto px-5 text-center">
+      <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 glass rounded-2xl sm:rounded-full px-4 py-2 text-[11px] md:text-sm font-semibold text-white/85 mb-7 reveal max-w-full text-center leading-relaxed">
+        <span class="w-2 h-2 rounded-full bg-dynamo animate-pulse shrink-0"></span>
+        <span>21 → 26 Septembre 2026</span><span aria-hidden="true">•</span><span>Centre CEV, Calavi-Tankpè (Bénin)</span>
+      </div>
+
+      <!-- BRAND LOGO EXACT (Image 1 & 2) -->
+      <div class="reveal mb-3">
+        <div class="text-xs md:text-sm font-serif tracking-[0.3em] text-violet-300/80 uppercase font-bold mb-1">CONFÉRENCE</div>
+        <h1 class="font-logo font-black text-6xl md:text-9xl lg:text-[10rem] tracking-wide leading-none mb-1">
+          <span class="delos-ultra" data-text="DELOS" aria-label="DELOS">
+            <span class="ch" style="animation-delay:.1s">D</span><span class="ch" style="animation-delay:.25s">E</span><span class="ch" style="animation-delay:.4s">L</span><span class="ch" style="animation-delay:.55s">O</span><span class="ch" style="animation-delay:.7s">S</span>
+          </span>
+        </h1>
+        <div class="text-xs md:text-sm font-serif tracking-[0.25em] text-energie/90 uppercase font-medium">CINÉMA • MÉDIAS • RÉVEIL</div>
+      </div>
+
+      <!-- THEME EXACT (Image 2) -->
+      <div class="reveal max-w-4xl mx-auto my-6 text-center min-w-0">
+        <div class="font-extrabold text-[1.65rem] leading-tight md:text-5xl lg:text-6xl tracking-wide text-dynamo mb-3 text-balance">
+          MÉDIA, CINÉMA &amp; IA
+        </div>
+        <div class="block sm:inline-block max-w-full border-y border-violet-soft/40 py-2.5 px-4 md:px-10 text-[13px] md:text-lg lg:text-xl font-serif text-violet-200/90 font-medium tracking-wide leading-relaxed text-balance">
+          AU SERVICE DE L'ÉVANGILE ET DE L'ENTREPRENEURIAT CHRÉTIEN
+        </div>
+      </div>
+
+      <p class="reveal text-sm md:text-base text-white/65 max-w-2xl mx-auto mb-9 leading-relaxed text-balance">
+        6 jours de formation intensive • 28 sessions, masterclass &amp; panels • DÉLOS Challenge • networking B2B et une apothéose spirituelle pour bâtir la culture de demain.
+      </p>
+
+      <!-- COUNTDOWN -->
+      <div class="reveal flex justify-center gap-2 md:gap-5 mb-10">
+        <div class="cd-box rounded-2xl w-[68px] md:w-24 py-3"><div id="cd-d" class="font-bold text-2xl md:text-3xl text-energie">--</div><div class="text-[10px] text-white/50 tracking-wider">JOURS</div></div>
+        <div class="cd-box rounded-2xl w-[68px] md:w-24 py-3"><div id="cd-h" class="font-bold text-2xl md:text-3xl">--</div><div class="text-[10px] text-white/50 tracking-wider">HEURES</div></div>
+        <div class="cd-box rounded-2xl w-[68px] md:w-24 py-3"><div id="cd-m" class="font-bold text-2xl md:text-3xl">--</div><div class="text-[10px] text-white/50 tracking-wider">MIN</div></div>
+        <div class="cd-box rounded-2xl w-[68px] md:w-24 py-3"><div id="cd-s" class="font-bold text-2xl md:text-3xl text-dynamo">--</div><div class="text-[10px] text-white/50 tracking-wider">SEC</div></div>
+      </div>
+
+      <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4 w-full min-w-0">
+        <button onclick="openInscription(null,'premium')" class="btn-shine w-full sm:w-auto max-w-full bg-energie text-anthra font-extrabold text-base px-9 py-4 rounded-full hover:brightness-110 transition shadow-xl shadow-energie/30">
+          S'inscrire à la Conférence →
+        </button>
+        <a href="#programme" class="w-full sm:w-auto max-w-full glass text-white/90 font-semibold text-base px-8 py-4 rounded-full hover:bg-white/10 transition text-center">
+          Découvrir le Programme
+        </a>
+      </div>
+
+      <!-- MARQUEE : 6 mots-clés de la conférence (défilement continu G → D progressif et multicolore) -->
+      <div class="reveal mt-10 marquee-wrap">
+        <div class="marquee-track">
+          <span class="marquee-item"><span class="dot"></span>COMPRENDRE</span>
+          <span class="marquee-item"><span class="dot"></span>CRÉER</span>
+          <span class="marquee-item"><span class="dot"></span>MAÎTRISER</span>
+          <span class="marquee-item"><span class="dot"></span>INNOVER</span>
+          <span class="marquee-item"><span class="dot"></span>ENTREPRENDRE</span>
+          <span class="marquee-item"><span class="dot"></span>ENVOYER</span>
+          
+          <span class="marquee-item"><span class="dot"></span>COMPRENDRE</span>
+          <span class="marquee-item"><span class="dot"></span>CRÉER</span>
+          <span class="marquee-item"><span class="dot"></span>MAÎTRISER</span>
+          <span class="marquee-item"><span class="dot"></span>INNOVER</span>
+          <span class="marquee-item"><span class="dot"></span>ENTREPRENDRE</span>
+          <span class="marquee-item"><span class="dot"></span>ENVOYER</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- VISION & PILIERS — Circular Gallery 3D -->
+  <section id="vision" class="py-24 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-5 mb-12">
+      <div class="text-center max-w-3xl mx-auto">
+        <span class="badge b-violet mb-3 inline-block">VISION DELOS 2026</span>
+        <h2 class="font-serif text-3xl md:text-5xl font-bold mb-4">Les 6 Piliers de la Conférence</h2>
+        <p class="text-white/60 text-sm md:text-base">Une trajectoire immersive sur 6 jours pour équiper la génération qui façonnera les médias et la culture chrétienne.</p>
+        <div class="mt-5 flex items-center justify-center gap-2 text-xs text-white/45">
+          <span class="hidden md:inline">Glissez horizontalement pour faire tourner</span>
+          <span class="md:hidden">Faites défiler pour faire tourner</span>
+          <span class="text-energie">↔</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="gallery-stage" id="pillars-stage">
+      <div class="gallery-scene" id="pillars-scene">
+        <!-- Cartes injectées par JS -->
+      </div>
+      <div class="gallery-hint md:hidden">← Glissez pour tourner →</div>
+    </div>
+  </section>
+
+  <!-- PROGRAMME -->
+  <section id="programme" class="py-24 relative bg-[#0a0414]/60 border-y border-white/5">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="badge b-pending mb-3 inline-block">PROGRAMME COMPLET</span>
+        <h2 class="font-serif text-3xl md:text-5xl font-bold mb-4">Programme Officiel — 28 Sessions sur 6 Jours</h2>
+        <p class="text-white/60 text-sm">Choisissez vos jours ou optez pour l'accès intégral au Pass Premium.</p>
+      </div>
+
+      <div id="day-tabs" class="flex flex-wrap justify-center gap-2 md:gap-3 mb-10"></div>
+      <div id="panels-grid" class="relative"></div>
+    </div>
+  </section>
+
+  <!-- TARIFS -->
+  <section id="tarifs" class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="badge b-green mb-3 inline-block">TARIFS D'ACCÈS</span>
+        <h2 class="font-serif text-3xl md:text-5xl font-bold mb-4">Deux Formules Adaptées à vos Besoins</h2>
+        <p class="text-white/60 text-sm">Rejoignez-nous à la carte par atelier ou vivez l'expérience totale.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- PASS À LA CARTE -->
+        <div class="glass rounded-3xl p-8 flex flex-col justify-between border border-white/10 hover:border-energie/50 transition">
+          <div>
+            <div class="badge b-violet mb-4 inline-block">PASS PAR PANEL</div>
+            <h3 class="font-serif text-2xl font-bold mb-2">Ticket par Masterclass / Panel</h3>
+            <div class="text-4xl font-extrabold text-energie my-4">1 000 FCFA <span class="text-xs font-normal text-white/50">/ atelier</span></div>
+            <p class="text-white/70 text-sm mb-6">Idéal si vous souhaitez suivre des sessions spécifiques selon votre emploi du temps.</p>
+            <ul class="space-y-3 text-sm text-white/80 mb-8">
+              <li class="flex gap-3"><span class="text-energie">✓</span> Accès au(x) panel(s) sélectionné(s)</li>
+              <li class="flex gap-3"><span class="text-energie">✓</span> Ticket individuel sécurisé</li>
+              <li class="flex gap-3"><span class="text-energie">✓</span> Networking de session</li>
+            </ul>
+          </div>
+          <button onclick="openInscription(null,'carte')" class="w-full glass text-white font-bold py-3.5 rounded-xl hover:bg-white/15 transition">Choisir mes ateliers →</button>
+        </div>
+
+        <!-- PASS PREMIUM TOTAL -->
+        <div class="glass-strong rounded-3xl p-8 flex flex-col justify-between border-2 border-energie shadow-2xl shadow-energie/20 relative overflow-hidden">
+          <div class="absolute top-4 right-4 badge b-pending">⭐ RECOMMANDÉ</div>
+          <div>
+            <div class="badge b-pending mb-4 inline-block">PASS TOTAL ACCÈS INTÉGRAL</div>
+            <h3 class="font-serif text-2xl font-bold mb-2">Pass Spécial 6 Jours</h3>
+            <div class="text-4xl font-extrabold text-energie my-4">5 000 FCFA <span class="text-xs font-normal text-white/50">accès complet</span></div>
+            <p class="text-white/70 text-sm mb-6">L'expérience DELOS intégrale : les 25 sessions éligibles (Jours 1 à 5) + la Journée 6 (Masterclass Finale, DÉLOS Challenge & Grand Panel Final).</p>
+            <ul class="space-y-3 text-sm text-white/80 mb-8">
+              <li class="flex gap-3"><span class="text-energie">✓</span> Accès illimité aux 25 sessions éligibles (Jours 1 à 5)</li>
+              <li class="flex gap-3"><span class="text-energie">✓</span> Entrée réservée à la grande Journée 6 (Apothéose)</li>
+              <li class="flex gap-3"><span class="text-energie">✓</span> Attestation officielle de formation DELOS</li>
+              <li class="flex gap-3"><span class="text-energie">✓</span> Support de cours &amp; ressources IA</li>
+            </ul>
+          </div>
+          <button onclick="openInscription(null,'premium')" class="btn-shine w-full bg-energie text-anthra font-extrabold py-4 rounded-xl hover:brightness-110 transition shadow-lg shadow-energie/30">Obtenir le Pass Total (5 000 FCFA) →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERVENANTS -->
+  <section id="intervenants" class="py-24 relative bg-[#0a0414]/60 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="badge b-violet mb-3 inline-block">EXPERTS &amp; PANELISTES</span>
+        <h2 class="font-serif text-3xl md:text-5xl font-bold mb-4">Intervenants &amp; Formateurs</h2>
+        <p class="text-white/60 text-sm">12 experts des médias, du cinéma, du branding et de l'IA — photos officielles extraites de leurs affiches DELOS.</p>
+      </div>
+      <!-- CircularTestimonials : portraits + témoignage/angle, autoplay 5s, clavier ← → -->
+      <div class="ct-wrap">
+        <div class="ct-grid">
+          <div class="ct-images" id="ct-images"></div>
+          <div class="ct-content">
+            <div id="ct-text"></div>
+            <div class="ct-arrows">
+              <button class="ct-arrow" onclick="ctGo(ctIndex - 1, true)" aria-label="Expert précédent">
+                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+              </button>
+              <button class="ct-arrow" onclick="ctGo(ctIndex + 1, true)" aria-label="Expert suivant">
+                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+              <span class="ct-count" id="ct-count">01 / 12</span>
+              <button onclick="openSpeaker(ctIndex)" aria-label="Voir la fiche complète de l'expert" class="ml-2 text-xs font-bold text-white/70 hover:text-white border border-white/15 hover:border-dynamo hover:bg-dynamo px-4 py-2.5 rounded-full transition">Voir la fiche complète →</button>
+            </div>
+          </div>
+        </div>
+        <div class="ct-dots" id="ct-dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section id="location" class="py-24 relative bg-[#0a0414]/60 border-y border-white/5">
+    <div class="max-w-7xl mx-auto px-5">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="badge b-violet mb-3 inline-block">LIEU DE L'ÉVÉNEMENT</span>
+        <h2 class="font-serif text-3xl md:text-5xl font-bold mb-4">Centre CEV — Calavi-Tankpè</h2>
+        <p class="text-white/60 text-sm">Nouveau tronçon Tankpè-Aïtchedji, 3è rue à gauche. Bénin.</p>
+      </div>
+      <div class="grid lg:grid-cols-5 gap-6 items-stretch">
+        <div class="lg:col-span-2 glass rounded-3xl p-7 border border-violet-soft/20 flex flex-col gap-5">
+          <div>
+            <div class="text-xs font-bold tracking-widest text-energie mb-1">ADRESSE</div>
+            <div class="font-serif text-xl font-bold">Centre CEV</div>
+            <div class="text-white/70 text-sm">Calavi-Tankpè · Abomey-Calavi · Bénin</div>
+            <div class="text-white/55 text-sm mt-2">Nouveau tronçon Tankpè-Aïtchedji, 3è rue à gauche.</div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-2xl bg-white/5 p-3">
+              <div class="text-[10px] font-bold tracking-widest text-white/45 mb-1">DATES</div>
+              <div class="text-sm font-bold text-energie">21 → 26 Sept</div>
+              <div class="text-[11px] text-white/50">2026 · 6 jours</div>
+            </div>
+            <div class="rounded-2xl bg-white/5 p-3">
+              <div class="text-[10px] font-bold tracking-widest text-white/45 mb-1">HORAIRES</div>
+              <div class="text-sm font-bold text-violet-soft">09h → 21h</div>
+              <div class="text-[11px] text-white/50">Selon les sessions</div>
+            </div>
+          </div>
+          <a href="https://maps.app.goo.gl/RnfeZXjJmjsqLT7U9" target="_blank" rel="noopener" class="btn-shine w-full bg-energie text-anthra font-extrabold py-3.5 rounded-xl hover:brightness-110 transition shadow-lg shadow-energie/30 flex items-center justify-center gap-2">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Ouvrir l'itinéraire Google Maps →
+          </a>
+          <div class="text-[11px] text-white/40 leading-relaxed">Accessible depuis Cotonou en ~25 min · Parking &amp; restauration sur place.</div>
+        </div>
+        <div class="lg:col-span-3 relative rounded-3xl overflow-hidden border border-violet-soft/30 group" style="box-shadow:0 0 0 1px rgba(139,92,246,.2), 0 0 60px -10px rgba(139,92,246,.55); transition:box-shadow .35s, transform .35s">
+          <div class="absolute inset-0 pointer-events-none z-10" style="background:linear-gradient(135deg,rgba(88,28,135,.55),rgba(13,6,24,.25) 50%,rgba(220,38,38,.35)); mix-blend-mode:multiply;"></div>
+          <iframe
+            title="Carte Centre CEV Calavi-Tankpè"
+            src="https://www.google.com/maps?q=Centre%20Missionnaire%20REVIVAL%20Calavi-Tankp%C3%A8%20B%C3%A9nin%206.4352002%2C2.3316638&z=17&output=embed"
+            width="100%" height="100%" style="border:0; min-height:clamp(260px,70vw,380px); aspect-ratio: 16/10; filter:saturate(1.05) contrast(1.05);" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          <div class="absolute bottom-4 left-4 z-20 glass-strong rounded-2xl px-4 py-3 border border-violet-soft/40">
+            <div class="text-[10px] font-bold tracking-widest text-energie">DELOS 2026</div>
+            <div class="text-sm font-bold">Centre CEV — Calavi-Tankpè</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER — design hover-footer ultra premium -->
+  <footer id="contact" class="relative bg-[#0F0F11]/40 border-t border-white/10 overflow-hidden rounded-t-[2rem] mt-8 mx-3 md:mx-6">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 pt-14 pb-10 relative z-40">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-8 lg:gap-12 pb-10">
+
+        <!-- Marque -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-2 leading-none">
+            <span class="text-energie text-2xl leading-none">★</span>
+            <span class="font-logo text-2xl font-black delos-ultra" data-text="DELOS">DELOS</span>
+            <span class="bg-energie text-anthra font-sans font-extrabold text-[11px] tracking-widest px-2 py-1 rounded-full shadow-lg shadow-energie/30">2026</span>
+          </div>
+          <p class="text-white/55 text-sm leading-relaxed">Média, Cinéma &amp; IA au service de l'Évangile et de l'Entrepreneuriat Chrétien.</p>
+          <p class="text-white/40 text-xs">📍 Centre CEV, Calavi-Tankpè (Bénin)</p>
+        </div>
+
+        <!-- La Conférence -->
+        <div>
+          <h4 class="text-white text-base font-semibold mb-5 tracking-wide">La Conférence</h4>
+          <ul class="space-y-2.5 text-sm text-white/70">
+            <li><a href="#vision" class="footer-link">Vision &amp; 6 Piliers</a></li>
+            <li><a href="#programme" class="footer-link">Programme complet</a></li>
+            <li><a href="#tarifs" class="footer-link">Tarifs &amp; Inscription</a></li>
+            <li><a href="#intervenants" class="footer-link">Intervenants &amp; Speakers</a></li>
+            <li><a href="#location" class="footer-link">Centre CEV — Lieu</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-white text-base font-semibold mb-5 tracking-wide">Contact</h4>
+          <ul class="space-y-3 text-sm text-white/70">
+            <li class="flex items-start gap-3">
+              <span class="text-energie text-base leading-none">📱</span>
+              <a href="https://wa.me/2290152112232" class="footer-link">+229 01 52 11 22 32 <span class="ml-1 inline-block w-1.5 h-1.5 rounded-full bg-energie animate-pulse"></span></a>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-energie text-base leading-none">✉️</span>
+              <a href="mailto:delos2026centrecev2026@gmail.com" class="footer-link break-all">delos2026centrecev2026@gmail.com</a>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-energie text-base leading-none">📍</span>
+              <span class="footer-link">Tronçon Tankpè-Aïtchedji, 3è rue à gauche</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Accès rapide + Réseaux -->
+        <div>
+          <h4 class="text-white text-base font-semibold mb-5 tracking-wide">Accès Rapide</h4>
+          <ul class="space-y-2.5 text-sm text-white/70 mb-6">
+            <li><a href="#" onclick="openInscription(null,'premium')" class="footer-link">S'inscrire à DELOS</a></li>
+            <li><a href="#contact" class="footer-link">Nous écrire</a></li>
+          </ul>
+          <h4 class="text-white text-xs font-bold mb-3 tracking-[0.2em] uppercase text-white/50">Suivez-nous</h4>
+          <div class="flex items-center gap-3 text-white/60">
+            <a href="https://www.facebook.com/share/1BoGPaNZoZ/" target="_blank" rel="noopener" aria-label="Facebook" class="footer-social"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 10-11.6 9.9v-7H8v-2.9h2.4V9.8c0-2.4 1.4-3.7 3.6-3.7 1 0 2.1.2 2.1.2v2.3h-1.2c-1.2 0-1.5.7-1.5 1.5V12h2.6l-.4 2.9h-2.2v7A10 10 0 0022 12z"/></svg></a>
+            <a href="https://www.tiktok.com/@delos.officiel?_r=1&_t=ZS-99OZyAA8oi2" target="_blank" rel="noopener" aria-label="TikTok" class="footer-social"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+            <a href="https://wa.me/2290140812936" target="_blank" rel="noopener" aria-label="WhatsApp" class="footer-social"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 018.413 3.488 11.82 11.82 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.978-.607zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <hr class="border-t border-white/10 my-6">
+
+      <!-- Bas de footer -->
+      <div class="flex flex-col md:flex-row justify-between items-center text-xs text-white/40 gap-3">
+        <span>© 2026 DELOS — Tous droits réservés.</span>
+        <span class="font-serif italic text-white/55">« Devenir les Bâtisseurs de la Culture de Demain »</span>
+      </div>
+    </div>
+
+    <!-- DELOS lumineux animé en bas (TextHoverEffect) -->
+    <div class="relative -mt-24 md:-mt-32 overflow-hidden" style="height:clamp(12rem,48vw,22rem)">
+      <svg id="delos-text-svg" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"
+           class="w-full h-full select-none cursor-pointer"
+           style="opacity:0.95">
+        <defs>
+          <linearGradient id="footerTextGrad" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="600" y2="0">
+            <stop offset="0%" stop-color="#eab308"/>
+            <stop offset="25%" stop-color="#ef4444"/>
+            <stop offset="50%" stop-color="#80eeb4"/>
+            <stop offset="75%" stop-color="#06b6d4"/>
+            <stop offset="100%" stop-color="#8b5cf6"/>
+          </linearGradient>
+          <radialGradient id="footerReveal" gradientUnits="userSpaceOnUse" r="22%" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="white"/>
+            <stop offset="100%" stop-color="black"/>
+          </radialGradient>
+          <mask id="footerMask">
+            <rect x="0" y="0" width="600" height="200" fill="url(#footerReveal)"/>
+          </mask>
+        </defs>
+        <!-- texte stroke (contour grisé) -->
+        <text x="300" y="120" text-anchor="middle" dominant-baseline="middle"
+              stroke-width="0.6" fill="transparent" stroke="rgba(255,255,255,0.18)"
+              class="font-logo" style="font-family:'Cinzel',serif;font-size:160px;font-weight:900;letter-spacing:0.05em">
+          DELOS
+        </text>
+        <!-- texte avec stroke animé (dasharray) -->
+        <text x="300" y="120" text-anchor="middle" dominant-baseline="middle"
+              stroke-width="0.6" fill="transparent" stroke="#3ca2fa"
+              class="font-logo" id="delos-stroke-text"
+              style="font-family:'Cinzel',serif;font-size:160px;font-weight:900;letter-spacing:0.05em">
+          DELOS
+        </text>
+        <!-- texte révélé par le curseur -->
+        <text x="300" y="120" text-anchor="middle" dominant-baseline="middle"
+              stroke="url(#footerTextGrad)" stroke-width="0.8" fill="transparent"
+              mask="url(#footerMask)"
+              class="font-logo"
+              style="font-family:'Cinzel',serif;font-size:160px;font-weight:900;letter-spacing:0.05em">
+          DELOS
+        </text>
+      </svg>
+    </div>
+
+    <!-- Footer background gradient -->
+    <div class="absolute inset-0 z-0 pointer-events-none"
+         style="background:radial-gradient(125% 125% at 50% 10%, #0F0F1166 50%, #3ca2fa22 100%);"></div>
+  </footer>
+</div>
+
+<!-- MODAL INSCRIPTION -->
+<div id="modal-inscription" class="hidden fixed inset-0 z-[70] modal-bg overflow-y-auto">
+  <div class="min-h-full flex items-center justify-center p-4">
+    <div class="glass-strong rounded-3xl w-full max-w-2xl modal-in relative my-8">
+      <button onclick="closeModal('modal-inscription')" aria-label="Fermer le formulaire d'inscription" class="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/10 hover:bg-dynamo/60 transition flex items-center justify-center z-10">✕</button>
+      <div id="reg-content" class="p-6 md:p-9"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL SPEAKER -->
+<div id="modal-speaker" class="hidden fixed inset-0 z-[70] modal-bg overflow-y-auto">
+  <div class="min-h-full flex items-center justify-center p-4">
+    <div class="glass-strong rounded-3xl w-full max-w-md modal-in relative p-8" id="speaker-content"></div>
+  </div>
+</div>
+
+<!-- TOASTS -->
+<div id="toasts" class="fixed bottom-5 right-5 z-[90] space-y-3 w-[320px] max-w-[calc(100vw-40px)]"></div>
+
+<script src="delos-data.js"></script>
+<script>
+// ---------- STATE LOCAL ----------
+const state = { day:1 };
+let reg = null;
+
+function openModal(id){ $(id).classList.remove('hidden'); document.body.style.overflow='hidden'; }
+function closeModal(id){ $(id).classList.add('hidden'); document.body.style.overflow=''; }
+document.querySelectorAll('.modal-bg').forEach(m => m.addEventListener('click', e => { if(e.target===m) closeModal(m.id); }));
+
+// ---------- MOBILE NAV (burger toggle) ----------
+function closeMobile(){
+  const mm = $('mobile-menu'), b = $('burger');
+  if (mm) mm.classList.add('hidden');
+  if (b){ b.classList.remove('open'); b.setAttribute('aria-expanded','false'); }
+}
+const burger = $('burger');
+if (burger){
+  burger.addEventListener('click', () => {
+    const mm = $('mobile-menu');
+    const open = mm.classList.toggle('hidden') === false;
+    burger.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+}
+
+// ---------- FOOTER : DELOS TextHoverEffect (curseur reveal) ----------
+(function(){
+  const svg = $('delos-text-svg');
+  if (!svg) return;
+  const grad = svg.querySelector('#footerReveal');
+  let targetX = 50, targetY = 50, curX = 50, curY = 50, raf = null;
+  function loop(){
+    curX += (targetX - curX) * 0.18;
+    curY += (targetY - curY) * 0.18;
+    if (grad) grad.setAttribute('cx', curX + '%'), grad.setAttribute('cy', curY + '%');
+    if (Math.abs(targetX - curX) > 0.05 || Math.abs(targetY - curY) > 0.05) {
+      raf = requestAnimationFrame(loop);
+    } else { raf = null; }
+  }
+  function start(){ if (!raf) raf = requestAnimationFrame(loop); }
+  svg.addEventListener('mousemove', (e) => {
+    const r = svg.getBoundingClientRect();
+    targetX = ((e.clientX - r.left) / r.width) * 100;
+    targetY = ((e.clientY - r.top) / r.height) * 100;
+    start();
+  });
+  svg.addEventListener('mouseleave', () => {
+    targetX = 50; targetY = 50; start();
+  });
+})();
+
+// ---------- COUNTDOWN ----------
+const TARGET = new Date('2026-09-21T09:00:00+01:00').getTime();
+setInterval(()=>{
+  if (document.hidden) return; // pause quand l'onglet est invisible (batterie Android)
+  const diff = Math.max(0, TARGET - Date.now());
+  const d = Math.floor(diff/86400000), h = Math.floor(diff/3600000)%24, m = Math.floor(diff/60000)%60, s = Math.floor(diff/1000)%60;
+  if($('cd-d')){ $('cd-d').textContent=d; $('cd-h').textContent=pad(h,2); $('cd-m').textContent=pad(m,2); $('cd-s').textContent=pad(s,2); }
+},1000);
+
+// ---------- NAV SCROLL & PARALLAX (throttlé rAF : 1 query + 0 layout-thrash) ----------
+const pxEls = Array.from(document.querySelectorAll('[data-px]'));
+let scrollQueued = false;
+function applyScrollFX(){
+  scrollQueued = false;
+  const y = window.scrollY;
+  const nav = $('main-nav');
+  if (nav) nav.classList.toggle('glass-strong', y > 40), nav.classList.toggle('shadow-lg', y > 40);
+  for (let i = 0; i < pxEls.length; i++){
+    pxEls[i].style.transform = `translateY(${y * parseFloat(pxEls[i].dataset.px)}px)`;
+  }
+}
+window.addEventListener('scroll', ()=>{
+  if (!scrollQueued){ scrollQueued = true; requestAnimationFrame(applyScrollFX); }
+}, { passive: true });
+applyScrollFX();
+
+// ---------- SCROLL REVEAL ----------
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('revealed'); observer.unobserve(e.target); } });
+},{ threshold:.12 });
+function observeReveals(){ document.querySelectorAll('.reveal:not(.revealed)').forEach(el=>observer.observe(el)); }
+
+// ---------- RENDER PILIERS — Circular Gallery 3D ----------
+(function renderCircularGallery(){
+  const stage = $('pillars-stage');
+  const scene = $('pillars-scene');
+  if (!stage || !scene) return;
+
+  const items = PILLARS.map((p, i) => ({...p, _n: i + 1}));
+  const N = items.length;
+  const angleStep = 360 / N;
+  const isMobile = window.matchMedia('(max-width:768px)').matches;
+  const cardW = isMobile ? 200 : 240;
+  const cardH = isMobile ? 290 : 340;
+  const radius = Math.max(320, Math.min(500, stage.clientWidth * 0.78));
+
+  // Build cards
+  scene.style.width = cardW + 'px';
+  scene.style.height = cardH + 'px';
+  scene.innerHTML = items.map((it, i) => {
+    const angle = i * angleStep;
+    return `
+      <div class="gallery-card" data-i="${i}" style="width:${cardW}px;height:${cardH}px;transform: rotateY(${angle}deg) translateZ(${radius}px);">
+        <img src="${it.image}" alt="${it.name}" loading="lazy" decoding="async" style="object-position:${it.pos || 'center'}" onerror="this.style.opacity=.25">
+        <div class="card-shade"></div>
+        <div class="card-num">${String(it._n).padStart(2,'0')}</div>
+        <div class="card-info">
+          <span class="card-day" style="color:${it.color}">${it.day}</span>
+          <div class="card-name" style="color:${it.color}">${it.name}</div>
+          <div class="card-bino">${it.binomial}</div>
+          <p class="card-desc">${it.desc}</p>
+        </div>
+      </div>`;
+  }).join('');
+
+  // State
+  let rotation = 0;
+  let targetRotation = 0;
+  let autoSpeed = -0.180;       // Auto-rotation: right -> left (inverted) + faster
+  let isDragging = false;
+  let lastDragX = 0;
+  let dragVelocity = 0;       // accumulated angular velocity from flick
+  let autoResumeAt = 0;
+  let activePointerId = null; // pointerId du drag en cours (peut rester stale si l'up est raté)
+  let stageVisible = true;  // galerie dans le viewport ?
+  let tickRaf = null;       // id rAF courant (null = boucle en pause)
+
+  function setRotation(deg){
+    rotation = deg;
+    scene.style.transform = `rotateY(${deg}deg)`;
+    // Update opacity / focus on front card
+    const cards = scene.querySelectorAll('.gallery-card');
+    const mod = ((deg % 360) + 360) % 360;
+    cards.forEach((c, i) => {
+      const a = (i * angleStep + mod + 360) % 360;
+      const norm = Math.min(Math.abs(a), 360 - Math.abs(a)); // 0..180
+      const op = Math.max(0.25, 1 - norm / 110);
+      c.style.opacity = op;
+      c.classList.toggle('is-front', norm < 12);
+    });
+  }
+
+  function tick(){
+    const now = Date.now();
+    if (!isDragging){
+      if (now > autoResumeAt){
+        // Auto-rotation après la pause d'après-drag
+        targetRotation += autoSpeed;
+      } else if (Math.abs(dragVelocity) > 0.005){
+        // Coasting depuis un flick : la roue continue à décélérer naturellement
+        targetRotation += dragVelocity;
+        dragVelocity *= 0.94;
+      } else {
+        // Flick déjà amorti pendant la pause : on reprend vite l'auto-rotation
+        // au lieu de laisser la roue "gelée" 1,5 s
+        dragVelocity = 0;
+        targetRotation += autoSpeed;
+      }
+      // Approche lissée de la cible quand on n'est PAS en train de glisser
+      rotation += (targetRotation - rotation) * 0.18;
+    } else {
+      // Pendant le drag : suivi direct 1:1 à la souris
+      rotation = targetRotation;
+    }
+    setRotation(rotation);
+    tickRaf = requestAnimationFrame(tick);
+  }
+
+  // ====== DRAG — Pointer Events + Touch fallback, unifié souris + tactile ======
+  // Nettoyage complet : ramène TOUJOURS l'état à un état propre (jamais de blocage)
+  function clearDrag(){
+    activePointerId = null;
+    isDragging = false;
+    stage.classList.remove('dragging');
+    document.removeEventListener('pointermove', handleMove);
+    document.removeEventListener('pointerup', handleUp);
+    document.removeEventListener('pointercancel', handleUp);
+    document.removeEventListener('touchmove', onTouchMove);
+  }
+
+  function handleDown(e){
+    // On purge TOUJOURS l'état précédent : si un pointerdown antérieur n'a pas
+    // reçu son pointerup/pointercancel (souris relâchée hors fenêtre, perte de
+    // focus, annulation...), on démarre le nouveau drag sur un état propre.
+    // => la roue ne reste plus JAMAIS bloquée quand on "ressaye".
+    clearDrag();
+    activePointerId = e.pointerId;
+    isDragging = true;
+    lastDragX = e.clientX;
+    dragVelocity = 0;
+    autoResumeAt = Date.now() + 999999;
+    // Ancre le drag sur la rotation visuellement affichée : la roue suit
+    // exactement le curseur (aucun saut dû au lissage), vers la gauche ET la droite.
+    rotation = targetRotation;
+    stage.classList.add('dragging');
+    if (e.cancelable) e.preventDefault();
+    try { stage.setPointerCapture(e.pointerId); } catch(_){}
+    document.addEventListener('pointermove', handleMove, { passive: false });
+    document.addEventListener('pointerup', handleUp);
+    document.addEventListener('pointercancel', handleUp);
+    document.addEventListener('touchmove', onTouchMove, { passive: false });
+  }
+  function onTouchMove(e){
+    if (isDragging && e.cancelable) e.preventDefault();
+  }
+  function handleMove(e){
+    if (activePointerId !== e.pointerId) return;
+    const dx = e.clientX - lastDragX;
+    lastDragX = e.clientX;
+    const dRot = -dx * 0.7; // dx>0 (curseur → droite) ⇒ rotation négative ⇒ roue vers la gauche, et inversement
+    targetRotation += dRot;
+    dragVelocity = dRot * 1.2;
+    if (e.cancelable) e.preventDefault();
+  }
+  function handleUp(e){
+    if (activePointerId === null || activePointerId !== e.pointerId) return;
+    autoResumeAt = Date.now() + 1200;
+    try { stage.releasePointerCapture(activePointerId); } catch(_){}
+    clearDrag();
+  }
+  function handleCancel(e){
+    // pointercancel / perte du pointer : on libère tout de suite
+    if (activePointerId === null || activePointerId !== e.pointerId) return;
+    autoResumeAt = Date.now() + 400;
+    clearDrag();
+  }
+
+  // Sécurités navigateur : ne JAMAIS laisser la galerie verrouillée
+  window.addEventListener('blur', () => {
+    if (activePointerId !== null){
+      autoResumeAt = Date.now() + 400;
+      clearDrag();
+    }
+  });
+  stage.addEventListener('lostpointercapture', e => {
+    if (activePointerId !== null && e.pointerId === activePointerId){
+      clearDrag();
+    }
+  });
+
+  // Bind on stage so we work whether the user clicks empty space or a card
+  stage.addEventListener('pointerdown', handleDown);
+  stage.addEventListener('dragstart', e => e.preventDefault());
+  stage.addEventListener('selectstart', e => e.preventDefault());
+  scene.querySelectorAll('img').forEach(img => img.addEventListener('dragstart', e => e.preventDefault()));
+
+  // Recompute radius & card size on resize
+  function applyLayout(){
+    const mob = window.matchMedia('(max-width:768px)').matches;
+    const w = mob ? 200 : 240;
+    const h = mob ? 290 : 340;
+    const r = Math.max(320, Math.min(500, stage.clientWidth * 0.78));
+    scene.style.width = w + 'px';
+    scene.style.height = h + 'px';
+    scene.querySelectorAll('.gallery-card').forEach((c, i) => {
+      c.style.width = w + 'px';
+      c.style.height = h + 'px';
+      c.style.transform = `rotateY(${i * angleStep}deg) translateZ(${r}px)`;
+    });
+  }
+  let applyLayoutT = null;
+  window.addEventListener('resize', ()=>{ clearTimeout(applyLayoutT); applyLayoutT = setTimeout(applyLayout, 180); });
+
+  setRotation(0);
+  // Perf mobile : la boucle rAF ne tourne que quand la galerie est visible
+  // ET que l'onglet est actif (0 % CPU hors écran, batterie Android préservée).
+  function startTick(){ if (tickRaf === null) tickRaf = requestAnimationFrame(tick); }
+  function stopTick(){ if (tickRaf !== null){ cancelAnimationFrame(tickRaf); tickRaf = null; } }
+  if ('IntersectionObserver' in window){
+    new IntersectionObserver(es=>{ es.forEach(e=>{ stageVisible = e.isIntersecting; if (stageVisible) startTick(); else stopTick(); }); }, { threshold: 0 }).observe(stage);
+  }
+  document.addEventListener('visibilitychange', ()=>{ if (document.hidden) stopTick(); else if (stageVisible) startTick(); });
+  startTick();
+})();
+
+// ---------- RENDER PROGRAMME ----------
+function renderDayTabs(){
+  $('day-tabs').innerHTML = DAYS.map(d=>`
+    <button onclick="selectDay(${d.n})" class="tab-btn ${state.day===d.n?'active':''} px-4 md:px-6 py-2.5 rounded-full border border-white/15 text-xs md:text-sm font-bold text-white/70">
+      J${d.n} · ${d.name}
+    </button>`).join('');
+}
+function selectDay(n){ state.day = n; renderDayTabs(); renderPanels(); observeReveals(); }
+function scrollPanels(dir){
+  const track = $('offer-track');
+  if (!track) return;
+  const amt = track.clientWidth * 0.8;
+  track.scrollBy({ left: dir === 'left' ? -amt : amt, behavior: 'smooth' });
+}
+// Carte premium type OfferCard (sans intervenant, hover rouge) — J1→J5
+function offerCardHTML({ code, time, format, title, desc, dayN, dayName, img, alt }){
+  return `
+    <article class="offer-card group">
+      <div class="offer-media">
+        <img src="${img}" alt="${(alt || title || '').replace(/"/g,'')}" loading="lazy" decoding="async" onerror="this.style.opacity=.25">
+        <div class="offer-media-top">
+          <span class="offer-code">${code}</span>
+          <span class="offer-time">${time}</span>
+        </div>
+      </div>
+      <div class="offer-body">
+        <div class="offer-tag">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2H2v10l9.3 9.3a1 1 0 001.4 0l8.6-8.6a1 1 0 000-1.4z"/><circle cx="7" cy="7" r="1.5"/></svg>
+          <span>${format}</span>
+        </div>
+        <h4 class="offer-title">${title}</h4>
+        <p class="offer-desc">${desc}</p>
+        <div class="offer-foot">
+          <div class="offer-day">
+            <span class="offer-day-dot">J${dayN}</span>
+            <span class="offer-day-txt">${dayName}<span>Session officielle</span></span>
+          </div>
+          <span class="offer-arrow">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </span>
+        </div>
+        <button onclick="openInscription('${code}','carte')" class="offer-cta">
+          S'inscrire à cette session (1 000 FCFA) →
+        </button>
+      </div>
+    </article>`;
+}
+function renderPanels(){
+  const day = DAYS.find(d=>d.n===state.day);
+  let cards = '';
+  if (state.day === 6){
+    cards = J6_EVENTS.map(e => offerCardHTML({
+      code: e.code, time: e.time, format: e.format, title: e.title,
+      desc: e.desc, dayN: 6, dayName: 'ENVOYER', img: e.img
+    })).join('');
+  } else {
+    const list = PANELS.filter(p=>p.day===state.day);
+    cards = list.map(p => offerCardHTML({
+      code: p.code, time: p.time, format: p.format, title: p.title,
+      desc: ('Axe : ' + p.axis + ' — ' + p.time),
+      dayN: day.n, dayName: day.name, img: p.img
+    })).join('');
+  }
+  const banner = state.day === 6
+    ? `<div class="glass rounded-2xl px-5 py-3 text-sm text-energie font-semibold border border-energie/30 mb-5">⭐ Journée d'envoi — 3 événements officiels. Réservables à la carte (1 000 FCFA / panel) ou inclus dans le Pass Premium.</div>`
+    : '';
+  const html = `
+    <div class="reveal mb-5">
+      <div class="flex flex-wrap items-center gap-3">
+        <h3 class="font-serif text-xl md:text-2xl font-bold">JOUR ${day.n} — <span class="text-energie">${day.name}</span></h3>
+        <span class="text-white/40 text-sm">${day.sub} • ${day.date}</span>
+      </div>
+    </div>
+    ${banner}
+    <div class="offer-carousel group">
+      <button onclick="scrollPanels('left')" class="offer-nav offer-nav-left" aria-label="Faire défiler vers la gauche">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div id="offer-track" class="offer-track scrollbar-hide">${cards}</div>
+      <button onclick="scrollPanels('right')" class="offer-nav offer-nav-right" aria-label="Faire défiler vers la droite">
+        <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+    </div>`;
+  $('panels-grid').innerHTML = html;
+}
+
+// ---------- INTERVENANTS — CircularTestimonials (port vanilla) ----------
+let ctIndex = 0, ctTimer = null;
+function ctGap(){
+  const el = $('ct-images');
+  const w = el ? el.offsetWidth : 1200;
+  if (w <= 380) return 34;
+  if (w <= 480) return 44;
+  const minW = 1024, maxW = 1456, minG = 60, maxG = 86;
+  if (w <= 1024) return minG;
+  if (w >= maxW) return Math.max(minG, maxG + 0.06018 * (w - maxW));
+  return minG + (maxG - minG) * ((w - minW) / (maxW - minW));
+}
+function ctStyle(i){
+  const n = SPEAKERS.length, gap = ctGap(), up = gap * 0.8;
+  const base = 'all .8s cubic-bezier(.4,2,.3,1)';
+  if (i === ctIndex) return `z-index:3;opacity:1;pointer-events:auto;transform:translateX(0) translateY(0) scale(1) rotateY(0deg);transition:${base};`;
+  if (i === (ctIndex - 1 + n) % n) return `z-index:2;opacity:1;pointer-events:auto;transform:translateX(-${gap}px) translateY(-${up}px) scale(.85) rotateY(15deg);transition:${base};`;
+  if (i === (ctIndex + 1) % n) return `z-index:2;opacity:1;pointer-events:auto;transform:translateX(${gap}px) translateY(-${up}px) scale(.85) rotateY(-15deg);transition:${base};`;
+  return `z-index:1;opacity:0;pointer-events:none;transition:${base};`;
+}
+function renderCt(){
+  const box = $('ct-images');
+  if (!box) return;
+  box.innerHTML = SPEAKERS.map((s,i)=>`
+    <img src="${s.img}" alt="${s.name}" loading="lazy" decoding="async" class="ct-img ${i===ctIndex?'is-active':''}"
+         style="${ctStyle(i)}" onclick="ctGo(${i}, true)" onerror="this.style.opacity=.2">`).join('')
+    + `<span class="ct-num">EXPERT ${String(ctIndex+1).padStart(2,'0')} / ${String(SPEAKERS.length).padStart(2,'0')}</span>`;
+  const s = SPEAKERS[((ctIndex % SPEAKERS.length) + SPEAKERS.length) % SPEAKERS.length];
+  const words = (s.angle || '').split(' ').map((w,i)=>`<span class="w" style="animation-delay:${(i*0.025).toFixed(3)}s">${w}</span>`).join(' ');
+  $('ct-text').innerHTML = `
+    <div class="ct-fade" key="${ctIndex}">
+      <h3 class="ct-name">${s.name}</h3>
+      <p class="ct-role">${s.role}</p>
+      <p class="ct-bio">${s.bio}</p>
+      <span class="ct-angle-chip">◉ Son angle pour Délos</span>
+      <p class="ct-quote">${words}</p>
+    </div>`;
+  $('ct-count').textContent = `${String(ctIndex+1).padStart(2,'0')} / ${String(SPEAKERS.length).padStart(2,'0')}`;
+  $('ct-dots').innerHTML = SPEAKERS.map((_,i)=>`<button class="ct-dot ${i===ctIndex?'active':''}" onclick="ctGo(${i}, true)" aria-label="Voir l'expert ${i+1}"></button>`).join('');
+}
+function ctGo(i, manual){
+  const n = SPEAKERS.length;
+  ctIndex = ((i % n) + n) % n;
+  renderCt();
+  if (manual) ctRestart();
+}
+function ctRestart(){
+  if (ctTimer) clearInterval(ctTimer);
+  ctTimer = setInterval(()=>{ ctIndex = (ctIndex + 1) % SPEAKERS.length; renderCt(); }, 5000);
+}
+let ctResizeT = null;
+window.addEventListener('resize', ()=>{ clearTimeout(ctResizeT); ctResizeT = setTimeout(renderCt, 180); });
+document.addEventListener('keydown', (e)=>{
+  if (!$('modal-speaker') || !$('modal-speaker').classList.contains('hidden')) return;
+  if (e.key === 'ArrowLeft') ctGo(ctIndex - 1, true);
+  if (e.key === 'ArrowRight') ctGo(ctIndex + 1, true);
+});
+renderCt(); ctRestart();
+
+function openSpeaker(idx){
+  const s = SPEAKERS[((idx % SPEAKERS.length) + SPEAKERS.length) % SPEAKERS.length];
+  $('speaker-content').innerHTML = `
+    <button onclick="closeModal('modal-speaker')" aria-label="Fermer la fiche expert" class="absolute top-4 right-4 w-11 h-11 rounded-full bg-white/10 hover:bg-dynamo/60 transition">✕</button>
+    <img src="${s.img}" alt="${s.name}" loading="lazy" decoding="async" class="w-32 h-40 mx-auto rounded-2xl object-cover object-top border border-dynamo/50 shadow-2xl shadow-dynamo/30 mb-4" onerror="this.style.opacity=.2">
+    <h3 class="font-serif text-2xl font-bold text-center mb-1">${s.name}</h3>
+    <div class="text-xs text-[#FCA5A5] font-semibold text-center mb-3">${s.role}</div>
+    <p class="text-white/60 text-xs leading-relaxed mb-4 text-center">${s.bio}</p>
+    <div class="text-[11px] font-bold tracking-widest uppercase text-energie text-center mb-2">◉ Son angle pour Délos</div>
+    <p class="text-white/85 text-sm leading-relaxed text-center mb-6">« ${s.angle} »</p>
+    <button onclick="closeModal('modal-speaker'); openInscription(null,'premium')" class="btn-shine w-full bg-energie text-anthra font-extrabold py-3 rounded-xl">S'inscrire aux Masterclass →</button>`;
+  openModal('modal-speaker');
+}
+
+// ---------- WORKFLOW INSCRIPTION ----------
+function openInscription(panelCode=null, type='premium'){
+  reg = { step:1, passType: type, panels: panelCode ? [panelCode] : [], nom:'', prenom:'', email:'', phone:'', ref:'', proof:null, proofRaw:false, proofName:'' };
+  renderReg();
+  openModal('modal-inscription');
+  // focus le 1er input si étape 2 est rendue
+  setTimeout(()=>{ const n = $('r-nom'); if(n) n.focus(); }, 50);
+}
+
+function regAmount(){
+  return reg.passType==='premium' ? 5000 : reg.panels.length * 1000;
+}
+
+function allSelectableItems(){
+  return PANELS.map(p=>({ code:p.code, day:p.day, label:p.title, kind:'Atelier (1 000 FCFA)' }))
+    .concat(J6_EVENTS.map(e=>({ code:e.code, day:6, label:e.title, kind:'Journée 6 (1 000 FCFA)' })));
+}
+
+function renderReg(){
+  const c = $('reg-content');
+  if (reg.step === 1){
+    c.innerHTML = `
+      <div class="text-center mb-7">
+        <span class="badge b-pending mb-2 inline-block">ÉTAPE 1 / 3</span>
+        <h3 class="font-serif text-2xl md:text-3xl font-bold">Choisissez votre Formule</h3>
+      </div>
+      <div class="grid sm:grid-cols-2 gap-4 mb-6">
+        <div onclick="reg.passType='premium'; reg.panels=[]; renderReg()" class="pick-card glass rounded-2xl p-5 border ${reg.passType==='premium'?'selected':'border-white/15'}">
+          <div class="badge b-pending mb-2">⭐ ACCÈS INTÉGRAL</div>
+          <div class="font-bold text-lg mb-1">Pass Spécial 6 Jours</div>
+          <div class="text-2xl font-extrabold text-energie mb-2">5 000 FCFA</div>
+          <p class="text-xs text-white/50 leading-relaxed">Accès complet aux 25 sessions éligibles (Jours 1 à 5) + Journée 6 Apothéose + Attestation.</p>
+        </div>
+        <div onclick="reg.passType='carte'; renderReg()" class="pick-card glass rounded-2xl p-5 border ${reg.passType==='carte'?'selected':'border-white/15'}">
+          <div class="badge b-violet mb-2">🎟 À LA CARTE</div>
+          <div class="font-bold text-lg mb-1">Sélection de Masterclass</div>
+          <div class="text-2xl font-extrabold text-energie mb-2">1 000 FCFA <span class="text-xs text-white/50">/ atelier</span></div>
+          <p class="text-xs text-white/50 leading-relaxed">Sélectionnez précisément les panels qui vous intéressent (incl. Journée 6).</p>
+        </div>
+      </div>
+      ${reg.passType==='carte' ? `
+        <div class="mb-6"><div class="text-xs font-bold text-energie tracking-widest mb-3">SÉLECTIONNEZ VOS PANELS (1 000 FCFA / atelier) :</div>
+        <div class="max-h-64 overflow-y-auto space-y-2 pr-2">
+          ${allSelectableItems().map(it=>`
+            <div onclick="togglePanelReg('${it.code}')" class="pick-panel glass rounded-xl p-3 text-xs border flex items-center justify-between ${reg.panels.includes(it.code)?'selected':'border-white/10'}">
+              <div><b class="text-violet-soft font-mono">${it.code}</b> — ${it.label.slice(0,55)}${it.label.length>55?'…':''} <span class="text-white/40">(J${it.day})</span></div>
+              <span class="text-base">${reg.panels.includes(it.code)?'✅':'➕'}</span>
+            </div>`).join('')}
+        </div></div>` : ''}
+      <div class="flex items-center justify-between pt-4 border-t border-white/10">
+        <div class="text-sm font-semibold">Total : <b class="text-energie text-xl">${fmt(regAmount())}</b></div>
+        <button id="btn-step2" class="btn-shine bg-energie text-anthra font-extrabold px-7 py-3 rounded-xl">Continuer →</button>
+      </div>`;
+    // Bind propre (évite les soucis d'onclick inline après re-render)
+    const b = $('btn-step2');
+    if (b) b.onclick = ()=>{
+      if (reg.passType==='carte' && !reg.panels.length) return toast('⚠ Veuillez choisir au moins 1 panel.','error');
+      reg.step = 2; renderReg();
+    };
+  }
+  else if (reg.step === 2){
+    c.innerHTML = `
+      <div class="text-center mb-6">
+        <span class="badge b-pending mb-2 inline-block">ÉTAPE 2 / 3</span>
+        <h3 class="font-serif text-2xl font-bold">Vos Coordonnées</h3>
+      </div>
+      <div class="space-y-4 mb-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div><label class="text-xs font-semibold text-white/60">NOM</label><input id="r-nom" value="${escH(reg.nom)}" class="field mt-1.5" placeholder="Ex: DANSOU"></div>
+          <div><label class="text-xs font-semibold text-white/60">PRÉNOM</label><input id="r-prenom" value="${escH(reg.prenom)}" class="field mt-1.5" placeholder="Ex: Raïssa"></div>
+        </div>
+        <div><label class="text-xs font-semibold text-white/60">EMAIL (pour recevoir votre ticket)</label><input id="r-email" type="email" value="${escH(reg.email)}" class="field mt-1.5" placeholder="exemple@gmail.com"></div>
+        <div><label class="text-xs font-semibold text-white/60">WHATSAPP / TÉLÉPHONE</label><input id="r-phone" value="${escH(reg.phone)}" class="field mt-1.5" placeholder="+229 01 XX XX XX XX"></div>
+      </div>
+      <div class="flex items-center justify-between pt-4 border-t border-white/10">
+        <button id="btn-back-2" class="text-xs text-white/60 hover:text-white">← Retour</button>
+        <button id="btn-step3" class="btn-shine bg-energie text-anthra font-extrabold px-7 py-3 rounded-xl">Procéder au Paiement →</button>
+      </div>`;
+    $('btn-back-2').onclick = ()=>{ collectStep2(); reg.step = 1; renderReg(); };
+    $('btn-step3').onclick = saveStep2;
+  }
+  else if (reg.step === 3){
+    c.innerHTML = `
+      <div class="text-center mb-6">
+        <span class="badge b-pending mb-2 inline-block">ÉTAPE 3 / 3</span>
+        <h3 class="font-serif text-2xl font-bold">Paiement Mobile Money</h3>
+        <p class="text-xs text-white/60 mt-1">Montant à régler : <b class="text-energie text-base">${fmt(regAmount())}</b></p>
+      </div>
+      <div class="glass rounded-2xl p-5 mb-6 space-y-3 text-xs">
+        <div class="font-bold text-energie tracking-wider mb-2">INSTRUCTIONS DE PAIEMENT :</div>
+        <div class="flex justify-between border-b border-white/10 pb-2"><span>Numéro MoMo / Moov :</span><b class="text-white font-mono text-sm">+229 01 96 96 29 85</b></div>
+        <div class="flex justify-between border-b border-white/10 pb-2"><span>Nom du bénéficiaire :</span><b class="text-white">DELOS — COMITÉ</b></div>
+        <div class="text-white/60 leading-relaxed pt-1">Effectuez le transfert puis, si vous l'avez, saisissez ci-dessous la <b>référence de la transaction</b> figurant dans le SMS de confirmation (facultatif).</div>
+      </div>
+      <div class="space-y-4 mb-6">
+        <div>
+          <label class="text-xs font-semibold text-white/60">RÉFÉRENCE DE TRANSACTION (Optionnel)</label>
+          <input id="r-ref" value="${escH(reg.ref)}" class="field mt-1.5 font-mono" placeholder="Ex: MM260921-99812 (si disponible)">
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-white/60">JUSTIFICATIF / CAPTURE D'ÉCRAN (Optionnel)</label>
+          <label class="block field mt-1.5 cursor-pointer text-center text-xs text-white/60 hover:border-energie">
+            <input type="file" accept="image/*" class="hidden" id="r-proof">
+            <span id="proof-label">${reg.proof ? '✓ ' + escH(reg.proofName || 'capture jointe') + ' — cliquez pour changer' : "📷 Joindre une capture d'écran du paiement"}</span>
+          </label>
+        </div>
+        <div id="reg-error" class="hidden text-dynamo text-xs font-semibold bg-dynamo/10 border border-dynamo/30 rounded-lg p-3"></div>
+      </div>
+      <div class="flex items-center justify-between pt-4 border-t border-white/10">
+        <button id="btn-back-3" class="text-xs text-white/60 hover:text-white">← Retour</button>
+        <button id="btn-submit" class="btn-shine bg-equi text-white font-extrabold px-8 py-3.5 rounded-xl shadow-lg shadow-equi/30">Valider mon Inscription ✓</button>
+      </div>`;
+    $('btn-back-3').onclick = ()=>{ collectStep3(); reg.step = 2; renderReg(); };
+    $('r-proof').onchange = e => handleProof(e.target || e.srcElement);
+    // Persiste la référence à chaque frappe : un aller-retour ne la perd plus.
+    $('r-ref').oninput = e => { reg.ref = e.target.value; };
+    $('btn-submit').onclick = regSubmit;
+  }
+  else if (reg.step === 4){
+    c.innerHTML = `
+      <div class="text-center py-6">
+        <div class="w-16 h-16 mx-auto rounded-full bg-equi/20 border border-equi text-equi flex items-center justify-center text-3xl mb-4 animate-bounce">✓</div>
+        <h3 class="font-serif text-3xl font-bold mb-2">Inscription Soumise !</h3>
+        <p class="text-white/70 text-sm max-w-md mx-auto mb-6">Merci <b class="text-white">${reg.prenom} ${reg.nom}</b>. Votre demande est enregistrée avec le statut <span class="badge b-pending">⏳ EN ATTENTE</span>.</p>
+        <div class="glass rounded-2xl p-5 max-w-md mx-auto text-left text-xs space-y-2 mb-6">
+          <div class="flex justify-between"><span class="text-white/50">Formule :</span><b>${reg.passType==='premium'?'Pass Spécial Total':'Ateliers à la carte'}</b></div>
+          <div class="flex justify-between"><span class="text-white/50">Montant :</span><b class="text-energie">${fmt(regAmount())}</b></div>
+          <div class="flex justify-between"><span class="text-white/50">Référence MoMo :</span><b class="font-mono">${reg.ref || '—'}</b></div>
+          <div class="flex justify-between"><span class="text-white/50">Email :</span><b>${reg.email}</b></div>
+        </div>
+        <p class="text-xs text-white/50 max-w-md mx-auto mb-7">Dès confirmation du paiement par notre comité d'organisation, vous recevrez le mail de confirmation de votre inscription dans votre email, accompagné de vos pass ticket-sécurisé par panel, dans le cas échéant. <b class="text-white">Pensez aussi à vérifier vos spams / courriers indésirables</b> si vous ne le recevez pas.</p>
+        <button id="btn-close-final" class="btn-shine bg-energie text-anthra font-extrabold px-8 py-3.5 rounded-xl">Fermer &amp; Retour au Site</button>
+      </div>`;
+    $('btn-close-final').onclick = ()=> closeModal('modal-inscription');
+  }
+}
+
+function togglePanelReg(code){
+  const idx = reg.panels.indexOf(code);
+  if (idx > -1) reg.panels.splice(idx,1); else reg.panels.push(code);
+  renderReg();
+}
+
+function collectStep2(){
+  reg.nom = ($('r-nom')?.value || '').trim();
+  reg.prenom = ($('r-prenom')?.value || '').trim();
+  reg.email = ($('r-email')?.value || '').trim();
+  reg.phone = ($('r-phone')?.value || '').trim();
+}
+
+function collectStep3(){
+  reg.ref = ($('r-ref')?.value || '').trim();
+}
+
+function saveStep2(){
+  collectStep2();
+  if(!reg.nom || !reg.prenom || !reg.email || !reg.phone) return toast('⚠ Veuillez remplir tous les champs.','error');
+  if(!reg.email.includes('@')) return toast('⚠ Adresse email invalide.','error');
+  reg.step = 3; renderReg();
+}
+
+let proofLoading = false;
+function handleProof(input){
+  try {
+    // input peut être l'élément <input> ou l'Event 'change' selon l'appelant.
+    const el = (input && input.files) ? input : (input && (input.target || input.srcElement));
+    const f = el && el.files && el.files[0];
+    if (!f) return;
+    const okKind = (f.type || '').startsWith('image/') || /\.(heic|heif|avif|webp|png|jpe?g|gif|bmp|tiff?)$/i.test(f.name || '');
+  if (!okKind) return toast('⚠ Fichier image requis (capture PNG/JPG).','error');
+  proofLoading = true;
+  const lbl = $('proof-label'); if (lbl) lbl.textContent = '⏳ Compression de la capture…';
+  const storeRaw = () => { // fallback universel (HEIC & formats non décodables) : brut conservé tel quel
+    const rd = new FileReader();
+    rd.onload = e => { reg.proof = e.target.result; reg.proofRaw = true; reg.proofName = f.name; if (lbl) lbl.textContent = '✓ ' + f.name; proofLoading = false; };
+    rd.onerror = () => { proofLoading = false; if (lbl) lbl.textContent = "📷 Joindre une capture d'écran du paiement"; toast('⚠ Fichier illisible.','error'); };
+    rd.readAsDataURL(f);
+  };
+  const url = URL.createObjectURL(f);
+  const img = new Image();
+  img.onload = () => {
+    try {
+      const MAX = 1200; // redimensionne les captures 4K → stockage local + admin allégés
+      const sc = Math.min(1, MAX / Math.max(img.width, img.height));
+      const cv = document.createElement('canvas');
+      cv.width = Math.max(1, Math.round(img.width * sc)); cv.height = Math.max(1, Math.round(img.height * sc));
+      cv.getContext('2d').drawImage(img, 0, 0, cv.width, cv.height);
+      reg.proof = cv.toDataURL('image/jpeg', .72);
+      reg.proofRaw = false;
+      reg.proofName = f.name;
+      if (lbl) lbl.textContent = '✓ ' + f.name;
+    } catch(e){ console.error('Compression capture impossible', e); URL.revokeObjectURL(url); storeRaw(); return; }
+    URL.revokeObjectURL(url);
+    proofLoading = false;
+  };
+  img.onerror = () => { URL.revokeObjectURL(url); storeRaw(); };
+  img.src = url;
+  } catch(err){
+    console.error('Lecture de la capture impossible', err);
+    proofLoading = false;
+    const lbl = ($('proof-label')); if (lbl) lbl.textContent = "📷 Joindre une capture d'écran du paiement";
+    toast('⚠ Impossible de lire cette image, réessayez avec un autre fichier.', 'error');
+  }
+}
+
+function regSubmit(){
+  if (reg.step !== 3) return toast('⚠ Veuillez compléter les étapes précédentes.','error');
+  const refEl = $('r-ref');
+  reg.ref = (refEl?.value || '').trim();
+  if (proofLoading) return toast('⏳ Capture en cours de traitement — réessayez dans un instant.','error');
+  let items;
+  try { items = loadInscriptions(); } catch(e){ items = []; }
+  // ID unique même après suppressions : max(suffixes existants) + 1.
+  let maxSeq = 0;
+  items.forEach(x => { const m = /^INS-(\d+)$/.exec(x.id || ''); if (m) maxSeq = Math.max(maxSeq, parseInt(m[1], 10) || 0); });
+  const nextId = 'INS-' + pad(maxSeq + 1, 4);
+  const newIns = {
+    id: nextId, nom: (reg.nom||'').toUpperCase(), prenom: reg.prenom || '', email: reg.email || '', phone: reg.phone || '',
+    passType: reg.passType, panels: [...reg.panels], amount: regAmount(), ref: reg.ref,
+    proof: reg.proof || null, proofRaw: !!reg.proofRaw, proofName: reg.proofName || '', status: 'pending', createdAt: new Date().toISOString(), tickets: [], rejectReason: ''
+  };
+  items.unshift(newIns);
+  const sv = (typeof saveInscriptionsSafe === 'function') ? saveInscriptionsSafe(items) : (saveInscriptions(items), true);
+  if (sv === 'degraded') toast('⚠ Stockage plein : inscription enregistrée, anciennes captures allégées.', 'error');
+  else if (!sv){ console.error('Sauvegarde inscriptions impossible (stockage indisponible)'); return toast('⚠ Stockage indisponible — inscription non enregistrée, réessayez.','error'); }
+  reg.step = 4; renderReg();
+  toast('Inscription soumise avec succès — vérification du paiement en cours.', 'info');
+}
+
+// ---------- INIT PAGE ----------
+renderDayTabs();
+selectDay(1);
+observeReveals();
+</script>
+</body>
+</html>

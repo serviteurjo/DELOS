@@ -1,0 +1,22 @@
+# ============================================================
+# DELOS 2026 — .gitignore racine
+# NE JAMAIS committer les secrets (.env) ni node_modules.
+# ============================================================
+
+# Secrets serveur
+server/.env
+.env
+
+# Dépendances (jamais de node_modules dans Git)
+node_modules/
+
+# Journaux / temp
+*.log
+.DS_Store
+
+# Dossier debug interne
+.debug/
+
+# Sauvegardes locales
+*.bak
+*~

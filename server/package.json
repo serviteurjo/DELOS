@@ -1,0 +1,20 @@
+{
+  "name": "delos-2026-email-server",
+  "version": "1.0.0",
+  "description": "DELOS 2026 — Serveur d'envoi d'emails (Express + Nodemailer/Gmail) pour validation/rejet des inscriptions admin",
+  "type": "module",
+  "main": "email-server.js",
+  "scripts": {
+    "start": "node email-server.js",
+    "dev": "node --watch email-server.js",
+    "build": "node -e \"console.log('Aucun build nécessaire — serveur Node natif.')\""
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "nodemailer": "^10.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

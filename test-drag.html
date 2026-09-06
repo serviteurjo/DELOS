@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Drag test</title>
+<style>
+  body { background:#000; color:#fff; font-family:monospace; padding:20px; }
+  #stage { width: 600px; height: 400px; background:#222; margin:20px auto; position:relative; perspective:2000px; touch-action:none; cursor:grab; }
+  #scene { position:relative; width:100px; height:100px; transform-style:preserve-3d; transition:none; }
+  .card { position:absolute; left:0; top:0; width:100px; height:100px; background:linear-gradient(45deg, red, blue); border-radius:8px; opacity:0.5; }
+  .card.c1 { background:linear-gradient(45deg,#F59E0B,#DC2626); }
+  .card.c2 { background:linear-gradient(45deg,#8B5CF6,#3B0F5C); }
+  .card.c3 { background:linear-gradient(45deg,#84CC16,#16A34A); }
+  .card.c4 { background:linear-gradient(45deg,#06B6D4,#0E7490); }
+  .card.c5 { background:linear-gradient(45deg,#EC4899,#BE185D); }
+  .card.c6 { background:linear-gradient(45deg,#F59E0B,#B45309); }
+  #log { background:#111; padding:10px; max-width:700px; margin:20px auto; font-size:11px; max-height:300px; overflow-y:auto; }
+  .ok { color:#4ADE80; }
+  .err { color:#F87171; }
+  #res { font-size:18px; padding:10px; background:#222; text-align:center; max-width:700px; margin:0 auto; }
+</style>
+</head>
+<body>
+<h2 style="text-align:center">Drag Test (replica of the gallery logic)</h2>
+<div id="stage">
+  <div id="scene">
+    <div class="card c1"></div>
+    <div class="card c2"></div>
+    <div class="card c3"></div>
+    <div class="card c4"></div>
+    <div class="card c5"></div>
+    <div class="card c6"></div>
+  </div>
+</div>
+<div id="res">Test running...</div>
+<div id="log"></div>
+
+<script>
+const log = (m, cls='') => {
+  const d = document.getElementById('log');
+  d.innerHTML = `<div class="${cls}">${m}</div>` + d.innerHTML;
+};
+const $ = id => document.getElementById(id);
+const stage = $('stage');
+const scene = $('scene');
+const cards = scene.querySelectorAll('.card');
+const N = 6;
+const angleStep = 360/N;
+const radius = 250;
+const cardW = 100, cardH = 100;
+scene.style.width = cardW + 'px';
+scene.style.height = cardH + 'px';
+cards.forEach((c,i)=>{
+  c.style.width = cardW+'px'; c.style.height = cardH+'px';
+  c.style.transform = `rotateY(${i*angleStep}deg) translateZ(${radius}px)`;
+});
+
+let rotation = 0, targetRotation = 0, autoSpeed = -0.18, isDragging=false, lastDragX=0, dragVelocity=0, autoResumeAt=0;
+
+function setRotation(deg){
+  rotation = deg;
+  scene.style.transform = `rotateY(${deg}deg)`;
+  const mod = ((deg%360)+360)%360;
+  cards.forEach((c,i)=>{
+    const a = (i*angleStep + mod + 360) % 360;
+    const norm = Math.min(Math.abs(a), 360-Math.abs(a));
+    c.style.opacity = Math.max(0.25, 1 - norm/110);
+  });
+}
+
+function tick(){
+  const now = Date.now();
+  if (!isDragging){
+    if (now > autoResumeAt) targetRotation += autoSpeed;
+    else { targetRotation += dragVelocity; dragVelocity *= 0.94; if (Math.abs(dragVelocity)<0.005) dragVelocity=0; }
+    rotation += (targetRotation - rotation)*0.18;
+  }
+  if (isDragging) rotation = targetRotation;
+  setRotation(rotation);
+  requestAnimationFrame(tick);
+}
+
+let activePointer = null, startX=0, startRot=0;
+
+function handleDown(e){
+  if (activePointer !== null) return;
+  activePointer = e.pointerId;
+  isDragging = true;
+  startX = e.clientX; lastDragX = e.clientX; startRot = targetRotation;
+  dragVelocity = 0;
+  autoResumeAt = Date.now() + 999999;
+  stage.classList.add('dragging');
+  try { stage.setPointerCapture && stage.setPointerCapture(e.pointerId); } catch(_){}
+  if (e.cancelable) e.preventDefault();
+  document.addEventListener('pointermove', handleMove, { passive: false });
+  document.addEventListener('pointerup', handleUp);
+  document.addEventListener('pointercancel', handleUp);
+  document.addEventListener('touchmove', onTouchMove, { passive: false });
+  log(`DOWN id=${e.pointerId} x=${e.clientX.toFixed(0)}`, 'ok');
+}
+function onTouchMove(e){
+  if (isDragging && e.cancelable) e.preventDefault();
+}
+function handleMove(e){
+  if (activePointer !== e.pointerId) return;
+  const dx = e.clientX - lastDragX;
+  lastDragX = e.clientX;
+  const dRot = -dx * 0.7;
+  targetRotation += dRot;
+  dragVelocity = dRot * 1.2;
+  if (e.cancelable) e.preventDefault();
+}
+function handleUp(e){
+  if (activePointer !== e.pointerId) return;
+  const pid = activePointer;
+  activePointer = null; isDragging = false; stage.classList.remove('dragging');
+  autoResumeAt = Date.now() + 1500;
+  document.removeEventListener('pointermove', handleMove);
+  document.removeEventListener('pointerup', handleUp);
+  document.removeEventListener('pointercancel', handleUp);
+  document.removeEventListener('touchmove', onTouchMove);
+  try { stage.releasePointerCapture && stage.releasePointerCapture(pid); } catch(_){}
+  log(`UP   rot=${rotation.toFixed(1)}°`, 'ok');
+}
+
+stage.addEventListener('pointerdown', handleDown);
+stage.addEventListener('pointerleave', handleUp);
+
+setRotation(0);
+requestAnimationFrame(tick);
+
+function rot() {
+  const m = getComputedStyle(scene).transform;
+  if (m === 'none') return 0;
+  const v = m.match(/matrix3d\(([^)]+)\)/);
+  if (!v) return 0;
+  const a = v[1].split(',').map(parseFloat);
+  return Math.atan2(a[2], a[0]) * 180 / Math.PI;
+}
+
+// Self-test: dispatch synthetic pointer events
+async function selfTest(){
+  const r = stage.getBoundingClientRect();
+  const cy = r.top + r.height/2;
+  const sx = r.left + 50, ex = r.left + r.width - 50;
+
+  const r0 = rot();
+  log(`r0 = ${r0.toFixed(2)}°`);
+
+  // Synthetic drag right
+  function pe(type, x, y, id=1) {
+    return new PointerEvent(type, {pointerId:id, clientX:x, clientY:y, bubbles:true, cancelable:true, pointerType:'mouse', isPrimary:true});
+  }
+  stage.dispatchEvent(pe('pointerdown', sx, cy));
+  for (let i=1; i<=20; i++){
+    const x = sx + (ex-sx)*i/20;
+    stage.dispatchEvent(pe('pointermove', x, cy));
+    await new Promise(r=>setTimeout(r,12));
+  }
+  stage.dispatchEvent(pe('pointerup', ex, cy));
+  await new Promise(r=>setTimeout(r,300));
+  const r1 = rot();
+  log(`r1 (after drag→R) = ${r1.toFixed(2)}°   delta = ${(r1-r0).toFixed(2)}°`);
+
+  // Synthetic drag left
+  stage.dispatchEvent(pe('pointerdown', ex, cy));
+  for (let i=1; i<=20; i++){
+    const x = ex - (ex-sx)*i/20;
+    stage.dispatchEvent(pe('pointermove', x, cy));
+    await new Promise(r=>setTimeout(r,12));
+  }
+  stage.dispatchEvent(pe('pointerup', sx, cy));
+  await new Promise(r=>setTimeout(r,300));
+  const r2 = rot();
+  log(`r2 (after drag→L) = ${r2.toFixed(2)}°   delta from r1 = ${(r2-r1).toFixed(2)}°`);
+
+  // Verdict
+  const d1 = r1 - r0, d2 = r2 - r1;
+  let verdict;
+  if (d1 < -10 && d2 > 10) verdict = `✅ DRAG WORKS: right→${d1.toFixed(1)}°, left→${d2.toFixed(1)}°`;
+  else if (Math.abs(d1) < 5 && Math.abs(d2) < 5) verdict = `❌ DRAG DOES NOT WORK: no significant change`;
+  else verdict = `⚠ PARTIAL: right→${d1.toFixed(1)}°, left→${d2.toFixed(1)}°`;
+  document.getElementById('res').textContent = verdict;
+  log(verdict, d1<-10 && d2>10 ? 'ok' : 'err');
+}
+selfTest();
+</script>
+</body>
+</html>
