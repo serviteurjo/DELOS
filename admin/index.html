@@ -116,7 +116,7 @@
     <form onsubmit="adminLogin(event)" class="space-y-4">
       <div>
         <label class="text-xs font-semibold text-white/60 tracking-wider">EMAIL ADMINISTRATEUR</label>
-        <input id="login-email" type="email" class="field mt-1.5" placeholder="admin@delos2026.org" required>
+        <input id="login-email" type="email" class="field mt-1.5" placeholder="delos2026centrecev@gmail.com" required>
       </div>
       <div>
         <label class="text-xs font-semibold text-white/60 tracking-wider">MOT DE PASSE</label>
@@ -354,7 +354,7 @@ function adminLogin(e){
   e.preventDefault();
   const em = $('login-email').value.trim().toLowerCase();
   const pw = $('login-pass').value;
-  if (em === 'admin@delos2026.org' && pw === 'delos2026'){
+  if (em === 'delos2026centrecev@gmail.com' && pw === 'del@s2026pass'){
     setAdminAuthed(true);
     checkAuth();
     toast('Bienvenue, Administrateur DELOS 👋', 'success');
