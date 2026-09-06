@@ -11,9 +11,15 @@
 import express from 'express';
 import nodemailer from 'nodemailer';
 import fs from 'node:fs';
+import dns from 'node:dns';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import cors from 'cors';
+
+/* ---------- Render (gratuit) : sortie IPv6 bloquée vers Gmail ----------
+   Node ≥17 résout smtp.gmail.com en IPv6 en premier → ENETUNREACH sur Render.
+   On force IPv4 en premier : corrige "connect ENETUNREACH ...:465". */
+try { dns.setDefaultResultOrder('ipv4first'); } catch { /* Node <17 : ignoré */ }
 
 /* ---------- Chargeur .env minimal (sans dépendance dotenv) ---------- */
 (function loadEnv(){
@@ -59,6 +65,7 @@ const transporter = (SMTP_USER && SMTP_PASS)
       host: 'smtp.gmail.com',
       port: 465,
       secure: true,
+      family: 4,
       auth: { user: SMTP_USER, pass: SMTP_PASS },
       connectionTimeout: 15000,
       greetingTimeout: 15000,
