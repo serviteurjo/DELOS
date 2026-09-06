@@ -17,9 +17,31 @@ import { fileURLToPath } from 'node:url';
 import cors from 'cors';
 
 /* ---------- Render (gratuit) : sortie IPv6 bloquée vers Gmail ----------
-   Node ≥17 résout smtp.gmail.com en IPv6 en premier → ENETUNREACH sur Render.
-   On force IPv4 en premier : corrige "connect ENETUNREACH ...:465". */
+   Nodemailer 10 résout smtp.gmail.com en IPv4+IPv6 (resolve4+resolve6) puis
+   tire une IP AU HASARD → 1 fois sur 2 : ENETUNREACH sur l'IPv6.
+   Contournement : on neutralise resolve6 (rend une liste vide) AVANT tout
+   usage Nodemailer → sa liste d'adresses ne contient que de l'IPv4.
+   + dns en ipv4first pour le reste (lookup de repli). */
 try { dns.setDefaultResultOrder('ipv4first'); } catch { /* Node <17 : ignoré */ }
+try {
+  if (dns.Resolver && dns.Resolver.prototype && !dns.Resolver.prototype.__delosNoIPv6){
+    dns.Resolver.prototype.resolve6 = function(_host, cb){
+      if (typeof cb === 'function') return cb(null, []);
+      return Promise.resolve([]);
+    };
+    dns.Resolver.prototype.__delosNoIPv6 = true;
+  }
+  if (typeof dns.resolve6 === 'function' && !dns.__delosNoIPv6){
+    const origResolve6 = dns.resolve6.bind(dns);
+    dns.resolve6 = ((host, opts, cb) => {
+      if (typeof opts === 'function'){ cb = opts; return cb(null, []); }
+      if (typeof cb === 'function') return cb(null, []);
+      return Promise.resolve([]);
+    });
+    dns.__delosNoIPv6 = true;
+    void origResolve6;
+  }
+} catch (err){ console.warn('[SMTP] ⚠ patch no-IPv6 impossible :', err?.message); }
 
 /* ---------- Chargeur .env minimal (sans dépendance dotenv) ---------- */
 (function loadEnv(){
@@ -104,6 +126,7 @@ async function checkSmtp(){
   await resolveGmailIPv4();
   transporter = buildTransporter();
   if (!transporter){ smtpReady = false; return; }
+  console.log('[SMTP] Transport vers :', SMTP_HOST_IP ? `${SMTP_HOST_IP} (IPv4, SNI smtp.gmail.com)` : 'smtp.gmail.com (repli, IPv6 neutralisée)');
   try { await transporter.verify(); smtpReady = true; smtpLastError = null; }
   catch (err){ smtpReady = false; smtpLastError = err?.message || String(err); console.error('[SMTP] ❌ Vérification connexion :', smtpLastError); }
 }
