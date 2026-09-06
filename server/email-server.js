@@ -67,11 +67,14 @@ app.use(express.json({ limit: '2mb' }));
    En local : accès libre (site servi sur localhost).
    En production (Render) : si ALLOWED_ORIGINS est défini (séparé par des
    virgules), seules ces origines peuvent appeler l'API — protège contre
-   l'utilisation de votre serveur mail par un tiers. */
-const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean);
+   l'utilisation de votre serveur mail par un tiers.
+   Normalisation : les '/' finaux sont ignorés des deux côtés
+   ("https://delos-pi.vercel.app/" == "https://delos-pi.vercel.app"). */
+const normOrigin = s => (s || '').trim().replace(/\/+$/, '');
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || '').split(',').map(normOrigin).filter(Boolean);
 app.use(cors({
   origin(origin, cb){
-    if (!origin || ALLOWED_ORIGINS.length === 0 || ALLOWED_ORIGINS.includes(origin)) return cb(null, true);
+    if (!origin || ALLOWED_ORIGINS.length === 0 || ALLOWED_ORIGINS.includes(normOrigin(origin))) return cb(null, true);
     return cb(null, false);
   }
 }));
@@ -81,6 +84,46 @@ const SMTP_USER = process.env.SMTP_USER || '';
 const SMTP_PASS = (process.env.SMTP_PASS || '').replace(/\s+/g, '');
 const MAIL_FROM = process.env.MAIL_FROM || `DELOS 2026 <${SMTP_USER}>`;
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'delos-admin-2026';
+
+/* ---------- Fournisseur d'envoi : Brevo HTTPS (prioritaire) ou SMTP Gmail ----------
+   Render gratuit filtre le SMTP sortant de façon aléatoire (timeout selon
+   l'IP Gmail résolue) alors que le HTTPS (443) est toujours ouvert.
+   Si BREVO_API_KEY est défini → envoi via API Brevo (aucun port SMTP).
+   Sinon → repli SMTP Gmail historique. */
+const BREVO_API_KEY = (process.env.BREVO_API_KEY || '').trim();
+const BREVO_SENDER_EMAIL = (process.env.BREVO_SENDER_EMAIL || SMTP_USER || '').trim();
+const BREVO_SENDER_NAME = (process.env.BREVO_SENDER_NAME || 'DELOS 2026').trim();
+let EMAIL_PROVIDER = BREVO_API_KEY ? 'brevo' : 'smtp';
+
+async function brevoCheck(){
+  try {
+    const res = await fetch('https://api.brevo.com/v3/account', {
+      headers: { 'api-key': BREVO_API_KEY },
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!res.ok) throw new Error(`Brevo HTTP ${res.status}`);
+    const data = await res.json().catch(() => ({}));
+    console.log('[BREVO] ✅ Clé valide (compte :', data.email || data.companyName || 'ok', ')');
+    return true;
+  } catch (err){ console.error('[BREVO] ❌ Clé invalide/injoignable :', err?.message); return false; }
+}
+
+async function brevoSend(to, subject, html){
+  const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: { 'api-key': BREVO_API_KEY, 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      sender: { name: BREVO_SENDER_NAME, email: BREVO_SENDER_EMAIL },
+      to: [{ email: to }],
+      subject,
+      htmlContent: html,
+    }),
+    signal: AbortSignal.timeout(25000),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.message || `Brevo HTTP ${res.status}`);
+  return { messageId: data.messageId || 'brevo-sent', to, subject };
+}
 
 /* ---------- Gmail en IPv4 forcée ----------
    Nodemailer 10 résout smtp.gmail.com en IPv4+IPv6 puis tire une IP au
@@ -126,6 +169,15 @@ let SMTP_PORT_USED = 465;
 let smtpReady = false;
 let smtpLastError = null;
 async function checkSmtp(){
+  if (BREVO_API_KEY){
+    EMAIL_PROVIDER = 'brevo';
+    if (!BREVO_SENDER_EMAIL){ smtpReady = false; smtpLastError = 'BREVO_SENDER_EMAIL manquant'; return; }
+    const ok = await brevoCheck();
+    smtpReady = ok;
+    smtpLastError = ok ? null : 'Brevo : clé invalide (voir logs)';
+    return;
+  }
+  EMAIL_PROVIDER = 'smtp';
   if (!SMTP_USER || !SMTP_PASS){ smtpReady = false; return; }
   await resolveGmailIPv4();
   const hostLabel = SMTP_HOST_IP ? `${SMTP_HOST_IP} (IPv4, SNI smtp.gmail.com)` : 'smtp.gmail.com (repli, IPv6 neutralisée)';
@@ -332,7 +384,7 @@ function buildRejectionEmail(ins, reason){
    ENDPOINTS
    ================================================================ */
 app.get('/api/health', (_req, res) => {
-  res.json({ ok:true, smtpReady, smtpLastError, from: MAIL_FROM, smtpUser: SMTP_USER || null, smtpHost: SMTP_HOST_IP || 'smtp.gmail.com', smtpPort: SMTP_PORT_USED });
+  res.json({ ok:true, smtpReady, smtpLastError, provider: EMAIL_PROVIDER, from: EMAIL_PROVIDER === 'brevo' ? `${BREVO_SENDER_NAME} <${BREVO_SENDER_EMAIL}>` : MAIL_FROM, smtpUser: SMTP_USER || null, smtpHost: SMTP_HOST_IP || 'smtp.gmail.com', smtpPort: SMTP_PORT_USED });
 });
 
 app.post('/api/admin/send-email', async (req, res) => {
@@ -357,6 +409,16 @@ app.post('/api/admin/send-email', async (req, res) => {
       mail = buildRejectionEmail(inscription, reason || 'Paiement non confirmé.');
     } else {
       return res.status(400).json({ ok:false, error:'Type inconnu (attendu: validate|reject)' });
+    }
+
+    if (EMAIL_PROVIDER === 'brevo'){
+      if (!BREVO_API_KEY || !BREVO_SENDER_EMAIL){
+        console.error('[BREVO] ❌ Non configuré (BREVO_API_KEY / BREVO_SENDER_EMAIL manquants)');
+        return res.status(503).json({ ok:false, error:'Serveur email non configuré (clé Brevo manquante)' });
+      }
+      const info = await brevoSend(inscription.email, mail.subject, mail.html);
+      console.log('[BREVO] ✅ Email envoyé:', info.messageId, '→', inscription.email);
+      return res.json({ ok:true, id: info.messageId, to: inscription.email, subject: mail.subject });
     }
 
     if (!transporter){
@@ -385,6 +447,10 @@ app.post('/api/admin/send-email', async (req, res) => {
 app.listen(PORT, '0.0.0.0', async () => {
   console.log(`[DELOS] Serveur email démarré sur http://0.0.0.0:${PORT}`);
   await checkSmtp();
-  console.log(`[DELOS] SMTP Gmail: ${smtpReady ? '✓ connecté (' + SMTP_USER + ')' : '✗ NON CONNECTÉ — vérifiez server/.env'}`);
-  console.log(`[DELOS] From: ${MAIL_FROM}`);
+  if (EMAIL_PROVIDER === 'brevo'){
+    console.log(`[DELOS] Email via Brevo HTTPS: ${smtpReady ? '✓ prêt (' + BREVO_SENDER_EMAIL + ')' : '✗ NON PRÊT — vérifiez BREVO_API_KEY'}`);
+  } else {
+    console.log(`[DELOS] SMTP Gmail: ${smtpReady ? '✓ connecté (' + SMTP_USER + ')' : '✗ NON CONNECTÉ — vérifiez server/.env'}`);
+  }
+  console.log(`[DELOS] From: ${EMAIL_PROVIDER === 'brevo' ? `${BREVO_SENDER_NAME} <${BREVO_SENDER_EMAIL}>` : MAIL_FROM}`);
 });
