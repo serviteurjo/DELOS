@@ -153,9 +153,9 @@ function buildTransporter(port = 465){
     port,
     auth: { user: SMTP_USER, pass: SMTP_PASS },
     tls: { servername: 'smtp.gmail.com' },
-    connectionTimeout: 15000,
-    greetingTimeout: 15000,
-    socketTimeout: 25000,
+    connectionTimeout: 6000,
+    greetingTimeout: 6000,
+    socketTimeout: 12000,
   };
   // 465 = SSL direct ; 587 = STARTTLS (souvent ouvert quand 465 est filtré)
   return port === 587
@@ -444,13 +444,14 @@ app.post('/api/admin/send-email', async (req, res) => {
   }
 });
 
-app.listen(PORT, '0.0.0.0', async () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`[DELOS] Serveur email démarré sur http://0.0.0.0:${PORT}`);
-  await checkSmtp();
-  if (EMAIL_PROVIDER === 'brevo'){
-    console.log(`[DELOS] Email via Brevo HTTPS: ${smtpReady ? '✓ prêt (' + BREVO_SENDER_EMAIL + ')' : '✗ NON PRÊT — vérifiez BREVO_API_KEY'}`);
-  } else {
-    console.log(`[DELOS] SMTP Gmail: ${smtpReady ? '✓ connecté (' + SMTP_USER + ')' : '✗ NON CONNECTÉ — vérifiez server/.env'}`);
-  }
-  console.log(`[DELOS] From: ${EMAIL_PROVIDER === 'brevo' ? `${BREVO_SENDER_NAME} <${BREVO_SENDER_EMAIL}>` : MAIL_FROM}`);
+  void checkSmtp().then(() => {
+    if (EMAIL_PROVIDER === 'brevo'){
+      console.log(`[DELOS] Email via Brevo HTTPS: ${smtpReady ? '✓ prêt (' + BREVO_SENDER_EMAIL + ')' : '✗ NON PRÊT — vérifiez BREVO_API_KEY'}`);
+    } else {
+      console.log(`[DELOS] SMTP Gmail: ${smtpReady ? '✓ connecté (' + SMTP_USER + ')' : '✗ NON CONNECTÉ — vérifiez server/.env'}`);
+    }
+    console.log(`[DELOS] From: ${EMAIL_PROVIDER === 'brevo' ? BREVO_SENDER_NAME + ' <' + BREVO_SENDER_EMAIL + '>' : MAIL_FROM}`);
+  });
 });

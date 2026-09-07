@@ -343,7 +343,7 @@ function checkAuth(){
     $('view-login').classList.add('hidden');
     $('view-admin').classList.remove('hidden');
     renderAdmin();
-    checkEmailServer();
+    setTimeout(checkEmailServer, 1000);
   } else {
     $('view-login').classList.remove('hidden');
     $('view-admin').classList.add('hidden');
@@ -562,13 +562,13 @@ async function checkEmailServer(){
   const badge = $('email-status');
   const set = (txt, cls) => { if (badge){ badge.textContent = txt; badge.className = 'badge hidden sm:inline-block ' + cls; } };
   try {
-    const res = await fetch(RESEND_API_URL + '/api/health', { method: 'GET' });
+    const res = await fetch(RESEND_API_URL + '/api/health', { method: 'GET', signal: AbortSignal.timeout(8000) });
     const data = await res.json().catch(() => null);
     if (data && data.ok && data.smtpReady) set('● EMAIL OPÉRATIONNEL', 'b-ok');
     else if (data && data.ok) set('● EMAIL KO — configurez server/.env', 'b-no');
     else set('● EMAIL KO — serveur injoignable', 'b-no');
   } catch(e){
-    set('● EMAIL KO — serveur éteint (`npm start` dans server/)', 'b-no');
+    set('● EMAIL KO — serveur inaccessible ou timeout >8s (`npm start` dans server/)', 'b-no');
   }
 }
 
@@ -594,7 +594,8 @@ async function sendEmailRequest(payload){
     const res = await fetch(RESEND_API_URL + '/api/admin/send-email', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-admin-token': RESEND_ADMIN_TOKEN },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(8000)
     });
     const data = await res.json().catch(()=>({ ok:false, error:'Réponse invalide du serveur email' }));
     if (!res.ok || !data.ok){

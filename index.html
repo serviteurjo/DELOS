@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://delos-pi.vercel.app/">
 <title>CONFÉRENCE DELOS 2026 — Média, Cinéma & IA au service de l'Évangile et de l'Entrepreneuriat Chrétien</title>
 <meta name="description" content="DELOS 2026, 21→26 sept. à Calavi-Tankpè (Bénin) : 28 sessions, 12 experts — média, cinéma & IA au service de l'Évangile et des talents. Pass dès 1 000 FCFA.">
 <meta property="og:site_name" content="Conférence DELOS 2026">
@@ -28,17 +29,17 @@
      1. Tailwind CLI statique (assets/delos-tailwind.css) au lieu du CDN
         runtime de 100+ Ko bloquant (équiv. purge CSS en build).
      2. Fontes auto-hébergées (équiv. next/font/google + display:swap) :
-        Playfair Display, Inter, Cinzel — fichiers WOFF2 locaux + preload
-        des graisses critiques (logo Cinzel 900 + corps Inter 400).
+        Playfair Display, Inter, Cinzel — fichiers WOFF2 locaux.
+        NOTE : les fichiers WOFF2 sont actuellement à 0 octet (problème de
+        build/déploiement). Le @font-face garde les noms de famille pour le
+        fallback système. Les préchargements de polices vides ont été retirés
+        pour éliminer des requêtes réseau inutiles.
      3. Programme : delos-data.js préchargé (script léger, cacheable).
      ==================================================================== -->
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
-<link rel="preconnect" href="https://www.google.com" crossorigin>
 <link rel="stylesheet" href="assets/delos-tailwind.css">
 <link rel="preload" href="assets/fonts/fonts.css" as="style">
 <link rel="stylesheet" href="assets/fonts/fonts.css">
-<link rel="preload" href="assets/fonts/Cinzel-latin-normal-variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/Inter-latin-normal-variable.woff2" as="font" type="font/woff2" crossorigin>
 <style>
   :root{ --violet:#581C87; --violet2:#6B21A8; --red:#DC2626; --amber:#F59E0B; --green:#16A34A; }
   html{ scroll-behavior:smooth; }
@@ -744,19 +745,19 @@
     <!-- 4 éléments DELOS (symboles officiels extraits du logo) dans les coins du hero -->
     <!-- 1. Chaise de Réalisateur Rouge (haut gauche) -->
     <div class="absolute top-[12%] left-[5%] floaty hidden md:block" style="--rot:-10deg; animation-delay:.2s" data-px="0.12" title="Cinéma & Réalisation">
-      <img src="assets/director-chair-red.webp" alt="Chaise de réalisateur rouge" decoding="async" class="delos-float" style="--w:160px; animation-delay:.2s">
+      <img src="assets/director-chair-red.webp" alt="Chaise de réalisateur rouge" loading="lazy" decoding="async" class="delos-float" width="443" height="455" style="--w:160px; animation-delay:.2s">
     </div>
     <!-- 4. Masque de Théâtre Vert (bas gauche) -->
     <div class="absolute bottom-[15%] left-[7%] floaty hidden md:block" style="--rot:6deg; animation-delay:1.8s" data-px="0.08" title="Expression Artistique">
-      <img src="assets/mask-green.webp" alt="Masque de théâtre vert" decoding="async" class="delos-float" style="--w:120px; animation-delay:1.8s">
+      <img src="assets/mask-green.webp" alt="Masque de théâtre vert" loading="lazy" decoding="async" class="delos-float" width="275" height="240" style="--w:120px; animation-delay:1.8s">
     </div>
     <!-- 2. Clapet de Cinéma Violet (haut droite) -->
     <div class="absolute top-[14%] right-[5%] floaty hidden md:block" style="--rot:8deg; animation-delay:1s" data-px="-0.09" title="Production Vidéo & Médias">
-      <img src="assets/clapboard-purple.webp" alt="Clap de cinéma violet" decoding="async" class="delos-float" style="--w:180px; animation-delay:1s">
+      <img src="assets/clapboard-purple.webp" alt="Clap de cinéma violet" loading="lazy" decoding="async" class="delos-float" width="342" height="420" style="--w:180px; animation-delay:1s">
     </div>
     <!-- 3. Masque de Théâtre Jaune/Orange (bas droite) -->
     <div class="absolute bottom-[13%] right-[7%] floaty hidden md:block" style="--rot:-8deg; animation-delay:.7s" data-px="-0.11" title="Storytelling & Art Dramatique">
-      <img src="assets/mask-orange.webp" alt="Masque de théâtre jaune" decoding="async" class="delos-float" style="--w:180px; animation-delay:.7s">
+      <img src="assets/mask-orange.webp" alt="Masque de théâtre jaune" loading="lazy" decoding="async" class="delos-float" width="390" height="380" style="--w:180px; animation-delay:.7s">
     </div>
 
     <div class="relative z-10 w-full min-w-0 max-w-5xl mx-auto px-5 text-center">
@@ -979,14 +980,36 @@
         </div>
         <div class="lg:col-span-3 relative rounded-3xl overflow-hidden border border-violet-soft/30 group" style="box-shadow:0 0 0 1px rgba(139,92,246,.2), 0 0 60px -10px rgba(139,92,246,.55); transition:box-shadow .35s, transform .35s">
           <div class="absolute inset-0 pointer-events-none z-10" style="background:linear-gradient(135deg,rgba(88,28,135,.55),rgba(13,6,24,.25) 50%,rgba(220,38,38,.35)); mix-blend-mode:multiply;"></div>
-          <iframe
+          <div id="map-placeholder" class="absolute inset-0 z-20 flex flex-col items-center justify-center cursor-pointer bg-gradient-to-br from-[#1a1028] via-[#0d0a52] to-[#1a1028]">
+            <div class="text-center">
+              <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-energie/20 flex items-center justify-center border border-energie/40">
+                <svg aria-hidden="true" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="text-sm font-semibold text-white/80 mb-1">Carte interactive Google Maps</div>
+              <div class="text-[11px] text-white/50">Cliquez pour charger la carte</div>
+            </div>
+          </div>
+          <iframe id="map-iframe"
             title="Carte Centre CEV Calavi-Tankpè"
-            src="https://www.google.com/maps?q=Centre%20Missionnaire%20REVIVAL%20Calavi-Tankp%C3%A8%20B%C3%A9nin%206.4352002%2C2.3316638&z=17&output=embed"
-            width="100%" height="100%" style="border:0; min-height:clamp(260px,70vw,380px); aspect-ratio: 16/10; filter:saturate(1.05) contrast(1.05);" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+            src=""
+            width="100%" height="100%" style="border:0; min-height:clamp(260px,70vw,380px); aspect-ratio: 16/10; filter:saturate(1.05) contrast(1.05); display:none;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
           <div class="absolute bottom-4 left-4 z-20 glass-strong rounded-2xl px-4 py-3 border border-violet-soft/40">
             <div class="text-[10px] font-bold tracking-widest text-energie">DELOS 2026</div>
             <div class="text-sm font-bold">Centre CEV — Calavi-Tankpè</div>
           </div>
+          <script>
+            (function(){
+              var ph = document.getElementById('map-placeholder');
+              var iframe = document.getElementById('map-iframe');
+              if (ph && iframe){
+                ph.addEventListener('click', function(){
+                  iframe.src = "https://www.google.com/maps?q=Centre%20Missionnaire%20REVIVAL%20Calavi-Tankp%C3%A8%20B%C3%A9nin%206.4352002%2C2.3316638&z=17&output=embed";
+                  iframe.style.display = "block";
+                  ph.style.display = "none";
+                });
+              }
+            })();
+          </script>
         </div>
       </div>
     </div>
@@ -1518,13 +1541,22 @@ function ctStyle(i){
   if (i === (ctIndex + 1) % n) return `z-index:2;opacity:1;pointer-events:auto;transform:translateX(${gap}px) translateY(-${up}px) scale(.85) rotateY(-15deg);transition:${base};`;
   return `z-index:1;opacity:0;pointer-events:none;transition:${base};`;
 }
+let ctImagesInitialized = false;
 function renderCt(){
   const box = $('ct-images');
   if (!box) return;
-  box.innerHTML = SPEAKERS.map((s,i)=>`
-    <img src="${s.img}" alt="${s.name}" loading="lazy" decoding="async" class="ct-img ${i===ctIndex?'is-active':''}"
-         style="${ctStyle(i)}" onclick="ctGo(${i}, true)" onerror="this.style.opacity=.2">`).join('')
-    + `<span class="ct-num">EXPERT ${String(ctIndex+1).padStart(2,'0')} / ${String(SPEAKERS.length).padStart(2,'0')}</span>`;
+  if (!ctImagesInitialized){
+    box.innerHTML = SPEAKERS.map((s,i)=>`
+      <img src="${s.img}" alt="${s.name}" loading="lazy" decoding="async" class="ct-img ${i===ctIndex?'is-active':''}"
+           style="${ctStyle(i)}" onclick="ctGo(${i}, true)" onerror="this.style.opacity=.2">`).join('')
+      + `<span class="ct-num">EXPERT ${String(ctIndex+1).padStart(2,'0')} / ${String(SPEAKERS.length).padStart(2,'0')}</span>`;
+    ctImagesInitialized = true;
+  } else {
+    const imgs = box.querySelectorAll('img.ct-img');
+    imgs.forEach((img, i) => { img.className = 'ct-img ' + (i===ctIndex?'is-active':''); img.style = ctStyle(i); });
+    const numSpan = box.querySelector('.ct-num');
+    if (numSpan) numSpan.textContent = 'EXPERT ' + String(ctIndex+1).padStart(2,'0') + ' / ' + String(SPEAKERS.length).padStart(2,'0');
+  }
   const s = SPEAKERS[((ctIndex % SPEAKERS.length) + SPEAKERS.length) % SPEAKERS.length];
   const words = (s.angle || '').split(' ').map((w,i)=>`<span class="w" style="animation-delay:${(i*0.025).toFixed(3)}s">${w}</span>`).join(' ');
   $('ct-text').innerHTML = `
@@ -1661,9 +1693,9 @@ function renderReg(){
       </div>
       <div class="glass rounded-2xl p-5 mb-6 space-y-3 text-xs">
         <div class="font-bold text-energie tracking-wider mb-2">INSTRUCTIONS DE PAIEMENT :</div>
-        <div class="flex justify-between border-b border-white/10 pb-2"><span>Numéro MoMo / Moov :</span><b class="text-white font-mono text-sm">+229 01 96 96 29 85</b></div>
-        <div class="flex justify-between border-b border-white/10 pb-2"><span>Nom du bénéficiaire :</span><b class="text-white">DELOS — COMITÉ</b></div>
-        <div class="text-white/60 leading-relaxed pt-1">Effectuez le transfert puis, si vous l'avez, saisissez ci-dessous la <b>référence de la transaction</b> figurant dans le SMS de confirmation (facultatif).</div>
+        <div class="flex justify-between border-b border-white/10 pb-2"><span>Numéro MTN MoMo / Celtis :</span><b class="text-white font-mono text-sm">+229 01 52 11 22 32 /+229 01 40 81 29 36</b></div>
+        <div class="flex justify-between border-b border-white/10 pb-2"><span>Nom du bénéficiaire :</span><b class="text-white"> LOKO JOSAPHAT</b></div>
+        <div class="text-white/60 leading-relaxed pt-1">Effectuez votre paiement via MoMo ou par code USSD sur l’un des numéros indiqués ci-dessus. Ensuite, faites une capture d’écran de votre paiement et revenez ici. Saisissez la <b>référence de la transaction</b> figurant dans le SMS de confirmation (facultatif), puis joignez votre capture d’écran de paiement.</div>
       </div>
       <div class="space-y-4 mb-6">
         <div>
